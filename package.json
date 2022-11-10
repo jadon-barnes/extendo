@@ -1,25 +1,20 @@
 {
-  "name": "com.[company-name].[package-name]",
-  "version": "1.2.3",
-  "displayName": "Package Example",
-  "description": "This is an example package",
-  "unity": "2019.1",
-  "unityRelease": "0b5",
+  "name": "com.jadon-barnes.extendo",
+  "version": "0.0.1",
+  "displayName": "Extendo",
+  "description": "An extension of features for Unity.",
+  "unity": "2020.1",
   "documentationUrl": "https://example.com/",
   "changelogUrl": "https://example.com/changelog.html",
   "licensesUrl": "https://example.com/licensing.html",
-  "dependencies": {
-    "com.[company-name].some-package": "1.0.0",
-    "com.[company-name].other-package": "2.0.0"
- },
  "keywords": [
-    "keyword1",
-    "keyword2",
-    "keyword3"
+    "extension",
+    "math",
+    "tools"
   ],
   "author": {
-    "name": "Unity",
-    "email": "unity@example.com",
-    "url": "https://www.unity3d.com"
+    "name": "Jadon Barnes",
+    "email": "hello@jadonbarnes.com",
+    "url": "https://www.jadonbarnes.com"
   }
 }
