@@ -1,4 +1,4 @@
-namespace Extendo
+namespace Extendo.Utilities
 {
 	public abstract class State<TContext>
 	{

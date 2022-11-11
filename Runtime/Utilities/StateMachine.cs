@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Extendo
+namespace Extendo.Utilities
 {
 	/// <summary>
 	/// A generic state machine that can be used to define state-based logic.

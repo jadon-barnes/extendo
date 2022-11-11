@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Extendo
+namespace Extendo.Utilities
 {
 	public static class Math
 	{
