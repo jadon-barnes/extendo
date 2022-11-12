@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Extendo.Components
+namespace Extendo
 {
 	public static class CategoryExtension
 	{

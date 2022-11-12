@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Extendo.Components
+namespace Extendo
 {
 	[CreateAssetMenu(fileName = "Category", menuName = "Extendo/Category")]
 	public class Category : ScriptableObject {}

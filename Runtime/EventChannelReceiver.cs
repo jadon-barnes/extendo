@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Extendo.Components
+namespace Extendo
 {
 	public class EventChannelReceiver : MonoBehaviour
 	{

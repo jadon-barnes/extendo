@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Extendo.Components
+namespace Extendo
 {
 	[CreateAssetMenu(fileName = "Event Channel", menuName = "Extendo/Event Channel")]
 	public class EventChannel : ScriptableObject

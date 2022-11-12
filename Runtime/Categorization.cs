@@ -1,9 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
-namespace Extendo.Components
+namespace Extendo
 {
 	[DefaultExecutionOrder(-10000)]
 	public class Categorization : MonoBehaviour
