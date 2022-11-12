@@ -6,20 +6,20 @@ namespace Extendo.Components
 	[CreateAssetMenu(fileName = "Event Channel", menuName = "Extendo/Event Channel")]
 	public class EventChannel : ScriptableObject
 	{
-		private UnityEvent onEvent;
+		private UnityEvent unityEvent;
 
-		public void Subscribe(UnityAction call) => onEvent.AddListener(call);
+		public void Subscribe(UnityAction call) => unityEvent.AddListener(call);
 
-		public void Unsubscribe(UnityAction call) => onEvent.RemoveListener(call);
+		public void Unsubscribe(UnityAction call) => unityEvent.RemoveListener(call);
 
 		public void Invoke()
 		{
-			onEvent.Invoke();
+			unityEvent.Invoke();
 		}
 
 		private void OnEnable()
 		{
-			onEvent = new UnityEvent();
+			unityEvent = new UnityEvent();
 			Debug.Log("Refreshed Asset");
 		}
 	}
