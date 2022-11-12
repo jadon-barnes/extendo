@@ -1,9 +1,8 @@
-using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace FunWithRagdolls.Utilities
+namespace Extendo
 {
 	public class EventTimer : MonoBehaviour
 	{
