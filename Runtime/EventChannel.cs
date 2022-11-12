@@ -20,7 +20,6 @@ namespace Extendo
 		private void OnEnable()
 		{
 			unityEvent = new UnityEvent();
-			Debug.Log("Refreshed Asset");
 		}
 	}
 }
