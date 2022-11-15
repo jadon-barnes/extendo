@@ -6,27 +6,20 @@ namespace Extendo
 {
 	public class EventTimer : MonoBehaviour
 	{
-		public enum Update
-		{
-			Manual      = 0,
-			Update      = 1,
-			FixedUpdate = 2,
-		}
-
-		public  float      time;
-		public  float      duration = 5f;
-		public  bool       repeat;
-		public  bool       resetOnDisabled;
-		public  int        RepeatCount { get; private set; }
-		public  float      Value       => time / duration;
-		public  bool       Done        => time >= duration;
-		public  Update     updateMethod = Update.Update;
-		public  UnityEvent onDone;
-		private Coroutine  updateRoutine;
+		public  float        time;
+		public  float        duration = 5f;
+		public  bool         repeat;
+		public  bool         resetOnDisabled;
+		public  int          RepeatCount { get; private set; }
+		public  float        Value       => time / duration;
+		public  bool         Done        => time >= duration;
+		public  UpdateMethod updateMethod = UpdateMethod.Update;
+		public  UnityEvent   onDone;
+		private Coroutine    updateRoutine;
 
 		private void OnEnable()
 		{
-			if (updateMethod != Update.Manual)
+			if (updateMethod != UpdateMethod.Manual)
 				updateRoutine = StartCoroutine(UpdateRoutine());
 		}
 
@@ -48,7 +41,7 @@ namespace Extendo
 
 				switch (updateMethod)
 				{
-					case Update.FixedUpdate:
+					case UpdateMethod.FixedUpdate:
 						yield return new WaitForFixedUpdate();
 						break;
 					default:
