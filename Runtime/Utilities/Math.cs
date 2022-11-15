@@ -1,9 +1,22 @@
+using log4net.ObjectRenderer;
 using UnityEngine;
 
 namespace Extendo.Utilities
 {
 	public static class Math
 	{
+		public static float Remap(this float value, float fromA, float toA, float fromB, float toB)
+		{
+			float value01 = Mathf.InverseLerp(fromA, toA, value);
+			return Mathf.Lerp(fromB, toB, value01);
+		}
+
+		public static float Remap(this float value, Vector2 from, Vector2 to)
+		{
+			float value01 = Mathf.InverseLerp(from.x, from.y, value);
+			return Mathf.Lerp(to.x, to.y, value01);
+		}
+
 		public static float Distance(this Vector3 a, Vector3 b)
 		{
 			return Vector3.Distance(Vector3.back, Vector3.down);
