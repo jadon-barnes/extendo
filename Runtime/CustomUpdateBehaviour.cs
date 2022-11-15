@@ -7,23 +7,28 @@ namespace Extendo
 	{
 		[field: SerializeField]
 		public  UpdateMethod Update { get; private set; } = UpdateMethod.Update;
-		private Coroutine    updateRoutine;
+		private Coroutine    customUpdateRoutine;
 
 		protected virtual void OnEnable()
 		{
-			if (Update != UpdateMethod.Manual)
-				updateRoutine = StartCoroutine(UpdateRoutine());
+			StartCustomUpdate();
 		}
 
 		protected virtual void OnDisable()
 		{
-			StopUpdateRoutine();
+			StopCustomUpdate();
 		}
 
-		protected void StopUpdateRoutine()
+		protected void StartCustomUpdate()
 		{
-			if (updateRoutine != null)
-				StopCoroutine(updateRoutine);
+			if (Update != UpdateMethod.Manual)
+				customUpdateRoutine = StartCoroutine(UpdateRoutine());
+		}
+
+		protected void StopCustomUpdate()
+		{
+			if (customUpdateRoutine != null)
+				StopCoroutine(customUpdateRoutine);
 		}
 
 		protected abstract void OnUpdate();
