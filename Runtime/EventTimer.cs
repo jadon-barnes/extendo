@@ -4,53 +4,36 @@ using UnityEngine.Events;
 
 namespace Extendo
 {
-	public class EventTimer : MonoBehaviour
+	public class EventTimer : CustomUpdateBehaviour
 	{
-		public  float        time;
-		public  float        duration = 5f;
-		public  bool         repeat;
-		public  bool         resetOnDisabled;
-		public  int          RepeatCount { get; private set; }
-		public  float        Value       => time / duration;
-		public  bool         Done        => time >= duration;
-		public  UpdateMethod updateMethod = UpdateMethod.Update;
-		public  UnityEvent   onDone;
-		private Coroutine    updateRoutine;
+		public float      time;
+		public float      duration = 5f;
+		public bool       repeat;
+		public bool       resetOnDisabled;
+		public int        RepeatCount { get; private set; }
+		public float      Value       => time / duration;
+		public bool       Done        => time >= duration;
+		public UnityEvent onDone;
 
-		private void OnEnable()
+		protected override void OnDisable()
 		{
-			if (updateMethod != UpdateMethod.Manual)
-				updateRoutine = StartCoroutine(UpdateRoutine());
-		}
-
-		private void OnDisable()
-		{
-			if (updateRoutine != null)
-				StopCoroutine(updateRoutine);
-
+			base.OnDisable();
+			
 			if (resetOnDisabled)
 				time = 0f;
 		}
 
-		private IEnumerator UpdateRoutine()
+		protected override void OnUpdate()
 		{
-			// Count down
-			while (!Done || repeat)
+			UpdateTimer();
+
+			if (Done)
 			{
-				UpdateTimer();
+				StopCustomUpdate();
 
-				switch (updateMethod)
-				{
-					case UpdateMethod.FixedUpdate:
-						yield return new WaitForFixedUpdate();
-						break;
-					default:
-						yield return null;
-						break;
-				}
+				if (repeat)
+					StartCustomUpdate();
 			}
-
-			yield break;
 		}
 
 		public void UpdateTimer()
