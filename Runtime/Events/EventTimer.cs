@@ -1,8 +1,7 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Extendo
+namespace Extendo.Events
 {
 	[AddComponentMenu("Extendo/Event Timer")]
 	public class EventTimer : CustomUpdateBehaviour
