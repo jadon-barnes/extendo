@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 namespace Extendo
 {
+	[AddComponentMenu("Extendo/Noise Float")]
 	public class NoiseFloat : CustomUpdateBehaviour
 	{
 		public  bool              resetOnDisable;
