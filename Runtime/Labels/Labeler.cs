@@ -2,41 +2,41 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Extendo
+namespace Extendo.Labels
 {
 	[AddComponentMenu("Extendo/Categorization")]
 	[DefaultExecutionOrder(-10000)]
-	public class Categorization : MonoBehaviour
+	public class Labeler : MonoBehaviour
 	{
-		private static Dictionary<Transform, HashSet<Category>> transformDictionary = new ();
+		private static Dictionary<Transform, HashSet<Label>> transformDictionary = new ();
 		private        Transform[]                              cachedTransforms    = new Transform[0];
 
-		public List<Category> categories = new List<Category>();
+		public List<Label> labels = new List<Label>();
 		[Tooltip("Excludes the transform and it's children.")]
 		public List<Transform> exclude = new List<Transform>();
 
-		public static bool InCategory(Transform transform, params Category[] categories)
+		public static bool HasLabel(Transform transform, params Label[] labels)
 		{
 			if (transformDictionary.TryGetValue(transform, out var values))
 			{
-				return values.Overlaps(categories);
+				return values.Overlaps(labels);
 			}
 
 			return false;
 		}
 
-		public static bool InCategory(GameObject gameObject, params Category[] categories)
+		public static bool HasLabel(GameObject gameObject, params Label[] labels)
 		{
-			return InCategory(gameObject.transform, categories);
+			return HasLabel(gameObject.transform, labels);
 		}
 
-		public static bool InCategory(Transform transform, params string[] categories)
+		public static bool HasLabel(Transform transform, params string[] labels)
 		{
 			if (transformDictionary.TryGetValue(transform, out var values))
 			{
 				foreach (var value in values)
 				{
-					foreach (var category in categories)
+					foreach (var category in labels)
 					{
 						if (String.Equals(value.name, category, StringComparison.InvariantCultureIgnoreCase))
 							return true;
@@ -47,25 +47,25 @@ namespace Extendo
 			return false;
 		}
 
-		public static bool InCategory(GameObject gameObject, params string[] categories)
+		public static bool HasLabel(GameObject gameObject, params string[] labels)
 		{
-			return InCategory(gameObject.transform, categories);
+			return HasLabel(gameObject.transform, labels);
 		}
 
 		public void Awake()
 		{
-			ReassignCategories();
+			ReassignLabels();
 		}
 
-		[ContextMenu("Reassign Categories")]
-		public void ReassignCategories()
+		[ContextMenu("Reassign Labels")]
+		public void ReassignLabels()
 		{
 			foreach (var cachedTransform in cachedTransforms)
 			{
 				if (IsExcluded(cachedTransform))
 					continue;
 
-				RemoveCategories(cachedTransform, categories);
+				RemoveCategories(cachedTransform, labels);
 			}
 
 			cachedTransforms = transform.GetComponentsInChildren<Transform>();
@@ -75,32 +75,32 @@ namespace Extendo
 				if (IsExcluded(cachedTransform))
 					continue;
 
-				AssignCategories(cachedTransform, categories);
+				AssignLabels(cachedTransform, labels);
 			}
 		}
 
 
-		private void AssignCategories(Transform transform, List<Category> categories)
+		private void AssignLabels(Transform transform, List<Label> labels)
 		{
 			// Entry Exists
 			if (transformDictionary.ContainsKey(transform))
 			{
 				// Assign categories
-				transformDictionary[transform].UnionWith(categories);
+				transformDictionary[transform].UnionWith(labels);
 				return;
 			}
 
 			// Entry Doesn't Exist
-			transformDictionary.TryAdd(transform, new (categories));
+			transformDictionary.TryAdd(transform, new (labels));
 		}
 
-		private void RemoveCategories(Transform transform, List<Category> categories)
+		private void RemoveCategories(Transform transform, List<Label> labels)
 		{
 			// Entry Exists
 			if (transformDictionary.ContainsKey(transform))
 			{
 				// Remove Categories
-				transformDictionary[transform].ExceptWith(categories);
+				transformDictionary[transform].ExceptWith(labels);
 
 				// If no categories assigned, delete from dictionary
 				if (transformDictionary[transform].Count == 0)
