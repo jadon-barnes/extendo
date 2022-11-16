@@ -3,7 +3,7 @@ using UnityEngine.Events;
 
 namespace Extendo.Events
 {
-	[AddComponentMenu("Extendo/Event Timer")]
+	[AddComponentMenu("Extendo/Events/Event Timer")]
 	public class EventTimer : CustomUpdateBehaviour
 	{
 		public float      time;
