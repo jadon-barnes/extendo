@@ -12,22 +12,23 @@ namespace Extendo
 	{
 		public enum ModulationMethod
 		{
-			Sine        = 0,
-			Cosine      = 1,
-			PerlinNoise = 2,
+			PerlinNoise = 0,
+			Linear      = 1,
+			Sine        = 2,
+			Cosine      = 3,
 		}
 
-		[field: SerializeField]
-		public float Result { get; private set; }
+		public  float             Result { get; private set; }
 		public  ModulationMethod  modulationMethod = ModulationMethod.Sine;
 		public  bool              resetOnDisable;
 		private float             time;
 		public  float             speed  = 1f;
+		public  float             offset = 0f;
 		public  int               seed   = 12345;
 		public  Vector2           remap  = new Vector2(0, 1);
 		public  Vector2           cutoff = new Vector2(0, 1);
-		public  UnityEvent<float> onNoiseUpdate;
-		private float             Formula => time * speed + seed;
+		public  UnityEvent<float> onUpdate;
+		private float             TimeFormula => (time + offset) * speed;
 
 		protected override void OnDisable()
 		{
@@ -49,39 +50,21 @@ namespace Extendo
 			switch (modulationMethod)
 			{
 				case ModulationMethod.Sine:
-					Result = GetSine();
+					Result = Math.ModulateSine(TimeFormula, seed, remap, cutoff);
 					break;
 				case ModulationMethod.Cosine:
-					Result = GetCosine();
+					Result = Math.ModulateCosine(TimeFormula, seed, remap, cutoff);
 					break;
 				case ModulationMethod.PerlinNoise:
-					Result = GetPerlinNoise();
+					Result = Math.ModulatePerlinNoise(TimeFormula, seed, remap, cutoff);
+					break;
+				case ModulationMethod.Linear:
+					Result = Math.ModulateLinear(TimeFormula, seed, remap, cutoff);
 					break;
 				default: break;
 			}
 
-			onNoiseUpdate.Invoke(Result);
-		}
-
-		private float GetPerlinNoise()
-		{
-			var noise = Mathf.Clamp01(Mathf.PerlinNoise(Formula, Formula));
-			var remapResult = Math.Remap(noise, new (0f, 1f), remap);
-			return Mathf.Clamp(remapResult, cutoff.x, cutoff.y);
-		}
-
-		private float GetSine()
-		{
-			var sin = Mathf.Sin(Formula);
-			var remapResult = Math.Remap(sin, new (-1f, 1f), remap);
-			return Mathf.Clamp(remapResult, cutoff.x, cutoff.y);
-		}
-
-		private float GetCosine()
-		{
-			var cos = Mathf.Cos(Formula);
-			var remapResult = Math.Remap(cos, new (-1f, 1f), remap);
-			return Mathf.Clamp(remapResult, cutoff.x, cutoff.y);
+			onUpdate.Invoke(Result);
 		}
 	}
 }
