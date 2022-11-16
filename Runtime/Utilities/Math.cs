@@ -104,11 +104,11 @@ namespace Extendo.Utilities
 			return result;
 		}
 
-		public delegate float ModulateWaveFormula(float value);
+		private delegate float ModulateWaveFormula(float t);
 
-		public static float ModulateWave
+		private static float ModulateWave
 		(
-			ModulateWaveFormula methodModulateFormula,
+			ModulateWaveFormula modulationFormula,
 			float time,
 			float seed,
 			Vector2 remap,
@@ -116,10 +116,11 @@ namespace Extendo.Utilities
 		)
 		{
 			var formula = time + seed;
-			var result = methodModulateFormula(formula);
+			var result = modulationFormula(formula);
 			result = Math.Remap(result, new (-1f, 1f), remap);
 			return Mathf.Clamp(result, cutoff.x, cutoff.y);
 		}
+
 
 		public static float ModulateSine(float time, float seed, Vector2 remap, Vector2 cutoff)
 		{
@@ -135,7 +136,7 @@ namespace Extendo.Utilities
 		{
 			var formula = time + seed;
 			var result = Mathf.PingPong(formula, 1f);
-			result = Math.Remap(result, new (-1f, 1f), remap);
+			result = Math.Remap(result, new (0f, 1f), remap);
 			return Mathf.Clamp(result, cutoff.x, cutoff.y);
 		}
 
