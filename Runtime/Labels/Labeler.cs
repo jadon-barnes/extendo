@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Extendo.Labels
 {
-	[AddComponentMenu("Extendo/Categorization")]
+	[AddComponentMenu("Extendo/Labeler")]
 	[DefaultExecutionOrder(-10000)]
 	public class Labeler : MonoBehaviour
 	{
