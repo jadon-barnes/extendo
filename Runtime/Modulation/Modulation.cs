@@ -14,7 +14,7 @@ namespace Extendo.Modulation
 			Bounce      = 4,
 		}
 
-		public T                Result { get; private set; }
+		public T                Value { get; private set; }
 		public bool             enable           = true;
 		public ModulationMethod modulationMethod = ModulationMethod.Sine;
 		[Header("Timing")]
@@ -40,22 +40,22 @@ namespace Extendo.Modulation
 			switch (modulationMethod)
 			{
 				case ModulationMethod.Sine:
-					Result = GetSine(time);
+					Value = GetSine(time);
 					break;
 				case ModulationMethod.Cosine:
-					Result = GetCosine(time);
+					Value = GetCosine(time);
 					break;
 				case ModulationMethod.Linear:
-					Result = GetLinear(time);
+					Value = GetLinear(time);
 					break;
 				case ModulationMethod.PerlinNoise:
-					Result = GetPerlinNoise(time);
+					Value = GetPerlinNoise(time);
 					break;
 				case ModulationMethod.Bounce:
-					Result = GetBounce(time);
+					Value = GetBounce(time);
 					break;
 				default:
-					Result = default;
+					Value = default;
 					break;
 			}
 		}

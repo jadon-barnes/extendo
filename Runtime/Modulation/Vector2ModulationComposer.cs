@@ -16,7 +16,7 @@ namespace Extendo.Modulation
 
 				modulation.Evaluate(time);
 
-				sum += modulation.Result;
+				sum += modulation.Value;
 			}
 
 			return sum;
