@@ -48,7 +48,8 @@ namespace Extendo
 
 		public void UpdateModulation()
 		{
-			time += Time.deltaTime * speed;
+			
+			time += Time.deltaTime;
 
 			switch (modulationMethod)
 			{
