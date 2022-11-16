@@ -16,12 +16,17 @@ namespace Extendo.Modulation
 			base.OnDisable();
 
 			if (resetTimeOnDisable)
-				time = 0f;
+				Reset();
 		}
 
 		protected override void OnUpdate()
 		{
 			UpdateSumOfModulations();
+		}
+
+		public void Reset()
+		{
+			time = 0f;
 		}
 
 		public void UpdateSumOfModulations()
