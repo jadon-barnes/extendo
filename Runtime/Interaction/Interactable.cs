@@ -3,6 +3,7 @@ using UnityEngine.Events;
 
 namespace Extendo.Interaction
 {
+	[AddComponentMenu("Extendo/Interactable")]
 	public class Interactable : MonoBehaviour
 	{
 		public UnityEvent    onInteract;
