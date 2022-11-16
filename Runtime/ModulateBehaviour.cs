@@ -13,10 +13,11 @@ namespace Extendo
 			Cosine      = 3,
 		}
 
-		public    T                Result { get; private set; }
-		public    ModulationMethod modulationMethod = ModulationMethod.Sine;
-		public    bool             resetOnDisable;
-		protected float            time;
+		public T                Result { get; private set; }
+		public ModulationMethod modulationMethod = ModulationMethod.Sine;
+		public bool             resetTimeOnDisable;
+		[HideInInspector]
+		public float time;
 
 		public UnityEvent<T> onUpdate;
 
@@ -24,42 +25,41 @@ namespace Extendo
 		{
 			base.OnDisable();
 
-			if (resetOnDisable)
+			if (resetTimeOnDisable)
 				time = 0f;
 		}
 
 		protected override void OnUpdate()
 		{
-			UpdateModulation();
+			time += Time.deltaTime;
+			UpdateModulation(time);
 		}
 
-		public virtual void UpdateModulation()
+		public virtual void UpdateModulation(float time)
 		{
-			time += Time.deltaTime;
-
 			switch (modulationMethod)
 			{
 				case ModulationMethod.Sine:
-					Result = GetSine();
+					Result = GetSine(time);
 					break;
 				case ModulationMethod.Cosine:
-					Result = GetCosine();
+					Result = GetCosine(time);
 					break;
 				case ModulationMethod.Linear:
-					Result = GetLinear();
+					Result = GetLinear(time);
 					break;
 				case ModulationMethod.PerlinNoise:
-					Result = GetPerlinNoise();
+					Result = GetPerlinNoise(time);
 					break;
 				default: break;
 			}
-			
+
 			onUpdate.Invoke(Result);
 		}
 
-		protected abstract T GetSine();
-		protected abstract T GetCosine();
-		protected abstract T GetLinear();
-		protected abstract T GetPerlinNoise();
+		protected abstract T GetSine(float time);
+		protected abstract T GetCosine(float time);
+		protected abstract T GetLinear(float time);
+		protected abstract T GetPerlinNoise(float time);
 	}
 }
