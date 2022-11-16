@@ -2,24 +2,24 @@ using UnityEngine;
 
 namespace Extendo.Modulation
 {
-	[AddComponentMenu("Extendo/Float Modulation Composer")]
+	[AddComponentMenu("Extendo/Modulation/Float Modulation Composer")]
 	public class FloatModulationComposer : ModulationComposer<FloatModulation, float>
 	{
-		public override float UpdateModulations(float time)
+		public override float GetSumOfModulations(float time)
 		{
-			float total = 0f;
+			float sum = 0f;
 
 			foreach (var modulation in modulations)
 			{
 				if (!modulation.enable)
 					continue;
 
-				modulation.UpdateModulation(time);
+				modulation.Evaluate(time);
 
-				total += modulation.Result;
+				sum += modulation.Result;
 			}
 
-			return total;
+			return sum;
 		}
 	}
 }

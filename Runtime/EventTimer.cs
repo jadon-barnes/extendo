@@ -30,10 +30,10 @@ namespace Extendo
 
 			if (Done)
 			{
-				StopCustomUpdate();
+				StopUpdate();
 
 				if (repeat)
-					StartCustomUpdate();
+					StartUpdate();
 			}
 		}
 

@@ -21,11 +21,11 @@ namespace Extendo.Modulation
 
 		protected override void OnUpdate()
 		{
-			time += Time.deltaTime;
-			Result = UpdateModulations(time);
+			time   += Time.deltaTime;
+			Result =  GetSumOfModulations(time);
 			onUpdate.Invoke(Result);
 		}
 
-		public abstract TOut UpdateModulations(float time);
+		public abstract TOut GetSumOfModulations(float time);
 	}
 }

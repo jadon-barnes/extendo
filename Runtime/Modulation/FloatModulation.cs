@@ -7,14 +7,16 @@ namespace Extendo.Modulation
 	[Serializable]
 	public class FloatModulation : Modulation<float>
 	{
-		public float speed = 1f;
-		public float offset;
-		public int   seed = 12345;
-		[Space]
-		public Vector2 remap = new Vector2(0, 1);
-		public Vector2 cutoff = new Vector2(0, 1);
+		// Set defaults
+		public FloatModulation()
+		{
+			speed     = 1f;
+			seed      = 12345;
+			remapMax  = 1f;
+			cutoffMax = 1f;
+		}
 
-		protected override float CalculateModulation
+		protected override float GetModulationValue
 		(
 			ModulateDelegate method,
 			float time,
@@ -27,76 +29,6 @@ namespace Extendo.Modulation
 		{
 			float timeValue = (time + offset) * speed;
 			return method(timeValue, seed, new (remapMin, remapMax), new (cutoffMin, cutoffMax));
-		}
-
-		protected override float GetSine(float time)
-		{
-			return CalculateModulation
-			(
-				Math.ModulateSine,
-				time,
-				seed,
-				remap.x,
-				remap.y,
-				cutoff.x,
-				cutoff.y
-			);
-		}
-
-		protected override float GetCosine(float time)
-		{
-			return CalculateModulation
-			(
-				Math.ModulateCosine,
-				time,
-				seed,
-				remap.x,
-				remap.y,
-				cutoff.x,
-				cutoff.y
-			);
-		}
-
-		protected override float GetLinear(float time)
-		{
-			return CalculateModulation
-			(
-				Math.ModulateLinear,
-				time,
-				seed,
-				remap.x,
-				remap.y,
-				cutoff.x,
-				cutoff.y
-			);
-		}
-
-		protected override float GetPerlinNoise(float time)
-		{
-			return CalculateModulation
-			(
-				Math.ModulatePerlinNoise,
-				time,
-				seed,
-				remap.x,
-				remap.y,
-				cutoff.x,
-				cutoff.y
-			);
-		}
-
-		protected override float GetBounce(float time)
-		{
-			return CalculateModulation
-			(
-				Math.ModulateBounce,
-				time,
-				seed,
-				remap.x,
-				remap.y,
-				cutoff.x,
-				cutoff.y
-			);
 		}
 	}
 }

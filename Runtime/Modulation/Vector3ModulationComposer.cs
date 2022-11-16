@@ -2,23 +2,24 @@ using UnityEngine;
 
 namespace Extendo.Modulation
 {
+	[AddComponentMenu("Extendo/Modulation/Vector3 Modulation Composer")]
 	public class Vector3ModulationComposer : ModulationComposer<Vector3Modulation, Vector3>
 	{
-		public override Vector3 UpdateModulations(float time)
+		public override Vector3 GetSumOfModulations(float time)
 		{
-			Vector3 total = Vector3.zero;
+			Vector3 sum = Vector3.zero;
 
 			foreach (var modulation in modulations)
 			{
 				if (!modulation.enable)
 					continue;
 
-				modulation.UpdateModulation(time);
+				modulation.Evaluate(time);
 
-				total += modulation.Result;
+				sum += modulation.Result;
 			}
 
-			return total;
+			return sum;
 		}
 	}
 }

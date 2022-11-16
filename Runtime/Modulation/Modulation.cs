@@ -1,5 +1,5 @@
-using System;
 using UnityEngine;
+using Math = Extendo.Utilities.Math;
 
 namespace Extendo.Modulation
 {
@@ -14,15 +14,25 @@ namespace Extendo.Modulation
 			Bounce      = 4,
 		}
 
-		public bool             enable = true;
 		public T                Result { get; private set; }
+		public bool             enable           = true;
 		public ModulationMethod modulationMethod = ModulationMethod.Sine;
+		[Header("Timing")]
+		public T speed;
+		public T offset;
+		public T seed;
+		[Header("Remap")]
+		public T remapMin;
+		public T remapMax;
+		[Header("Cutoff")]
+		public T cutoffMin;
+		public T cutoffMax;
 
 		protected delegate float ModulateDelegate(float time, float seed, Vector2 remap, Vector2 cutoff);
 
-		protected abstract T CalculateModulation(ModulateDelegate method, float time, T seed, T remapMin, T remapMax, T cutoffMin, T cutoffMax);
+		protected abstract T GetModulationValue(ModulateDelegate method, float time, T seed, T remapMin, T remapMax, T cutoffMin, T cutoffMax);
 
-		public void UpdateModulation(float time)
+		public void Evaluate(float time)
 		{
 			if (!enable)
 				return;
@@ -44,14 +54,35 @@ namespace Extendo.Modulation
 				case ModulationMethod.Bounce:
 					Result = GetBounce(time);
 					break;
-				default: break;
+				default:
+					Result = default;
+					break;
 			}
 		}
 
-		protected abstract T GetSine(float time);
-		protected abstract T GetCosine(float time);
-		protected abstract T GetLinear(float time);
-		protected abstract T GetPerlinNoise(float time);
-		protected abstract T GetBounce(float time);
+		protected T GetSine(float time)
+		{
+			return GetModulationValue(Math.ModulateSine, time, seed, remapMin, remapMax, cutoffMin, cutoffMax);
+		}
+
+		protected T GetCosine(float time)
+		{
+			return GetModulationValue(Math.ModulateCosine, time, seed, remapMin, remapMax, cutoffMin, cutoffMax);
+		}
+
+		protected T GetLinear(float time)
+		{
+			return GetModulationValue(Math.ModulateLinear, time, seed, remapMin, remapMax, cutoffMin, cutoffMax);
+		}
+
+		protected T GetPerlinNoise(float time)
+		{
+			return GetModulationValue(Math.ModulatePerlinNoise, time, seed, remapMin, remapMax, cutoffMin, cutoffMax);
+		}
+
+		protected T GetBounce(float time)
+		{
+			return GetModulationValue(Math.ModulateBounce, time, seed, remapMin, remapMax, cutoffMin, cutoffMax);
+		}
 	}
 }
