@@ -1,3 +1,4 @@
+using Extendo.Utilities;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -11,15 +12,20 @@ namespace Extendo
 			Linear      = 1,
 			Sine        = 2,
 			Cosine      = 3,
+			Bounce      = 4,
 		}
 
-		public T                Result { get; private set; }
-		public ModulationMethod modulationMethod = ModulationMethod.Sine;
-		public bool             resetTimeOnDisable;
-		[HideInInspector]
-		public float time;
+		public                   T                Result { get; private set; }
+		public                   ModulationMethod modulationMethod = ModulationMethod.Sine;
+		public                   bool             resetTimeOnDisable;
+		[HideInInspector] public float            time;
+		public                   UnityEvent<T>    onUpdate;
 
-		public UnityEvent<T> onUpdate;
+		protected abstract T GetValueFromTime(float time);
+
+		protected delegate float ModulateDelegate(float time, float seed, Vector2 remap, Vector2 cutoff);
+
+		protected abstract T Modulate(ModulateDelegate method, float time, T seed, T remapMin, T remapMax, T cutoffMin, T cutoffMax);
 
 		protected override void OnDisable()
 		{
@@ -51,6 +57,9 @@ namespace Extendo
 				case ModulationMethod.PerlinNoise:
 					Result = GetPerlinNoise(time);
 					break;
+				case ModulationMethod.Bounce:
+					Result = GetBounce(time);
+					break;
 				default: break;
 			}
 
@@ -61,5 +70,7 @@ namespace Extendo
 		protected abstract T GetCosine(float time);
 		protected abstract T GetLinear(float time);
 		protected abstract T GetPerlinNoise(float time);
+
+		protected abstract T GetBounce(float time);
 	}
 }
