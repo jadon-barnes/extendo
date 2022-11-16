@@ -3,6 +3,7 @@ using UnityEngine.Events;
 
 namespace Extendo
 {
+	[AddComponentMenu("Extendo/Event Channel Receiver")]
 	public class EventChannelReceiver : MonoBehaviour
 	{
 		[field: SerializeField]

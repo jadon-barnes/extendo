@@ -3,6 +3,7 @@ using UnityEngine.Events;
 
 namespace Extendo
 {
+	[AddComponentMenu("Extendo/Health")]
 	public class Health : MonoBehaviour
 	{
 		[field: SerializeField]

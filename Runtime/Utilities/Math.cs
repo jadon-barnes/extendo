@@ -1,5 +1,6 @@
-using log4net.ObjectRenderer;
+using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Extendo.Utilities
 {
@@ -102,6 +103,46 @@ namespace Extendo.Utilities
 			}
 
 			return result;
+		}
+
+		public static float ModulateSine(float time, float seed, Vector2 remap, Vector2 cutoff)
+		{
+			var formula = time + seed;
+			var result = Mathf.Sin(formula);
+			result = Math.Remap(result, new (-1f, 1f), remap);
+			return Mathf.Clamp(result, cutoff.x, cutoff.y);
+		}
+
+		public static float ModulateCosine(float time, float seed, Vector2 remap, Vector2 cutoff)
+		{
+			var formula = time + seed;
+			var result = Mathf.Cos(formula);
+			result = Math.Remap(result, new (-1f, 1f), remap);
+			return Mathf.Clamp(result, cutoff.x, cutoff.y);
+		}
+
+		public static float ModulateLinear(float time, float seed, Vector2 remap, Vector2 cutoff)
+		{
+			var formula = time + seed;
+			var result = Mathf.PingPong(formula, 1f);
+			result = Math.Remap(result, new (0f, 1f), remap);
+			return Mathf.Clamp(result, cutoff.x, cutoff.y);
+		}
+
+		public static float ModulateBounce(float time, float seed, Vector2 remap, Vector2 cutoff)
+		{
+			var formula = time + seed;
+			var result = Mathf.Abs(Mathf.Sin(formula));
+			result = Math.Remap(result, new (0f, 1f), remap);
+			return Mathf.Clamp(result, cutoff.x, cutoff.y);
+		}
+
+		public static float ModulatePerlinNoise(float time, float seed, Vector2 remap, Vector2 cutoff)
+		{
+			var formula = time + seed;
+			var result = Mathf.Clamp01(Mathf.PerlinNoise(formula, formula));
+			result = Remap(result, new (0f, 1f), remap);
+			return Mathf.Clamp(result, cutoff.x, cutoff.y);
 		}
 	}
 }

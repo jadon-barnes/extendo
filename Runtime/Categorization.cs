@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Extendo
 {
+	[AddComponentMenu("Extendo/Categorization")]
 	[DefaultExecutionOrder(-10000)]
 	public class Categorization : MonoBehaviour
 	{

@@ -5,27 +5,31 @@ namespace Extendo
 {
 	public abstract class CustomUpdateBehaviour : MonoBehaviour
 	{
-		[field: SerializeField]
-		public  UpdateMethod Update { get; private set; } = UpdateMethod.Update;
-		private Coroutine    customUpdateRoutine;
+		public  bool      playOnEnable = true;
+		public  bool      runOnFixedUpdate = false;
+		private Coroutine customUpdateRoutine;
 
 		protected virtual void OnEnable()
 		{
-			StartCustomUpdate();
+			if (playOnEnable)
+				StartUpdate();
 		}
 
 		protected virtual void OnDisable()
 		{
-			StopCustomUpdate();
+			StopUpdate();
 		}
 
-		protected void StartCustomUpdate()
+		public void StartUpdate()
 		{
-			if (Update != UpdateMethod.Manual)
-				customUpdateRoutine = StartCoroutine(UpdateRoutine());
+			// Stop if already running routine
+			StopUpdate();
+			
+			// Start new update
+			customUpdateRoutine = StartCoroutine(UpdateRoutine());
 		}
 
-		protected void StopCustomUpdate()
+		public void StopUpdate()
 		{
 			if (customUpdateRoutine != null)
 				StopCoroutine(customUpdateRoutine);
@@ -39,17 +43,7 @@ namespace Extendo
 			{
 				OnUpdate();
 
-				switch (Update)
-				{
-					case UpdateMethod.FixedUpdate:
-						yield return new WaitForFixedUpdate();
-						break;
-					default:
-						yield return null;
-						break;
-				}
-
-				yield return null;
+				yield return runOnFixedUpdate ? new WaitForFixedUpdate() : null;
 			}
 		}
 	}
