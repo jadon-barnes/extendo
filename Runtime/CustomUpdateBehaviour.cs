@@ -48,8 +48,6 @@ namespace Extendo
 						yield return null;
 						break;
 				}
-
-				yield return null;
 			}
 		}
 	}
