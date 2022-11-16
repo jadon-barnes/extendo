@@ -18,17 +18,20 @@ namespace Extendo
 			Cosine      = 3,
 		}
 
-		public  float             Result { get; private set; }
-		public  ModulationMethod  modulationMethod = ModulationMethod.Sine;
-		public  bool              resetOnDisable;
-		private float             time;
-		public  float             speed  = 1f;
-		public  float             offset = 0f;
-		public  int               seed   = 12345;
-		public  Vector2           remap  = new Vector2(0, 1);
-		public  Vector2           cutoff = new Vector2(0, 1);
-		public  UnityEvent<float> onUpdate;
-		private float             TimeFormula => (time + offset) * speed;
+		public  float            Result { get; private set; }
+		public  ModulationMethod modulationMethod = ModulationMethod.Sine;
+		public  bool             resetOnDisable;
+		private float            time;
+		[Space]
+		public float speed = 1f;
+		public float offset = 0f;
+		public int   seed   = 12345;
+		[Space]
+		public Vector2 remap = new Vector2(0, 1);
+		public Vector2 cutoff = new Vector2(0, 1);
+		[Space]
+		public UnityEvent<float> onUpdate;
+		private float TimeFormula => (time + offset) * speed;
 
 		protected override void OnDisable()
 		{
