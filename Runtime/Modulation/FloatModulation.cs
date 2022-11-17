@@ -1,6 +1,4 @@
 using System;
-using UnityEngine;
-using Math = Extendo.Utilities.Math;
 
 namespace Extendo.Modulation
 {
@@ -11,7 +9,6 @@ namespace Extendo.Modulation
 		public FloatModulation()
 		{
 			speed     = 1f;
-			seed      = 12345;
 			remapMax  = 1f;
 			cutoffMax = 1f;
 		}
@@ -26,7 +23,7 @@ namespace Extendo.Modulation
 			float cutoffMax
 		)
 		{
-			float timeValue = seed + (time + offset) * speed;
+			float timeValue = (time + offset) * speed;
 			return method(timeValue, new (remapMin, remapMax), new (cutoffMin, cutoffMax));
 		}
 	}

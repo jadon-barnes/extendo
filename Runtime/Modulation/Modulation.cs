@@ -20,7 +20,6 @@ namespace Extendo.Modulation
 		[Header("Timing")]
 		public T speed;
 		public T offset;
-		public T seed;
 		[Header("Remap")]
 		public T remapMin;
 		public T remapMax;
