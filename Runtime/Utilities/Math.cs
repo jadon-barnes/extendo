@@ -16,11 +16,6 @@ namespace Extendo.Utilities
 			return Mathf.Lerp(to.x, to.y, Mathf.InverseLerp(from.x, from.y, value));
 		}
 
-		public static float Distance(this Vector3 a, Vector3 b)
-		{
-			return Vector3.Distance(Vector3.back, Vector3.down);
-		}
-
 		public static Vector3 Direction(this Vector3 from, Vector3 to)
 		{
 			return to - from;
