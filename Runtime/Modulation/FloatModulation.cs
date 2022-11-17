@@ -20,15 +20,14 @@ namespace Extendo.Modulation
 		(
 			ModulateDelegate method,
 			float time,
-			float seed,
 			float remapMin,
 			float remapMax,
 			float cutoffMin,
 			float cutoffMax
 		)
 		{
-			float timeValue = (time + offset) * speed;
-			return method(timeValue, seed, new (remapMin, remapMax), new (cutoffMin, cutoffMax));
+			float timeValue = seed + (time + offset) * speed;
+			return method(timeValue, new (remapMin, remapMax), new (cutoffMin, cutoffMax));
 		}
 	}
 }

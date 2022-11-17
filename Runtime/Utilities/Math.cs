@@ -8,14 +8,12 @@ namespace Extendo.Utilities
 	{
 		public static float Remap(this float value, float fromA, float toA, float fromB, float toB)
 		{
-			float value01 = Mathf.InverseLerp(fromA, toA, value);
-			return Mathf.Lerp(fromB, toB, value01);
+			return Mathf.Lerp(fromB, toB, Mathf.InverseLerp(fromA, toA, value));
 		}
 
 		public static float Remap(this float value, Vector2 from, Vector2 to)
 		{
-			float value01 = Mathf.InverseLerp(from.x, from.y, value);
-			return Mathf.Lerp(to.x, to.y, value01);
+			return Mathf.Lerp(to.x, to.y, Mathf.InverseLerp(from.x, from.y, value));
 		}
 
 		public static float Distance(this Vector3 a, Vector3 b)
@@ -105,44 +103,104 @@ namespace Extendo.Utilities
 			return result;
 		}
 
-		public static float ModulateSine(float time, float seed, Vector2 remap, Vector2 cutoff)
+		public static float ModulateSine(float time, Vector2 remap)
 		{
-			var formula = time + seed;
-			var result = Mathf.Sin(formula);
-			result = Math.Remap(result, new (-1f, 1f), remap);
-			return Mathf.Clamp(result, cutoff.x, cutoff.y);
+			return Math.Remap
+			(
+				Mathf.Sin(time),
+				new (-1f, 1f),
+				remap
+			);
 		}
 
-		public static float ModulateCosine(float time, float seed, Vector2 remap, Vector2 cutoff)
+		public static float ModulateSine(float time, Vector2 remap, Vector2 cutoff)
 		{
-			var formula = time + seed;
-			var result = Mathf.Cos(formula);
-			result = Math.Remap(result, new (-1f, 1f), remap);
-			return Mathf.Clamp(result, cutoff.x, cutoff.y);
+			return Mathf.Clamp
+			(
+				ModulateSine(time, remap),
+				cutoff.x,
+				cutoff.y
+			);
 		}
 
-		public static float ModulateLinear(float time, float seed, Vector2 remap, Vector2 cutoff)
+		public static float ModulateCosine(float time, Vector2 remap)
 		{
-			var formula = time + seed;
-			var result = Mathf.PingPong(formula, 1f);
-			result = Math.Remap(result, new (0f, 1f), remap);
-			return Mathf.Clamp(result, cutoff.x, cutoff.y);
+			return Math.Remap
+			(
+				Mathf.Cos(time),
+				new (-1f, 1f),
+				remap
+			);
 		}
 
-		public static float ModulateBounce(float time, float seed, Vector2 remap, Vector2 cutoff)
+		public static float ModulateCosine(float time, Vector2 remap, Vector2 cutoff)
 		{
-			var formula = time + seed;
-			var result = Mathf.Abs(Mathf.Sin(formula));
-			result = Math.Remap(result, new (0f, 1f), remap);
-			return Mathf.Clamp(result, cutoff.x, cutoff.y);
+			return Mathf.Clamp
+			(
+				ModulateCosine(time, remap),
+				cutoff.x,
+				cutoff.y
+			);
 		}
 
-		public static float ModulatePerlinNoise(float time, float seed, Vector2 remap, Vector2 cutoff)
+		public static float ModulateLinear(float time, Vector2 remap)
 		{
-			var formula = time + seed;
-			var result = Mathf.Clamp01(Mathf.PerlinNoise(formula, formula));
-			result = Remap(result, new (0f, 1f), remap);
-			return Mathf.Clamp(result, cutoff.x, cutoff.y);
+			return Math.Remap
+			(
+				Mathf.PingPong(time, 1f),
+				new (0f, 1f),
+				remap
+			);
+		}
+
+		public static float ModulateLinear(float time, Vector2 remap, Vector2 cutoff)
+		{
+			return Mathf.Clamp
+			(
+				ModulateLinear(time, remap),
+				cutoff.x,
+				cutoff.y
+			);
+		}
+
+		public static float ModulateBounce(float time, Vector2 remap)
+		{
+			return Remap
+			(
+				Mathf.Abs(Mathf.Sin(time)),
+				new (0f, 1f),
+				remap
+			);
+		}
+
+		public static float ModulateBounce(float time, Vector2 remap, Vector2 cutoff)
+		{
+			return Mathf.Clamp
+			(
+				ModulateBounce(time, remap),
+				cutoff.x,
+				cutoff.y
+			);
+		}
+
+		public static float ModulatePerlinNoise(float time, Vector2 remap)
+		{
+			return Math.Remap
+			(
+				Mathf.Clamp01(Mathf.PerlinNoise(time, time)),
+				new (0f, 1f),
+				remap
+			);
+		}
+
+		public static float ModulatePerlinNoise(float time, Vector2 remap, Vector2 cutoff)
+		{
+			return Mathf.Clamp
+			(
+				ModulatePerlinNoise(time, remap),
+				cutoff.x,
+				cutoff.y
+			);
 		}
 	}
 }
