@@ -28,9 +28,9 @@ namespace Extendo.Modulation
 		public T cutoffMin;
 		public T cutoffMax;
 
-		protected delegate float ModulateDelegate(float time, float seed, Vector2 remap, Vector2 cutoff);
+		protected delegate float ModulateDelegate(float time, Vector2 remap, Vector2 cutoff);
 
-		protected abstract T GetModulationValue(ModulateDelegate method, float time, T seed, T remapMin, T remapMax, T cutoffMin, T cutoffMax);
+		protected abstract T GetModulationValue(ModulateDelegate method, float time, T remapMin, T remapMax, T cutoffMin, T cutoffMax);
 
 		public void Evaluate(float time)
 		{
@@ -62,27 +62,27 @@ namespace Extendo.Modulation
 
 		protected T GetSine(float time)
 		{
-			return GetModulationValue(Math.ModulateSine, time, seed, remapMin, remapMax, cutoffMin, cutoffMax);
+			return GetModulationValue(Math.ModulateSine, time, remapMin, remapMax, cutoffMin, cutoffMax);
 		}
 
 		protected T GetCosine(float time)
 		{
-			return GetModulationValue(Math.ModulateCosine, time, seed, remapMin, remapMax, cutoffMin, cutoffMax);
+			return GetModulationValue(Math.ModulateCosine, time, remapMin, remapMax, cutoffMin, cutoffMax);
 		}
 
 		protected T GetLinear(float time)
 		{
-			return GetModulationValue(Math.ModulateLinear, time, seed, remapMin, remapMax, cutoffMin, cutoffMax);
+			return GetModulationValue(Math.ModulateLinear, time, remapMin, remapMax, cutoffMin, cutoffMax);
 		}
 
 		protected T GetPerlinNoise(float time)
 		{
-			return GetModulationValue(Math.ModulatePerlinNoise, time, seed, remapMin, remapMax, cutoffMin, cutoffMax);
+			return GetModulationValue(Math.ModulatePerlinNoise, time, remapMin, remapMax, cutoffMin, cutoffMax);
 		}
 
 		protected T GetBounce(float time)
 		{
-			return GetModulationValue(Math.ModulateBounce, time, seed, remapMin, remapMax, cutoffMin, cutoffMax);
+			return GetModulationValue(Math.ModulateBounce, time, remapMin, remapMax, cutoffMin, cutoffMax);
 		}
 	}
 }
