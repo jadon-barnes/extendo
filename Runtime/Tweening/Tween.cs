@@ -8,8 +8,6 @@ namespace Extendo.Tweening
 	internal abstract class Tween<T>
 	{
 		private MonoBehaviour monoBehaviour;
-		private GameObject    gameObject;
-		private Transform     transform;
 		public  bool          useFixedUpdate;
 		public  int           repeat = 0;
 		public  int           RepeatCount { get; private set; }
