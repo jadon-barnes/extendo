@@ -7,6 +7,7 @@ namespace Extendo.Modulation
 	{
 		public                   bool             resetTimeOnDisable;
 		[HideInInspector] public float            time;
+		public                   float            strength    = 1f;
 		public                   TModulation[]    modulations = new[] { new TModulation() };
 		public                   TOut             Result { get; protected set; }
 		public                   UnityEvent<TOut> onUpdate;

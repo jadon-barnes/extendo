@@ -19,7 +19,7 @@ namespace Extendo.Modulation
 				sum += modulation.Value;
 			}
 
-			return sum;
+			return sum * strength;
 		}
 	}
 }
