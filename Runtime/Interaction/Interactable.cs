@@ -10,8 +10,7 @@ namespace Extendo.Interaction
 		public bool  enableCooldown;
 		public float cooldownTime = 1f;
 		public bool  InCooldown => cooldownRoutine != null;
-
-		public bool toggleValue = true;
+		public bool  toggleValue = true;
 
 		[Space]
 		public UnityEvent onInteract;
@@ -62,11 +61,6 @@ namespace Extendo.Interaction
 			yield return new WaitForSeconds(cooldownTime);
 			cooldownRoutine = null;
 			onCooldownComplete.Invoke();
-		}
-
-		public void Test()
-		{
-			Debug.Log("Working!");
 		}
 	}
 }
