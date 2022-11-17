@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 namespace Extendo.Tweening
 {
-	internal abstract class Tween<T>
+	public abstract class Tween<T>
 	{
 		protected MonoBehaviour monoBehaviour;
 		public  bool          useFixedUpdate;
