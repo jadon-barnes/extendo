@@ -7,7 +7,7 @@ namespace Extendo.Tweening
 {
 	internal abstract class Tween<T>
 	{
-		private MonoBehaviour monoBehaviour;
+		protected MonoBehaviour monoBehaviour;
 		public  bool          useFixedUpdate;
 		public  int           repeat = 0;
 		public  int           RepeatCount { get; private set; }
