@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using Math = Extendo.Utilities.Math;
 
 namespace Extendo.Modulation
 {
@@ -10,7 +9,6 @@ namespace Extendo.Modulation
 		public Vector3Modulation()
 		{
 			speed     = Vector3.one;
-			seed      = new (12345, 12345, 12345);
 			remapMax  = Vector3.one;
 			cutoffMax = Vector3.one;
 		}
@@ -25,7 +23,7 @@ namespace Extendo.Modulation
 			Vector3 cutoffMax
 		)
 		{
-			Vector3 timeValue = Vector3.Scale((Vector3.one * time) + offset, speed) + seed;
+			Vector3 timeValue = Vector3.Scale((Vector3.one * time) + offset, speed);
 
 			return new
 			(

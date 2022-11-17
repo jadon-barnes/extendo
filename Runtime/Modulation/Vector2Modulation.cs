@@ -1,13 +1,14 @@
+using System;
 using UnityEngine;
 
 namespace Extendo.Modulation
 {
+	[Serializable]
 	public class Vector2Modulation : Modulation<Vector2>
 	{
 		public Vector2Modulation()
 		{
 			speed     = Vector2.one;
-			seed      = new (12345, 12345);
 			remapMax  = Vector2.one;
 			cutoffMax = Vector2.one;
 		}
@@ -22,7 +23,7 @@ namespace Extendo.Modulation
 			Vector2 cutoffMax
 		)
 		{
-			Vector2 timeValue = Vector2.Scale((Vector2.one * time) + offset, speed) + seed;
+			Vector2 timeValue = Vector2.Scale((Vector2.one * time) + offset, speed);
 
 			return new
 			(
