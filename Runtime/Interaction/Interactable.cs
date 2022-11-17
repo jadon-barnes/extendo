@@ -1,28 +1,72 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
 namespace Extendo.Interaction
 {
 	[AddComponentMenu("Extendo/Interactable")]
-	public class Interactable : MonoBehaviour
+	public class Interactable : MonoBehaviour, IInteractable
 	{
-		public UnityEvent    onInteract;
-		private IInteractable[] interactables = new IInteractable[0];
+		public bool  enableCooldown;
+		public float cooldownTime = 1f;
+		public bool  InCooldown => cooldownRoutine != null;
 
-		private void Awake()
+		public bool toggleValue = true;
+
+		[Space]
+		public UnityEvent onInteract;
+		public UnityEvent<bool> onInteractToggle;
+		public UnityEvent       onCooldown;
+		public UnityEvent       onCooldownComplete;
+
+		private Coroutine cooldownRoutine;
+
+		private void OnDisable()
 		{
-			interactables = GetComponents<IInteractable>();
+			ResetCooldown();
 		}
 
 		[ContextMenu("Interact")]
-		public void Interact()
+		public void OnInteract()
 		{
-			onInteract.Invoke();
-			
-			foreach (var interactable in interactables)
+			if (enableCooldown)
 			{
-				interactable.OnInteract();
+				if (InCooldown)
+					return;
+
+				StartCooldown();
 			}
+
+			toggleValue = !toggleValue;
+
+			onInteract.Invoke();
+			onInteractToggle.Invoke(toggleValue);
+		}
+
+		private void ResetCooldown()
+		{
+			if (cooldownRoutine != null)
+				StopCoroutine(cooldownRoutine);
+
+			cooldownRoutine = null;
+		}
+
+		private void StartCooldown()
+		{
+			cooldownRoutine = StartCoroutine(CooldownRoutine());
+		}
+
+		IEnumerator CooldownRoutine()
+		{
+			onCooldown.Invoke();
+			yield return new WaitForSeconds(cooldownTime);
+			cooldownRoutine = null;
+			onCooldownComplete.Invoke();
+		}
+
+		public void Test()
+		{
+			Debug.Log("Working!");
 		}
 	}
 }
