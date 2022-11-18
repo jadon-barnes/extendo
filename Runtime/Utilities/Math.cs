@@ -16,6 +16,11 @@ namespace Extendo.Utilities
 			return Mathf.Lerp(to.x, to.y, Mathf.InverseLerp(from.x, from.y, value));
 		}
 
+		public static float Distance(this float from, float to)
+		{
+			return Mathf.Abs(to - from);
+		}
+
 		public static Vector3 Direction(this Vector3 from, Vector3 to)
 		{
 			return to - from;
@@ -196,6 +201,58 @@ namespace Extendo.Utilities
 				cutoff.x,
 				cutoff.y
 			);
+		}
+
+		public static float Damp
+		(
+			float current,
+			float target,
+			float damping,
+			float deltaTime,
+			float ft = 1.0f / 60.0f
+		)
+		{
+			return Mathf.Lerp
+			(
+				current,
+				target,
+				1.0f
+				- Mathf.Pow
+				(
+					1f / (1f - ft * damping),
+					-deltaTime / ft
+				)
+			);
+		}
+
+		/// <summary>
+		/// Smooth interpolation that is independent from frame rate.
+		/// </summary>
+		/// <param name="current"></param>
+		/// <param name="target"></param>
+		/// <param name="smoothTime"></param>
+		/// <returns></returns>
+		public static float Damp(float current, float target, float smoothTime)
+		{
+			return Mathf.Lerp(current, target, 1.0f - Mathf.Exp(-smoothTime * Time.deltaTime));
+		}
+		
+		public static float Spring(float from, float to, ref float velocity, float tension = 200f, float damp = 5f, float maxVelocity = 100f)
+		{
+			damp =  Mathf.Max(0f, damp);
+			damp *= Time.deltaTime;
+
+			var difference = from - to;
+			difference *= Time.deltaTime;
+
+			var force = -tension * difference;
+			force *= Time.deltaTime;
+
+			velocity += force;
+			velocity *= Mathf.Max(0f, 1f - damp);
+			velocity =  Mathf.Min(velocity, maxVelocity);
+
+			return from + velocity;
 		}
 	}
 }
