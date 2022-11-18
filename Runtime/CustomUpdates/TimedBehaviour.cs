@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace Extendo
+namespace Extendo.CustomUpdates
 {
 	public class TimedBehaviour : MonoBehaviour
 	{
