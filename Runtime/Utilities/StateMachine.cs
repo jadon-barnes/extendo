@@ -52,7 +52,7 @@ namespace Extendo.Utilities
 			Debug.LogWarning($"{typeof(TState)} was not found in {typeof(StateMachine<TContext>)}!");
 		}
 
-		public void UpdateActiveState()
+		public void UpdateCurrentState()
 		{
 			CurrentState?.OnUpdate();
 		}
