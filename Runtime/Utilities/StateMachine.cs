@@ -12,7 +12,7 @@ namespace Extendo.Utilities
 		public    TContext          Context      { get; private set; }
 		public    State<TContext>   CurrentState { get; private set; }
 		public    State<TContext>   LastState    { get; private set; }
-		protected State<TContext>[] states; // TODO: Add methods that add and remove states based on type or ref.
+		protected State<TContext>[] states;
 
 		public StateMachine(TContext context, params State<TContext>[] states)
 		{
