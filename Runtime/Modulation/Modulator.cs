@@ -1,11 +1,11 @@
-using System.Collections.Generic;
+using Extendo.CustomUpdates;
 using UnityEngine;
 using UnityEngine.Events;
 using Math = Extendo.Utilities.Math;
 
 namespace Extendo.Modulation
 {
-	public abstract class Modulator<T> : CustomUpdateBehaviour
+	public abstract class Modulator<T> : TimeBehaviour
 	{
 		public enum ModulationMethod
 		{
@@ -16,41 +16,28 @@ namespace Extendo.Modulation
 			Bounce      = 4,
 		}
 
-		public                   bool             resetTimeOnDisable;
-		public                   ModulationMethod modulationMethod = ModulationMethod.Sine;
-		[HideInInspector] public float            time;
-		public                   float            strength = 1f;
-		[Header("Timing")]
+		[Space]
+		public ModulationMethod modulationMethod = ModulationMethod.Sine;
+		public float            strength         = 1f;
+		[Space]
 		public T speed;
 		public T offset;
-		[Header("Targets")]
+		[Space]
 		public T from;
 		public T to;
-		[Header("Cutoff")]
+		[Space]
 		public T cutoffFrom;
 		public T cutoffTo;
 		[Space]
 		public UnityEvent<T> onUpdate;
 		public T Value { get; private set; }
 
-		protected override void OnDisable()
-		{
-			base.OnDisable();
 
-			if (resetTimeOnDisable)
-				Reset();
-		}
-
-		protected override void OnUpdate()
+		public override void ManualUpdate()
 		{
-			Value =  Evaluate(time);
-			time  += Time.deltaTime;
+			Value = Evaluate(time);
 			onUpdate.Invoke(Value);
-		}
-
-		public void Reset()
-		{
-			time = 0f;
+			base.ManualUpdate();
 		}
 
 		public T Evaluate(float time)

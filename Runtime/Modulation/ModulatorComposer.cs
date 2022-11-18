@@ -22,7 +22,7 @@ namespace Extendo.Modulation
 		{
 			foreach (var modulation in modulations)
 			{
-				modulation.StartUpdate();
+				modulation.Start();
 			}
 		}
 
@@ -30,7 +30,7 @@ namespace Extendo.Modulation
 		{
 			foreach (var modulation in modulations)
 			{
-				modulation.StopUpdate();
+				modulation.Stop();
 			}
 		}
 	}
