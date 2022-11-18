@@ -5,65 +5,19 @@ using UnityEngine.Events;
 namespace Extendo.Events
 {
 	[AddComponentMenu("Extendo/Events/Event Timer")]
-	public class EventTimer : CustomUpdateBehaviour
+	public class EventTimer : TimeBehaviour
 	{
-		public float      time;
-		public float      duration = 5f;
-		public bool       repeat;
-		public bool       resetOnDisabled;
-		public int        RepeatCount { get; private set; }
-		public float      Value       => time / duration;
-		public bool       Done        => time >= duration;
-		public UnityEvent onDone;
+		public UnityEvent onComplete;
+		public UnityEvent onRepeatComplete;
 
-		protected override void OnDisable()
+		protected override void OnTimeComplete()
 		{
-			base.OnDisable();
-			
-			if (resetOnDisabled)
-				time = 0f;
+			onComplete.Invoke();
 		}
 
-		protected override void OnUpdate()
+		protected override void OnTimeRepeatComplete()
 		{
-			UpdateTimer();
-
-			if (Done)
-			{
-				StopUpdate();
-
-				if (repeat)
-					StartUpdate();
-			}
-		}
-
-		public void UpdateTimer()
-		{
-			if (Done && !repeat)
-				return;
-
-			time += UnityEngine.Time.deltaTime;
-
-			OnDone();
-		}
-
-		private void OnDone()
-		{
-			if (!Done)
-				return;
-
-			// Clamp time value to max
-			time = Mathf.Min(time, duration);
-
-			// Invoke Events
-			onDone.Invoke();
-
-			// Repeat if applicable
-			if (repeat)
-			{
-				RepeatCount++;
-				time = 0f;
-			}
+			onRepeatComplete.Invoke();
 		}
 	}
 }
