@@ -239,14 +239,11 @@ namespace Extendo.Utilities
 		
 		public static float Spring(float from, float to, ref float velocity, float tension = 200f, float damp = 5f, float maxVelocity = 100f)
 		{
-			damp =  Mathf.Max(0f, damp);
-			damp *= Time.deltaTime;
+			damp = Mathf.Max(0f, damp) * Time.deltaTime;
 
-			var difference = from - to;
-			difference *= Time.deltaTime;
+			var difference = (from - to) * Time.deltaTime;
 
-			var force = -tension * difference;
-			force *= Time.deltaTime;
+			var force = (-tension * difference) * Time.deltaTime;
 
 			velocity += force;
 			velocity *= Mathf.Max(0f, 1f - damp);
