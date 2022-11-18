@@ -7,15 +7,17 @@ namespace Extendo.CustomUpdates
 	public abstract class TimeBehaviour : CustomUpdate
 	{
 		public bool resetOnEnable = true;
+		[Space]
 		[Tooltip("-1 will run indefinitely.")]
 		public float duration = 3f;
 		[Tooltip("A value of -1 will repeat indefinitely.")]
 		public int repeat;
-		public bool  IsRepeating => (repeat > 0 || repeat < 0) && RepeatCount < repeat - 1;
-		public int   RepeatCount { get; private set; }
 		public float time;
-		public float TimeValue           => time / duration;
+
+		public float TimeValue       => time / duration;
 		public bool  DurationReached => time >= duration && duration > 0f;
+		public bool  IsRepeating     => (repeat > 0 || repeat < 0) && RepeatCount < repeat - 1;
+		public int   RepeatCount     { get; private set; }
 
 		protected override void OnEnable()
 		{
