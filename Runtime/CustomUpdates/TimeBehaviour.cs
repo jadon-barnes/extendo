@@ -14,7 +14,7 @@ namespace Extendo.CustomUpdates
 		public bool  IsRepeating => (repeat > 0 || repeat < 0) && RepeatCount < repeat - 1;
 		public int   RepeatCount { get; private set; }
 		public float time;
-		public float Value           => time / duration;
+		public float TimeValue           => time / duration;
 		public bool  DurationReached => time >= duration && duration > 0f;
 
 		protected override void OnEnable()
