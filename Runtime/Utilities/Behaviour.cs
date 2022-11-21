@@ -3,7 +3,7 @@ using UnityEngine.Events;
 
 namespace Extendo.Utilities
 {
-	public static class Behaviours
+	public static class Behaviour
 	{
 		public static void Invoke(this MonoBehaviour monoBehaviour, UnityAction action, float time)
 		{
