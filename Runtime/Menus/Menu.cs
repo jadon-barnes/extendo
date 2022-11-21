@@ -10,12 +10,40 @@ namespace Extendo.Menus
 		private Menu      parentMenu;
 		private Menu      childMenu;
 		public  bool      disableMenuOnChange;
+		public  bool      closeMenuOnBackIfNoParent = true;
 
 		public UnityEvent OnEnter;
 		public UnityEvent OnExit;
 		public UnityEvent OnClose;
 
 		private object dataPassedDown;
+
+		private Menu RootMenu
+		{
+			get
+			{
+				if (parentMenu)
+					return parentMenu.RootMenu;
+
+				return this;
+			}
+		}
+
+		private Menu LastMenu
+		{
+			get
+			{
+				if (childMenu)
+					return childMenu.LastMenu;
+
+				return this;
+			}
+		}
+
+		private void OnDestroy()
+		{
+			Close();
+		}
 
 		public void SetDataPassedDown(object data)
 		{
@@ -40,8 +68,8 @@ namespace Extendo.Menus
 			return false;
 		}
 
-		[ContextMenu("Test")]
-		public void GoToMenuTest()
+		[ContextMenu("New Test Menu")]
+		private void NewTestMenu()
 		{
 			GoToMenu(sampleMenu);
 		}
@@ -66,14 +94,20 @@ namespace Extendo.Menus
 			childMenu.Enter(this);
 		}
 
+		[ContextMenu("Go Here")]
+		public void GoHere()
+		{
+			Enter();
+			DeleteChildren();
+		}
+
 		[ContextMenu("Go Back To Start")]
 		public void GoBackToStart()
 		{
-			if (parentMenu)
-			{
-				parentMenu.GoBackToStart();
-				Close();
-			}
+			var rootMenu = RootMenu;
+
+			if (rootMenu)
+				rootMenu.GoHere();
 		}
 
 		[ContextMenu("Go Back")]
@@ -81,10 +115,11 @@ namespace Extendo.Menus
 		{
 			if (parentMenu)
 			{
-				parentMenu.Enter();
+				Close();
 			}
 
-			Close();
+			if (closeMenuOnBackIfNoParent)
+				Close();
 		}
 
 		private void Enter(Menu parentMenu = null)
@@ -93,6 +128,7 @@ namespace Extendo.Menus
 				this.parentMenu = parentMenu;
 
 			OnEnter.Invoke();
+
 			gameObject.SetActive(true);
 		}
 
@@ -108,43 +144,43 @@ namespace Extendo.Menus
 		[ContextMenu("Close")]
 		public void Close()
 		{
-			// Close all child menus
-			if (childMenu)
-			{
-				childMenu.Close();
-			}
-
+			// Invoke any events
 			OnClose.Invoke();
 
 			if (parentMenu)
-			{
 				parentMenu.Enter();
-			}
+
+			DeleteChildren();
 
 			Destroy(gameObject);
 		}
 
-		[ContextMenu("Minimize")]
-		private void Minimize()
+		private void DeleteChildren()
 		{
-			Minimize(true);
-		}
-
-		[ContextMenu("Maximize")]
-		private void Maximize()
-		{
-			Minimize(false);
-		}
-
-		public void Minimize(bool minimize)
-		{
-			EnableParentMenus(!minimize);
-			EnableChildMenus(!minimize);
-
-			if (!minimize && childMenu)
+			// Destroy Children
+			if (!childMenu)
 				return;
 
-			gameObject.SetActive(!minimize);
+			childMenu.DeleteChildren();
+			childMenu.OnClose.Invoke();
+			Destroy(childMenu.gameObject);
+		}
+
+		[ContextMenu("Disable Menu Group")]
+		private void DisableMenuGroup() => EnableMenuGroup(false);
+
+		[ContextMenu("Enable Menu Group")]
+		private void EnableMenuGroup() => EnableMenuGroup(true);
+
+		public void EnableMenuGroup(bool enable)
+		{
+			var lastMenu = LastMenu;
+
+			if (!lastMenu)
+				return;
+
+			lastMenu.EnableParentMenus(enable);
+			lastMenu.gameObject.SetActive(enable);
 		}
 
 		// TODO: Fix minimize and maximize
@@ -152,23 +188,8 @@ namespace Extendo.Menus
 		{
 			if (parentMenu)
 			{
-				if (enable && parentMenu.childMenu)
-					return;
-
-				parentMenu.gameObject.SetActive(enable);
+				parentMenu.gameObject.SetActive(enable && !parentMenu.disableMenuOnChange);
 				parentMenu.EnableParentMenus(enable);
-			}
-		}
-
-		private void EnableChildMenus(bool enable)
-		{
-			if (childMenu)
-			{
-				if (enable && childMenu.childMenu)
-					return;
-
-				childMenu.gameObject.SetActive(enable);
-				childMenu.EnableChildMenus(enable);
 			}
 		}
 	}
