@@ -103,7 +103,7 @@ namespace Extendo.Utilities
 			return result;
 		}
 
-		public static float ModulateSine(float time, Vector2 remap)
+		public static float OscillateSine(float time, Vector2 remap)
 		{
 			return Math.Remap
 			(
@@ -113,17 +113,17 @@ namespace Extendo.Utilities
 			);
 		}
 
-		public static float ModulateSine(float time, Vector2 remap, Vector2 cutoff)
+		public static float OscillateSine(float time, Vector2 remap, Vector2 cutoff)
 		{
 			return Mathf.Clamp
 			(
-				ModulateSine(time, remap),
+				OscillateSine(time, remap),
 				cutoff.x,
 				cutoff.y
 			);
 		}
 
-		public static float ModulateCosine(float time, Vector2 remap)
+		public static float OscillateCosine(float time, Vector2 remap)
 		{
 			return Math.Remap
 			(
@@ -133,17 +133,17 @@ namespace Extendo.Utilities
 			);
 		}
 
-		public static float ModulateCosine(float time, Vector2 remap, Vector2 cutoff)
+		public static float OscillateCosine(float time, Vector2 remap, Vector2 cutoff)
 		{
 			return Mathf.Clamp
 			(
-				ModulateCosine(time, remap),
+				OscillateCosine(time, remap),
 				cutoff.x,
 				cutoff.y
 			);
 		}
 
-		public static float ModulateLinear(float time, Vector2 remap)
+		public static float OscillateLinear(float time, Vector2 remap)
 		{
 			return Math.Remap
 			(
@@ -153,17 +153,17 @@ namespace Extendo.Utilities
 			);
 		}
 
-		public static float ModulateLinear(float time, Vector2 remap, Vector2 cutoff)
+		public static float OscillateLinear(float time, Vector2 remap, Vector2 cutoff)
 		{
 			return Mathf.Clamp
 			(
-				ModulateLinear(time, remap),
+				OscillateLinear(time, remap),
 				cutoff.x,
 				cutoff.y
 			);
 		}
 
-		public static float ModulateBounce(float time, Vector2 remap)
+		public static float OscillateBounce(float time, Vector2 remap)
 		{
 			return Remap
 			(
@@ -173,17 +173,17 @@ namespace Extendo.Utilities
 			);
 		}
 
-		public static float ModulateBounce(float time, Vector2 remap, Vector2 cutoff)
+		public static float OscillateBounce(float time, Vector2 remap, Vector2 cutoff)
 		{
 			return Mathf.Clamp
 			(
-				ModulateBounce(time, remap),
+				OscillateBounce(time, remap),
 				cutoff.x,
 				cutoff.y
 			);
 		}
 
-		public static float ModulatePerlinNoise(float time, Vector2 remap)
+		public static float OscillatePerlinNoise(float time, Vector2 remap)
 		{
 			return Math.Remap
 			(
@@ -193,11 +193,11 @@ namespace Extendo.Utilities
 			);
 		}
 
-		public static float ModulatePerlinNoise(float time, Vector2 remap, Vector2 cutoff)
+		public static float OscillatePerlinNoise(float time, Vector2 remap, Vector2 cutoff)
 		{
 			return Mathf.Clamp
 			(
-				ModulatePerlinNoise(time, remap),
+				OscillatePerlinNoise(time, remap),
 				cutoff.x,
 				cutoff.y
 			);

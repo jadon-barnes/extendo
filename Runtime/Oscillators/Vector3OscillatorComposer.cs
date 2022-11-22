@@ -1,9 +1,9 @@
 using UnityEngine;
 
-namespace Extendo.Modulation
+namespace Extendo.Oscillators
 {
 	[AddComponentMenu("Extendo/Modulators/Vector3 Modulator Composer")]
-	public class Vector3ModulatorComposer : ModulatorComposer<Vector3>
+	public class Vector3OscillatorComposer : OscillatorComposer<Vector3>
 	{
 		public override Vector3 GetSumOfModulations()
 		{

@@ -1,22 +1,21 @@
-using System;
 using UnityEngine;
 
-namespace Extendo.Modulation
+namespace Extendo.Oscillators
 {
 	[AddComponentMenu("Extendo/Modulators/Float Modulator")]
-	public class FloatModulator : Modulator<float>
+	public class FloatOscillator : Oscillator<float>
 	{
 		// Set defaults
-		public FloatModulator()
+		public FloatOscillator()
 		{
 			speed    = 1f;
 			to       = 1f;
 			cutoffTo = 1f;
 		}
 
-		protected override float GetModulationValue
+		protected override float GetOscillationValue
 		(
-			ModulateDelegate method,
+			OscillationDelegate method,
 			float time,
 			float remapMin,
 			float remapMax,

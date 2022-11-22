@@ -1,21 +1,20 @@
-using System;
 using UnityEngine;
 
-namespace Extendo.Modulation
+namespace Extendo.Oscillators
 {
 	[AddComponentMenu("Extendo/Modulators/Vector3 Modulator")]
-	public class Vector3Modulator : Modulator<Vector3>
+	public class Vector3Oscillator : Oscillator<Vector3>
 	{
-		public Vector3Modulator()
+		public Vector3Oscillator()
 		{
 			speed    = Vector3.one;
 			to       = Vector3.one;
 			cutoffTo = Vector3.one;
 		}
 
-		protected override Vector3 GetModulationValue
+		protected override Vector3 GetOscillationValue
 		(
-			ModulateDelegate method,
+			OscillationDelegate method,
 			float time,
 			Vector3 remapMin,
 			Vector3 remapMax,

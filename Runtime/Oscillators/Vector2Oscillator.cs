@@ -1,21 +1,20 @@
-using System;
 using UnityEngine;
 
-namespace Extendo.Modulation
+namespace Extendo.Oscillators
 {
 	[AddComponentMenu("Extendo/Modulators/Vector2 Modulator")]
-	public class Vector2Modulator : Modulator<Vector2>
+	public class Vector2Oscillator : Oscillator<Vector2>
 	{
-		public Vector2Modulator()
+		public Vector2Oscillator()
 		{
 			speed    = Vector2.one;
 			to       = Vector2.one;
 			cutoffTo = Vector2.one;
 		}
 
-		protected override Vector2 GetModulationValue
+		protected override Vector2 GetOscillationValue
 		(
-			ModulateDelegate method,
+			OscillationDelegate method,
 			float time,
 			Vector2 remapMin,
 			Vector2 remapMax,

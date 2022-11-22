@@ -1,12 +1,12 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Extendo.Modulation
+namespace Extendo.Oscillators
 {
-	public abstract class ModulatorComposer<T> : MonoBehaviour
+	public abstract class OscillatorComposer<T> : MonoBehaviour
 	{
 		public float          strength         = 1f;
-		public Modulator<T>[] modulations      = new Modulator<T>[0];
+		public Oscillator<T>[] modulations      = new Oscillator<T>[0];
 		public T              Value { get; protected set; }
 		public UnityEvent<T>  onUpdate;
 
