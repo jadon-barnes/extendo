@@ -1,23 +1,34 @@
 using Extendo.CustomUpdates;
+using Extendo.Utilities;
 using UnityEngine;
 using UnityEngine.Events;
 
 namespace Extendo.Events
 {
 	[AddComponentMenu("Extendo/Events/Event Timer")]
-	public class EventTimer : TimeBehaviour
+	public class EventTimer : MonoBehaviour
 	{
-		public UnityEvent onComplete;
-		public UnityEvent onRepeatComplete;
+		public bool resetOnEnable = true;
+		[field: SerializeField]
+		public Timer Timer { get; private set; } = new Timer(5f);
+		public UnityEvent onDurationReached;
 
-		protected override void OnTimeComplete()
+		private void Awake()
 		{
-			onComplete.Invoke();
+			Timer.onDurationReached = onDurationReached.Invoke;
 		}
 
-		protected override void OnTimeRepeatComplete()
+		private void OnEnable()
 		{
-			onRepeatComplete.Invoke();
+			if (resetOnEnable)
+			{
+				Timer.Reset();
+			}
+		}
+
+		private void Update()
+		{
+			Timer.Update();
 		}
 	}
 }
