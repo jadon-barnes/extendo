@@ -1,4 +1,5 @@
 using System.Collections;
+using Extendo.Utilities;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -9,21 +10,14 @@ namespace Extendo.Interaction
 	{
 		public bool  enableCooldown;
 		public float cooldownTime = 1f;
-		public bool  InCooldown => cooldownRoutine != null;
-		public bool  toggleValue = true;
+		public bool  toggleValue  = true;
+		public bool  InCooldown => this.IsInvoking(OnCooldownComplete);
 
 		[Space]
 		public UnityEvent onInteract;
 		public UnityEvent<bool> onInteractToggle;
 		public UnityEvent       onCooldown;
 		public UnityEvent       onCooldownComplete;
-
-		private Coroutine cooldownRoutine;
-
-		private void OnDisable()
-		{
-			ResetCooldown();
-		}
 
 		[ContextMenu("Interact")]
 		public void OnInteract()
@@ -33,7 +27,8 @@ namespace Extendo.Interaction
 				if (InCooldown)
 					return;
 
-				StartCooldown();
+				onCooldown.Invoke();
+				this.Invoke(OnCooldownComplete, cooldownTime);
 			}
 
 			toggleValue = !toggleValue;
@@ -42,24 +37,8 @@ namespace Extendo.Interaction
 			onInteractToggle.Invoke(toggleValue);
 		}
 
-		private void ResetCooldown()
+		private void OnCooldownComplete()
 		{
-			if (cooldownRoutine != null)
-				StopCoroutine(cooldownRoutine);
-
-			cooldownRoutine = null;
-		}
-
-		private void StartCooldown()
-		{
-			cooldownRoutine = StartCoroutine(CooldownRoutine());
-		}
-
-		IEnumerator CooldownRoutine()
-		{
-			onCooldown.Invoke();
-			yield return new WaitForSeconds(cooldownTime);
-			cooldownRoutine = null;
 			onCooldownComplete.Invoke();
 		}
 	}
