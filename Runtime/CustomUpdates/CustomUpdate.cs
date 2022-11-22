@@ -5,45 +5,20 @@ namespace Extendo.CustomUpdates
 {
 	public abstract class CustomUpdate : MonoBehaviour
 	{
-		public    bool      playOnEnable     = true;
-		public    bool      runOnFixedUpdate = false;
-		public    bool      IsRunning       => updateCoroutine != null;
-		protected Coroutine updateCoroutine { get; private set; }
+		public bool playOnEnable     = true;
+		public bool runOnFixedUpdate = false;
 
 		protected virtual void OnEnable()
 		{
 			if (playOnEnable)
-				Start();
+				StartCoroutine(UpdateRoutine());
 		}
 
-		protected virtual void OnDisable()
-		{
-			Stop();
-		}
-
-		public virtual void Start()
-		{
-			if (IsRunning)
-				return;
-
-			updateCoroutine = StartCoroutine(UpdateRoutine());
-		}
-
-		public virtual void Stop()
-		{
-			if (updateCoroutine == null)
-				return;
-
-			StopCoroutine(updateCoroutine);
-
-			updateCoroutine = null;
-		}
-
-		public abstract void ManualUpdate();
+		protected abstract void ManualUpdate();
 
 		protected IEnumerator UpdateRoutine()
 		{
-			while (true)
+			while (enabled)
 			{
 				ManualUpdate();
 				yield return runOnFixedUpdate ? new WaitForFixedUpdate() : null;
