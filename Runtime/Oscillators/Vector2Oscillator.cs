@@ -2,7 +2,6 @@ using UnityEngine;
 
 namespace Extendo.Oscillators
 {
-	[AddComponentMenu("Extendo/Modulators/Vector2 Modulator")]
 	public class Vector2Oscillator : Oscillator<Vector2>
 	{
 		public Vector2Oscillator()

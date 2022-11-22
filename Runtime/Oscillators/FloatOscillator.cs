@@ -2,7 +2,6 @@ using UnityEngine;
 
 namespace Extendo.Oscillators
 {
-	[AddComponentMenu("Extendo/Modulators/Float Modulator")]
 	public class FloatOscillator : Oscillator<float>
 	{
 		// Set defaults

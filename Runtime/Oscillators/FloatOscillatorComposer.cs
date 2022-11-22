@@ -2,7 +2,6 @@ using UnityEngine;
 
 namespace Extendo.Oscillators
 {
-	[AddComponentMenu("Extendo/Modulators/Float Modulator Composer")]
 	public class FloatOscillatorComposer : OscillatorComposer<float>
 	{
 		public override float GetSumOfModulations()
