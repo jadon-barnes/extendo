@@ -17,15 +17,25 @@ namespace Extendo.Utilities
 		public float       duration = 5f;
 		public bool        repeat   = false;
 		public float       time     = 0f;
-		public float       TimeValue       => time / duration;
 		public bool        DurationReached => time >= duration;
-		public int         Hours           => Mathf.FloorToInt(time / 3600f);
-		public int         Minutes         => Mathf.FloorToInt(time / 60f);
-		public int         Seconds         => Mathf.FloorToInt(time % 60f);
-		public float       HoursExact      => time / 3600f;
-		public float       MinutesExact    => time / 60f;
-		public float       SecondsExact    => time % 60f;
 		public UnityAction onDurationReached;
+
+		public float TimeValue         => time / duration;
+		public float TimeValueReversed => 1 - time / duration;
+		public float TimeReversed      => duration - time;
+
+		public int   Hours                => Mathf.FloorToInt(time / 3600f);
+		public int   Minutes              => Mathf.FloorToInt(time / 60f);
+		public int   Seconds              => Mathf.FloorToInt(time % 60f);
+		public int   HoursReversed        => Mathf.FloorToInt(duration / 3600f - time / 3600f);
+		public int   MinutesReversed      => Mathf.FloorToInt(60f - time / 60f);
+		public int   SecondsReversed      => Mathf.FloorToInt(60f - time % 60f);
+		public float HoursExact           => time / 3600f;
+		public float MinutesExact         => time / 60f;
+		public float SecondsExact         => time % 60f;
+		public float HoursExactReversed   => duration / 3600f - time / 3600f;
+		public float MinutesExactReversed => 60f - time / 60f;
+		public float SecondsExactReversed => 60f - time % 60f;
 
 		public void Update()
 		{
