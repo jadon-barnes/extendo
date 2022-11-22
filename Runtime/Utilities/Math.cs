@@ -228,10 +228,6 @@ namespace Extendo.Utilities
 		/// <summary>
 		/// Smooth interpolation that is independent from frame rate.
 		/// </summary>
-		/// <param name="current"></param>
-		/// <param name="target"></param>
-		/// <param name="smoothTime"></param>
-		/// <returns></returns>
 		public static float Damp(float current, float target, float smoothTime)
 		{
 			return Mathf.Lerp(current, target, 1.0f - Mathf.Exp(-smoothTime * Time.deltaTime));
@@ -250,6 +246,20 @@ namespace Extendo.Utilities
 			velocity =  Mathf.Min(velocity, maxVelocity);
 
 			return from + velocity;
+		}
+
+		// TODO: Test this method
+		public static void SpringRotation(this Rigidbody rigidbody, float strength, float dampening, Vector3 direction, Vector3 worldDirection)
+		{
+			var springTorque = strength * Vector3.Cross(direction, worldDirection);
+			var dampTorque = dampening * -rigidbody.angularVelocity;
+			rigidbody.AddTorque(springTorque + dampTorque, ForceMode.Acceleration);
+		}
+
+		// TODO: Test this method
+		public static float PhysicsSpringForce(float position, float target, float strength, float velocity, float dampening)
+		{
+			return ((target - position) * strength) - (velocity * dampening);
 		}
 	}
 }
