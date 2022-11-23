@@ -2,7 +2,7 @@ using Extendo.CustomUpdates;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Extendo.Oscillators
+namespace Extendo.Oscillation
 {
 	public abstract class OscillatorComposer<TOsc, TOut> : CustomUpdate
 	{

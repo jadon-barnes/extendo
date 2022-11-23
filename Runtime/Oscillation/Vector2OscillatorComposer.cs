@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Extendo.Oscillators
+namespace Extendo.Oscillation
 {
 	public class Vector2OscillatorComposer : OscillatorComposer<Vector2Oscillator, Vector2>
 	{

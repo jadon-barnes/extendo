@@ -1,8 +1,6 @@
-using System;
 using UnityEngine;
-using Math = Extendo.Utilities.Math;
 
-namespace Extendo.Oscillators
+namespace Extendo.Oscillation
 {
 	public abstract class Oscillator<T>
 	{
@@ -29,11 +27,11 @@ namespace Extendo.Oscillators
 
 		protected delegate float Oscillate(float time, float remapMin, float remapMax, float cutoffMin, float cutoffMax);
 
-		private Oscillate oscillateSine   = Math.OscillateSine;
-		private Oscillate oscillateCosine = Math.OscillateCosine;
-		private Oscillate oscillateLinear = Math.OscillateLinear;
-		private Oscillate oscillatePerlin = Math.OscillatePerlinNoise;
-		private Oscillate oscillateBounce = Math.OscillateBounce;
+		private Oscillate oscillateSine   = Oscillation.Oscillate.OscillateSine;
+		private Oscillate oscillateCosine = Oscillation.Oscillate.OscillateCosine;
+		private Oscillate oscillateLinear = Oscillation.Oscillate.OscillateLinear;
+		private Oscillate oscillatePerlin = Oscillation.Oscillate.OscillatePerlinNoise;
+		private Oscillate oscillateBounce = Oscillation.Oscillate.OscillateBounce;
 
 		public T Evaluate(float time)
 		{

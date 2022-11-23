@@ -1,6 +1,4 @@
-using UnityEngine;
-
-namespace Extendo.Oscillators
+namespace Extendo.Oscillation
 {
 	public class FloatOscillatorComposer : OscillatorComposer<FloatOscillator, float>
 	{

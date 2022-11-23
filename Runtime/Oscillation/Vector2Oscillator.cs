@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Extendo.Oscillators
+namespace Extendo.Oscillation
 {
 	[Serializable]
 	public class Vector2Oscillator : Oscillator<Vector2>
