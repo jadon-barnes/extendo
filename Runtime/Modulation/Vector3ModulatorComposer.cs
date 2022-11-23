@@ -2,11 +2,11 @@ using UnityEngine;
 
 namespace Extendo.Modulation
 {
-	public class Vector2OscillatorComposer : OscillatorComposer<Vector2Modulator, Vector2>
+	public class Vector3ModulatorComposer : ModulatorComposer<Vector3Modulator, Vector3>
 	{
-		public override Vector2 GetSumOfModulations()
+		public override Vector3 GetSumOfModulations()
 		{
-			Vector2 sum = Vector2.zero;
+			Vector3 sum = Vector3.zero;
 
 			foreach (var modulation in modulations)
 			{
