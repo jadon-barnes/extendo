@@ -17,7 +17,7 @@ namespace Extendo.Utilities
 		public float duration = 5f;
 		public bool  repeat   = false;
 
-		public float Time              { get; set; }
+		public float Time              { get; private set; }
 		public float TimeReversed      => duration - Time;
 		public float TimeValue         => Mathf.Abs(duration) < 0.001f ? 0f : Time / duration;
 		public float TimeValueReversed => 1 - TimeValue;
@@ -38,21 +38,29 @@ namespace Extendo.Utilities
 
 		public UnityAction onDurationReached;
 
-		public void Update()
+		public void Update(float time)
 		{
 			if (DurationReached && !repeat)
 				return;
 
 			// Add Time
-			Time = Mathf.Min(Time + UnityEngine.Time.deltaTime, duration);
+			Time = Mathf.Min(time, duration);
 
 			if (!DurationReached)
+			{
+				Time = Mathf.Repeat(time, duration);
 				return;
+			}
 
 			onDurationReached?.Invoke();
 
 			if (repeat)
-				Time = 0;
+				Time = Time = Mathf.Repeat(time, duration);
+		}
+
+		public void Update()
+		{
+			Update(Time + UnityEngine.Time.deltaTime);
 		}
 
 		public void Reset()
