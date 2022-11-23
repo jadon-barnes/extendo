@@ -6,14 +6,19 @@ namespace Extendo.Utilities
 {
 	public static class Math
 	{
-		public static float Remap(this float value, float fromA, float toA, float fromB, float toB)
+		public static float Remap(this float value, float aMin, float aMax, float bMin, float bMax)
 		{
-			return Mathf.Lerp(fromB, toB, Mathf.InverseLerp(fromA, toA, value));
+			return Mathf.Lerp(bMin, bMax, Mathf.InverseLerp(aMin, aMax, value));
 		}
 
 		public static float Remap(this float value, Vector2 from, Vector2 to)
 		{
 			return Mathf.Lerp(to.x, to.y, Mathf.InverseLerp(from.x, from.y, value));
+		}
+
+		public static float Distance(this float from, float to)
+		{
+			return Mathf.Abs(to - from);
 		}
 
 		public static Vector3 Direction(this Vector3 from, Vector3 to)
@@ -98,104 +103,53 @@ namespace Extendo.Utilities
 			return result;
 		}
 
-		public static float ModulateSine(float time, Vector2 remap)
+		public static float Damp
+		(
+			float current,
+			float target,
+			float damping,
+			float deltaTime,
+			float ft = 1.0f / 60.0f
+		)
 		{
-			return Math.Remap
+			return Mathf.Lerp
 			(
-				Mathf.Sin(time),
-				new (-1f, 1f),
-				remap
+				current,
+				target,
+				1.0f
+				- Mathf.Pow
+				(
+					1f / (1f - ft * damping),
+					-deltaTime / ft
+				)
 			);
 		}
 
-		public static float ModulateSine(float time, Vector2 remap, Vector2 cutoff)
+		/// <summary>
+		/// Smooth interpolation that is independent from frame rate.
+		/// </summary>
+		/// <param name="current"></param>
+		/// <param name="target"></param>
+		/// <param name="smoothTime"></param>
+		/// <returns></returns>
+		public static float Damp(float current, float target, float smoothTime)
 		{
-			return Mathf.Clamp
-			(
-				ModulateSine(time, remap),
-				cutoff.x,
-				cutoff.y
-			);
+			return Mathf.Lerp(current, target, 1.0f - Mathf.Exp(-smoothTime * Time.deltaTime));
 		}
 
-		public static float ModulateCosine(float time, Vector2 remap)
+		public static float Spring(float from, float to, ref float velocity, float tension = 200f, float damp = 5f, float maxVelocity = 100f)
 		{
-			return Math.Remap
-			(
-				Mathf.Cos(time),
-				new (-1f, 1f),
-				remap
-			);
-		}
+			damp = Mathf.Max(0f, damp) * Time.deltaTime;
 
-		public static float ModulateCosine(float time, Vector2 remap, Vector2 cutoff)
-		{
-			return Mathf.Clamp
-			(
-				ModulateCosine(time, remap),
-				cutoff.x,
-				cutoff.y
-			);
-		}
+			var difference = (from - to) * Time.deltaTime;
 
-		public static float ModulateLinear(float time, Vector2 remap)
-		{
-			return Math.Remap
-			(
-				Mathf.PingPong(time, 1f),
-				new (0f, 1f),
-				remap
-			);
-		}
+			var force = (-tension * difference) * Time.deltaTime;
 
-		public static float ModulateLinear(float time, Vector2 remap, Vector2 cutoff)
-		{
-			return Mathf.Clamp
-			(
-				ModulateLinear(time, remap),
-				cutoff.x,
-				cutoff.y
-			);
-		}
+			velocity += force;
+			velocity *= Mathf.Max(0f, 1f - damp);
+			velocity =  Mathf.Min(velocity, maxVelocity);
 
-		public static float ModulateBounce(float time, Vector2 remap)
-		{
-			return Remap
-			(
-				Mathf.Abs(Mathf.Sin(time)),
-				new (0f, 1f),
-				remap
-			);
-		}
-
-		public static float ModulateBounce(float time, Vector2 remap, Vector2 cutoff)
-		{
-			return Mathf.Clamp
-			(
-				ModulateBounce(time, remap),
-				cutoff.x,
-				cutoff.y
-			);
-		}
-
-		public static float ModulatePerlinNoise(float time, Vector2 remap)
-		{
-			return Math.Remap
-			(
-				Mathf.Clamp01(Mathf.PerlinNoise(time, time)),
-				new (0f, 1f),
-				remap
-			);
-		}
-
-		public static float ModulatePerlinNoise(float time, Vector2 remap, Vector2 cutoff)
-		{
-			return Mathf.Clamp
-			(
-				ModulatePerlinNoise(time, remap),
-				cutoff.x,
-				cutoff.y
-			);
+			return from + velocity;
 		}
 	}
 }
