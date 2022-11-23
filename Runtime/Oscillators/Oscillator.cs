@@ -1,11 +1,10 @@
-using Extendo.CustomUpdates;
+using System;
 using UnityEngine;
-using UnityEngine.Events;
 using Math = Extendo.Utilities.Math;
 
 namespace Extendo.Oscillators
 {
-	public abstract class Oscillator<T> : TimeBehaviour
+	public abstract class Oscillator<T>
 	{
 		public enum OscillationMethod
 		{
@@ -16,9 +15,8 @@ namespace Extendo.Oscillators
 			Bounce      = 4,
 		}
 
-		[Space]
 		public OscillationMethod oscillationMethod = OscillationMethod.Sine;
-		public float            strength         = 1f;
+		public float             strength          = 1f;
 		[Space]
 		public T speed;
 		public T offset;
@@ -28,17 +26,14 @@ namespace Extendo.Oscillators
 		[Space]
 		public T cutoffFrom;
 		public T cutoffTo;
-		[Space]
-		public UnityEvent<T> onUpdate;
-		public T Value { get; private set; }
 
+		protected delegate float Oscillate(float time, float remapMin, float remapMax, float cutoffMin, float cutoffMax);
 
-		public override void ManualUpdate()
-		{
-			Value = Evaluate(time);
-			onUpdate.Invoke(Value);
-			base.ManualUpdate();
-		}
+		private Oscillate oscillateSine   = Math.OscillateSine;
+		private Oscillate oscillateCosine = Math.OscillateCosine;
+		private Oscillate oscillateLinear = Math.OscillateLinear;
+		private Oscillate oscillatePerlin = Math.OscillatePerlinNoise;
+		private Oscillate oscillateBounce = Math.OscillateBounce;
 
 		public T Evaluate(float time)
 		{
@@ -49,37 +44,43 @@ namespace Extendo.Oscillators
 				case OscillationMethod.Linear:      return GetLinear(time);
 				case OscillationMethod.PerlinNoise: return GetPerlinNoise(time);
 				case OscillationMethod.Bounce:      return GetBounce(time);
-				default:                           return default;
+				default:                            return default;
 			}
 		}
 
-		protected delegate float OscillationDelegate(float time, Vector2 remap, Vector2 cutoff);
-
-		protected abstract T GetOscillationValue(OscillationDelegate method, float time, T remapMin, T remapMax, T cutoffMin, T cutoffMax);
+		protected abstract T GetOscillationValue
+		(
+			Oscillate method,
+			float time,
+			T remapMin,
+			T remapMax,
+			T cutoffMin,
+			T cutoffMax
+		);
 
 		protected T GetSine(float time)
 		{
-			return GetOscillationValue(Math.OscillateSine, time, from, to, cutoffFrom, cutoffTo);
+			return GetOscillationValue(oscillateSine, time, from, to, cutoffFrom, cutoffTo);
 		}
 
 		protected T GetCosine(float time)
 		{
-			return GetOscillationValue(Math.OscillateCosine, time, from, to, cutoffFrom, cutoffTo);
+			return GetOscillationValue(oscillateCosine, time, from, to, cutoffFrom, cutoffTo);
 		}
 
 		protected T GetLinear(float time)
 		{
-			return GetOscillationValue(Math.OscillateLinear, time, from, to, cutoffFrom, cutoffTo);
+			return GetOscillationValue(oscillateLinear, time, from, to, cutoffFrom, cutoffTo);
 		}
 
 		protected T GetPerlinNoise(float time)
 		{
-			return GetOscillationValue(Math.OscillatePerlinNoise, time, from, to, cutoffFrom, cutoffTo);
+			return GetOscillationValue(oscillatePerlin, time, from, to, cutoffFrom, cutoffTo);
 		}
 
 		protected T GetBounce(float time)
 		{
-			return GetOscillationValue(Math.OscillateBounce, time, from, to, cutoffFrom, cutoffTo);
+			return GetOscillationValue(oscillateBounce, time, from, to, cutoffFrom, cutoffTo);
 		}
 	}
 }

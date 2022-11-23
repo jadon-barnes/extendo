@@ -6,9 +6,9 @@ namespace Extendo.Utilities
 {
 	public static class Math
 	{
-		public static float Remap(this float value, float fromA, float toA, float fromB, float toB)
+		public static float Remap(this float value, float aMin, float aMax, float bMin, float bMax)
 		{
-			return Mathf.Lerp(fromB, toB, Mathf.InverseLerp(fromA, toA, value));
+			return Mathf.Lerp(bMin, bMax, Mathf.InverseLerp(aMin, aMax, value));
 		}
 
 		public static float Remap(this float value, Vector2 from, Vector2 to)
@@ -103,104 +103,160 @@ namespace Extendo.Utilities
 			return result;
 		}
 
-		public static float OscillateSine(float time, Vector2 remap)
+		// Oscillation
+		
+		// Oscillate Sine
+		public static float OscillateSine(float time, float remapMin, float remapMax)
 		{
 			return Math.Remap
 			(
 				Mathf.Sin(time),
-				new (-1f, 1f),
-				remap
+				-1f,
+				1f,
+				remapMin,
+				remapMax
 			);
+		}
+
+		public static float OscillateSine(float time, float remapMin, float remapMax, float cutoffMin, float cutoffMax)
+		{
+			return Mathf.Clamp(OscillateSine(time, remapMin, remapMax), cutoffMin, cutoffMax);
+		}
+
+		public static float OscillateSine(float time, Vector2 remap)
+		{
+			return OscillateSine(time, remap.x, remap.y);
 		}
 
 		public static float OscillateSine(float time, Vector2 remap, Vector2 cutoff)
 		{
-			return Mathf.Clamp
-			(
-				OscillateSine(time, remap),
-				cutoff.x,
-				cutoff.y
-			);
+			return OscillateSine(time, remap.x, remap.y, cutoff.x, cutoff.y);
 		}
 
-		public static float OscillateCosine(float time, Vector2 remap)
+		// Oscillate Cosine
+		
+		public static float OscillateCosine(float time, float remapMin, float remapMax)
 		{
 			return Math.Remap
 			(
 				Mathf.Cos(time),
-				new (-1f, 1f),
-				remap
+				-1f,
+				1f,
+				remapMin,
+				remapMax
 			);
+		}
+
+		public static float OscillateCosine(float time, float remapMin, float remapMax, float cutoffMin, float cutoffMax)
+		{
+			return Mathf.Clamp(OscillateCosine(time, remapMin, remapMax), cutoffMin, cutoffMax);
+		}
+
+		public static float OscillateCosine(float time, Vector2 remap)
+		{
+			return OscillateCosine(time, remap.x, remap.y);
 		}
 
 		public static float OscillateCosine(float time, Vector2 remap, Vector2 cutoff)
 		{
+			return OscillateCosine(time, remap.x, remap.y, cutoff.x, cutoff.y);
+		}
+
+		// Oscillate Linear
+		
+		public static float OscillateLinear(float time, float remapMin, float remapMax)
+		{
+			return Math.Remap
+			(
+				Mathf.PingPong(time, 1f),
+				0f,
+				1f,
+				remapMin,
+				remapMax
+			);
+		}
+
+		public static float OscillateLinear(float time, float remapMin, float remapMax, float cutoffMin, float cutoffMax)
+		{
 			return Mathf.Clamp
 			(
-				OscillateCosine(time, remap),
-				cutoff.x,
-				cutoff.y
+				OscillateLinear(time, remapMin, remapMax),
+				cutoffMin,
+				cutoffMax
 			);
 		}
 
 		public static float OscillateLinear(float time, Vector2 remap)
 		{
-			return Math.Remap
-			(
-				Mathf.PingPong(time, 1f),
-				new (0f, 1f),
-				remap
-			);
+			return OscillateLinear(time, remap.x, remap.y);
 		}
 
 		public static float OscillateLinear(float time, Vector2 remap, Vector2 cutoff)
 		{
-			return Mathf.Clamp
-			(
-				OscillateLinear(time, remap),
-				cutoff.x,
-				cutoff.y
-			);
+			return OscillateLinear(time, remap.x, remap.y, cutoff.x, cutoff.y);
 		}
 
-		public static float OscillateBounce(float time, Vector2 remap)
+		// Oscillate Bounce
+		
+		public static float OscillateBounce(float time, float remapMin, float remapMax)
 		{
 			return Remap
 			(
 				Mathf.Abs(Mathf.Sin(time)),
-				new (0f, 1f),
-				remap
+				0f,
+				1f,
+				remapMin,
+				remapMax
 			);
+		}
+
+		public static float OscillateBounce(float time, float remapMin, float remapMax, float cutoffMin, float cutoffMax)
+		{
+			return Mathf.Clamp(OscillateBounce(time, remapMin, remapMax), cutoffMin, cutoffMax);
+		}
+
+		public static float OscillateBounce(float time, Vector2 remap)
+		{
+			return OscillateBounce(time, remap.x, remap.y);
 		}
 
 		public static float OscillateBounce(float time, Vector2 remap, Vector2 cutoff)
 		{
+			return OscillateBounce(time, remap.x, remap.y, cutoff.x, cutoff.y);
+		}
+
+		// Oscillate Perlin Noise
+		
+		public static float OscillatePerlinNoise(float time, float remapMin, float remapMax)
+		{
+			return Math.Remap
+			(
+				Mathf.Clamp01(Mathf.PerlinNoise(time, time)),
+				0f,
+				1f,
+				remapMin,
+				remapMax
+			);
+		}
+
+		public static float OscillatePerlinNoise(float time, float remapMin, float remapMax, float cutoffMin, float cutoffMax)
+		{
 			return Mathf.Clamp
 			(
-				OscillateBounce(time, remap),
-				cutoff.x,
-				cutoff.y
+				OscillatePerlinNoise(time, remapMin, remapMax),
+				cutoffMin,
+				cutoffMax
 			);
 		}
 
 		public static float OscillatePerlinNoise(float time, Vector2 remap)
 		{
-			return Math.Remap
-			(
-				Mathf.Clamp01(Mathf.PerlinNoise(time, time)),
-				new (0f, 1f),
-				remap
-			);
+			return OscillatePerlinNoise(time, remap.x, remap.y);
 		}
 
 		public static float OscillatePerlinNoise(float time, Vector2 remap, Vector2 cutoff)
 		{
-			return Mathf.Clamp
-			(
-				OscillatePerlinNoise(time, remap),
-				cutoff.x,
-				cutoff.y
-			);
+			return OscillatePerlinNoise(time, remap.x, remap.y, cutoff.x, cutoff.y);
 		}
 
 		public static float Damp
@@ -236,7 +292,7 @@ namespace Extendo.Utilities
 		{
 			return Mathf.Lerp(current, target, 1.0f - Mathf.Exp(-smoothTime * Time.deltaTime));
 		}
-		
+
 		public static float Spring(float from, float to, ref float velocity, float tension = 200f, float damp = 5f, float maxVelocity = 100f)
 		{
 			damp = Mathf.Max(0f, damp) * Time.deltaTime;

@@ -1,37 +1,24 @@
+using Extendo.CustomUpdates;
 using UnityEngine;
 using UnityEngine.Events;
 
 namespace Extendo.Oscillators
 {
-	public abstract class OscillatorComposer<T> : MonoBehaviour
+	public abstract class OscillatorComposer<TOsc, TOut> : CustomUpdate
 	{
-		public float          strength         = 1f;
-		public Oscillator<T>[] modulations      = new Oscillator<T>[0];
-		public T              Value { get; protected set; }
-		public UnityEvent<T>  onUpdate;
+		public float            time;
+		public float            strength    = 1f;
+		public TOsc[]           modulations = new TOsc[1];
+		public TOut             Value { get; protected set; }
+		public UnityEvent<TOut> onUpdate;
 
-		private void LateUpdate()
+		public abstract TOut GetSumOfModulations();
+
+		protected override void ManualUpdate()
 		{
-			Value = GetSumOfModulations();
+			Value =  GetSumOfModulations();
+			time  += Time.deltaTime;
 			onUpdate.Invoke(Value);
-		}
-
-		public abstract T GetSumOfModulations();
-
-		public void StartAll()
-		{
-			foreach (var modulation in modulations)
-			{
-				modulation.Start();
-			}
-		}
-
-		public void StopAll()
-		{
-			foreach (var modulation in modulations)
-			{
-				modulation.Stop();
-			}
 		}
 	}
 }

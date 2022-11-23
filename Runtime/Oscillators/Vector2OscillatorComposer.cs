@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Extendo.Oscillators
 {
-	public class Vector2OscillatorComposer : OscillatorComposer<Vector2>
+	public class Vector2OscillatorComposer : OscillatorComposer<Vector2Oscillator, Vector2>
 	{
 		public override Vector2 GetSumOfModulations()
 		{
@@ -10,10 +10,7 @@ namespace Extendo.Oscillators
 
 			foreach (var modulation in modulations)
 			{
-				if (!modulation.enabled)
-					continue;
-
-				sum += modulation.Value;
+				sum += modulation.Evaluate(time);
 			}
 
 			return sum * strength;

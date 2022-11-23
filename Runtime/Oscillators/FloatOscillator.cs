@@ -1,7 +1,9 @@
+using System;
 using UnityEngine;
 
 namespace Extendo.Oscillators
 {
+	[Serializable]
 	public class FloatOscillator : Oscillator<float>
 	{
 		// Set defaults
@@ -14,7 +16,7 @@ namespace Extendo.Oscillators
 
 		protected override float GetOscillationValue
 		(
-			OscillationDelegate method,
+			Oscillate method,
 			float time,
 			float remapMin,
 			float remapMax,
@@ -23,7 +25,7 @@ namespace Extendo.Oscillators
 		)
 		{
 			float timeValue = (time + offset) * speed;
-			return method(timeValue, new (remapMin, remapMax), new (cutoffMin, cutoffMax)) * strength;
+			return method(timeValue, remapMin, remapMax, cutoffMin, cutoffMax) * strength;
 		}
 	}
 }
