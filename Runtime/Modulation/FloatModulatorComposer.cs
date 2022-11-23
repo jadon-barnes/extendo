@@ -1,9 +1,6 @@
-using UnityEngine;
-
 namespace Extendo.Modulation
 {
-	[AddComponentMenu("Extendo/Modulators/Float Modulator Composer")]
-	public class FloatModulatorComposer : ModulatorComposer<float>
+	public class FloatModulatorComposer : ModulatorComposer<FloatModulator, float>
 	{
 		public override float GetSumOfModulations()
 		{
@@ -11,10 +8,7 @@ namespace Extendo.Modulation
 
 			foreach (var modulation in modulations)
 			{
-				if (!modulation.enabled)
-					continue;
-
-				sum += modulation.Value;
+				sum += modulation.Evaluate(time);
 			}
 
 			return sum * strength;

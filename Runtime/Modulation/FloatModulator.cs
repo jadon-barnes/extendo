@@ -1,9 +1,8 @@
 using System;
-using UnityEngine;
 
 namespace Extendo.Modulation
 {
-	[AddComponentMenu("Extendo/Modulators/Float Modulator")]
+	[Serializable]
 	public class FloatModulator : Modulator<float>
 	{
 		// Set defaults
@@ -14,9 +13,9 @@ namespace Extendo.Modulation
 			cutoffTo = 1f;
 		}
 
-		protected override float GetModulationValue
+		protected override float GetValue
 		(
-			ModulateDelegate method,
+			Modulate method,
 			float time,
 			float remapMin,
 			float remapMax,
@@ -25,7 +24,7 @@ namespace Extendo.Modulation
 		)
 		{
 			float timeValue = (time + offset) * speed;
-			return method(timeValue, new (remapMin, remapMax), new (cutoffMin, cutoffMax)) * strength;
+			return method(timeValue, remapMin, remapMax, cutoffMin, cutoffMax) * strength;
 		}
 	}
 }

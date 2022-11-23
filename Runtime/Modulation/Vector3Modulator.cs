@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Extendo.Modulation
 {
-	[AddComponentMenu("Extendo/Modulators/Vector3 Modulator")]
+	[Serializable]
 	public class Vector3Modulator : Modulator<Vector3>
 	{
 		public Vector3Modulator()
@@ -13,9 +13,9 @@ namespace Extendo.Modulation
 			cutoffTo = Vector3.one;
 		}
 
-		protected override Vector3 GetModulationValue
+		protected override Vector3 GetValue
 		(
-			ModulateDelegate method,
+			Modulate method,
 			float time,
 			Vector3 remapMin,
 			Vector3 remapMax,
@@ -27,9 +27,9 @@ namespace Extendo.Modulation
 
 			return new Vector3
 				(
-					method(timeValue.x, new (remapMin.x, remapMax.x), new (cutoffMin.x, cutoffMax.x)),
-					method(timeValue.y, new (remapMin.y, remapMax.y), new (cutoffMin.y, cutoffMax.y)),
-					method(timeValue.z, new (remapMin.z, remapMax.z), new (cutoffMin.z, cutoffMax.z))
+					method(timeValue.x, remapMin.x, remapMax.x, cutoffMin.x, cutoffMax.x),
+					method(timeValue.y, remapMin.y, remapMax.y, cutoffMin.y, cutoffMax.y),
+					method(timeValue.z, remapMin.z, remapMax.z, cutoffMin.z, cutoffMax.z)
 				)
 				* strength;
 		}

@@ -2,8 +2,7 @@ using UnityEngine;
 
 namespace Extendo.Modulation
 {
-	[AddComponentMenu("Extendo/Modulators/Vector3 Modulator Composer")]
-	public class Vector3ModulatorComposer : ModulatorComposer<Vector3>
+	public class Vector3ModulatorComposer : ModulatorComposer<Vector3Modulator, Vector3>
 	{
 		public override Vector3 GetSumOfModulations()
 		{
@@ -11,10 +10,7 @@ namespace Extendo.Modulation
 
 			foreach (var modulation in modulations)
 			{
-				if (!modulation.enabled)
-					continue;
-
-				sum += modulation.Value;
+				sum += modulation.Evaluate(time);
 			}
 
 			return sum * strength;
