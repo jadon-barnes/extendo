@@ -48,7 +48,7 @@ namespace Extendo.Utilities
 			if (!DurationReached)
 				return;
 
-			onDurationReached.Invoke();
+			onDurationReached?.Invoke();
 
 			if (repeat)
 				time = 0;
