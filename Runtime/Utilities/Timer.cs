@@ -20,8 +20,8 @@ namespace Extendo.Utilities
 		public bool        DurationReached => time >= duration;
 		public UnityAction onDurationReached;
 
-		public float TimeValue         => time / duration;
-		public float TimeValueReversed => 1 - time / duration;
+		public float TimeValue         => Mathf.Abs(duration) < 0.001f ? 0f : time / duration;
+		public float TimeValueReversed => 1 - TimeValue;
 		public float TimeReversed      => duration - time;
 
 		public int   Hours                => Mathf.FloorToInt(time / 3600f);
