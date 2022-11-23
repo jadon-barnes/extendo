@@ -1,21 +1,21 @@
 using System;
 
-namespace Extendo.Oscillation
+namespace Extendo.Modulation
 {
 	[Serializable]
-	public class FloatOscillator : Oscillator<float>
+	public class FloatModulator : Modulator<float>
 	{
 		// Set defaults
-		public FloatOscillator()
+		public FloatModulator()
 		{
 			speed    = 1f;
 			to       = 1f;
 			cutoffTo = 1f;
 		}
 
-		protected override float GetOscillationValue
+		protected override float GetValue
 		(
-			Oscillate method,
+			Modulate method,
 			float time,
 			float remapMin,
 			float remapMax,

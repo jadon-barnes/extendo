@@ -1,21 +1,21 @@
 using System;
 using UnityEngine;
 
-namespace Extendo.Oscillation
+namespace Extendo.Modulation
 {
 	[Serializable]
-	public class Vector2Oscillator : Oscillator<Vector2>
+	public class Vector2Modulator : Modulator<Vector2>
 	{
-		public Vector2Oscillator()
+		public Vector2Modulator()
 		{
 			speed    = Vector2.one;
 			to       = Vector2.one;
 			cutoffTo = Vector2.one;
 		}
 
-		protected override Vector2 GetOscillationValue
+		protected override Vector2 GetValue
 		(
-			Oscillate method,
+			Modulate method,
 			float time,
 			Vector2 remapMin,
 			Vector2 remapMax,

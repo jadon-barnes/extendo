@@ -1,6 +1,6 @@
-namespace Extendo.Oscillation
+namespace Extendo.Modulation
 {
-	public class FloatOscillatorComposer : OscillatorComposer<FloatOscillator, float>
+	public class FloatOscillatorComposer : OscillatorComposer<FloatModulator, float>
 	{
 		public override float GetSumOfModulations()
 		{

@@ -1,8 +1,8 @@
 using UnityEngine;
 
-namespace Extendo.Oscillation
+namespace Extendo.Modulation
 {
-	public class Vector3OscillatorComposer : OscillatorComposer<Vector3Oscillator, Vector3>
+	public class Vector3OscillatorComposer : OscillatorComposer<Vector3Modulator, Vector3>
 	{
 		public override Vector3 GetSumOfModulations()
 		{
