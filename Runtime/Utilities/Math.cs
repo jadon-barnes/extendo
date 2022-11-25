@@ -1,4 +1,5 @@
 using System;
+using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -19,6 +20,11 @@ namespace Extendo.Utilities
 		public static float Distance(this float from, float to)
 		{
 			return Mathf.Abs(to - from);
+		}
+
+		public static Vector2 Direction(this Vector2 from, Vector2 to)
+		{
+			return to - from;
 		}
 
 		public static Vector3 Direction(this Vector3 from, Vector3 to)
@@ -227,6 +233,23 @@ namespace Extendo.Utilities
 		public static Vector3 SpringForce(this Rigidbody rigidbody, Vector3 target, float strength = 200f, float damp = 5f)
 		{
 			return SpringForce(rigidbody.position, target, rigidbody.velocity, strength, damp);
+		}
+
+		public static Vector3 RotateAround(this Vector3 point, Vector3 pivot, Vector3 axis, float angle)
+		{
+			Vector3 direction = point - pivot;
+			direction = Quaternion.Euler(axis * angle) * direction;
+			point     = direction + pivot;
+			return point;
+		}
+
+		public static Vector3 RotateAround(this Vector3 point, Vector3 pivot, float maxRadius, Vector3 axis, float angle)
+		{
+			Vector3 direction = point - pivot;
+			direction = Vector3.ClampMagnitude(direction, maxRadius);
+			direction = Quaternion.Euler(axis * angle) * direction;
+			point     = direction + pivot;
+			return point;
 		}
 	}
 }
