@@ -22,10 +22,9 @@ namespace Extendo.Audio
 
 			clipIndex = playSequentially ? (clipIndex + 1) % clips.Length : Random.Range(0, clips.Length);
 
-			audioSource.clip   = clips[clipIndex];
-			audioSource.pitch  = Random.Range(pitchVariation.x, pitchVariation.y);
-			audioSource.volume = Random.Range(volumeVariation.x, volumeVariation.y);
-
+			audioSource.clip = clips[clipIndex];
+			audioSource.RandomizePitch(pitchVariation.x, pitchVariation.y);
+			audioSource.RandomizeVolume(volumeVariation.x, volumeVariation.y);
 			audioSource.Play();
 		}
 	}
