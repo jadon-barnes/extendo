@@ -103,28 +103,6 @@ namespace Extendo.Utilities
 			return result;
 		}
 
-		public static float Damp
-		(
-			float current,
-			float target,
-			float damping,
-			float deltaTime,
-			float ft = 1.0f / 60.0f
-		)
-		{
-			return Mathf.Lerp
-			(
-				current,
-				target,
-				1.0f
-				- Mathf.Pow
-				(
-					1f / (1f - ft * damping),
-					-deltaTime / ft
-				)
-			);
-		}
-
 		/// <summary>
 		/// Lerp-based smooth interpolation that is not affected by frame rate.
 		/// </summary>
