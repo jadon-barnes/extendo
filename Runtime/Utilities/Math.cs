@@ -126,11 +126,44 @@ namespace Extendo.Utilities
 		}
 
 		/// <summary>
-		/// Smooth interpolation that is independent from frame rate.
+		/// Lerp-based smooth interpolation that is not affected by frame rate.
 		/// </summary>
 		public static float Damp(float current, float target, float smoothTime)
 		{
-			return Mathf.Lerp(current, target, 1.0f - Mathf.Exp(-smoothTime * Time.deltaTime));
+			return Mathf.Lerp(current, target, 1f - Mathf.Exp(smoothTime * -Time.deltaTime));
+		}
+
+		/// <summary>
+		/// Lerp-based smooth interpolation that is not affected by frame rate.
+		/// </summary>
+		public static float DampAngle(float current, float target, float smoothTime)
+		{
+			return Mathf.LerpAngle(current, target, 1f - Mathf.Exp(smoothTime * -Time.deltaTime));
+		}
+
+		/// <summary>
+		/// Lerp-based smooth interpolation that is not affected by frame rate.
+		/// </summary>
+		public static Vector2 Damp(Vector2 current, Vector2 target, float smoothTime)
+		{
+			return new Vector2
+			(
+				Damp(current.x, target.x, smoothTime),
+				Damp(current.y, target.y, smoothTime)
+			);
+		}
+
+		/// <summary>
+		/// Lerp-based smooth interpolation that is not affected by frame rate.
+		/// </summary>
+		public static Vector3 Damp(Vector3 current, Vector3 target, float smoothTime)
+		{
+			return new Vector3
+			(
+				Damp(current.x, target.x, smoothTime),
+				Damp(current.y, target.y, smoothTime),
+				Damp(current.z, target.z, smoothTime)
+			);
 		}
 
 		public static float Spring(float from, float to, ref float velocity, float tension = 200f, float damp = 5f, float maxVelocity = 100f)
