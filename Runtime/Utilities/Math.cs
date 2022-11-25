@@ -166,13 +166,15 @@ namespace Extendo.Utilities
 			);
 		}
 
-		public static float Spring(float from, float to, ref float velocity, float tension = 200f, float damp = 5f, float maxVelocity = 100f)
+		/// <summary>
+		/// Creates a spring effect.
+		/// </summary>
+		/// <returns>Resulting springiness</returns>
+		public static float Spring(float from, float to, ref float velocity, float strength = 200f, float damp = 5f, float maxVelocity = 100f)
 		{
 			damp = Mathf.Max(0f, damp) * Time.deltaTime;
-
-			var difference = (from - to) * Time.deltaTime;
-
-			var force = (-tension * difference) * Time.deltaTime;
+			var direction = (to - from) * Time.deltaTime;
+			var force = (strength * direction) * Time.deltaTime;
 
 			velocity += force;
 			velocity *= Mathf.Max(0f, 1f - damp);
@@ -181,18 +183,72 @@ namespace Extendo.Utilities
 			return from + velocity;
 		}
 
+		public static Vector2 Spring(Vector2 from, Vector2 to, ref Vector2 velocity, float strength = 200f, float damp = 5f)
+		{
+			damp = Mathf.Max(0f, damp) * Time.deltaTime;
+			var direction = (to - from) * Time.deltaTime;
+			var force = direction * (strength * Time.deltaTime);
+
+			velocity += force;
+			velocity *= Mathf.Max(0f, 1f - damp);
+
+			return from + velocity;
+		}
+
+		public static Vector3 Spring(Vector3 from, Vector3 to, ref Vector3 velocity, float strength = 200f, float damp = 5f)
+		{
+			damp = Mathf.Max(0f, damp) * Time.deltaTime;
+			var direction = (to - from) * Time.deltaTime;
+			var force = direction * (strength * Time.deltaTime);
+
+			velocity += force;
+			velocity *= Mathf.Max(0f, 1f - damp);
+
+			return from + velocity;
+		}
+
 		// TODO: Test this method
 		public static void SpringRotation(this Rigidbody rigidbody, float strength, float dampening, Vector3 direction, Vector3 worldDirection)
 		{
 			var springTorque = strength * Vector3.Cross(direction, worldDirection);
-			var dampTorque = dampening * -rigidbody.angularVelocity;
+			var dampTorque = Mathf.Max(0, dampening) * -rigidbody.angularVelocity;
 			rigidbody.AddTorque(springTorque + dampTorque, ForceMode.Acceleration);
 		}
 
-		// TODO: Test this method
-		public static float PhysicsSpringForce(float position, float target, float strength, float velocity, float dampening)
+		/// <summary>
+		/// Creates a spring effect.
+		/// </summary>
+		/// <returns>Force to be applied for spring effect</returns>
+		public static float SpringForce(float position, float target, float velocity, float strength = 200f, float damp = 5f)
 		{
-			return ((target - position) * strength) - (velocity * dampening);
+			return (target - position) * strength - velocity * Mathf.Max(0, damp);
+		}
+
+		/// <summary>
+		/// Creates a spring effect.
+		/// </summary>
+		/// <returns>Force to be applied for spring effect</returns>
+		public static Vector2 SpringForce(Vector2 position, Vector2 target, Vector2 velocity, float strength = 200f, float damp = 5f)
+		{
+			return (target - position) * strength - velocity * Mathf.Max(0, damp);
+		}
+
+		/// <summary>
+		/// Creates a spring effect.
+		/// </summary>
+		/// <returns>Force to be applied for spring effect</returns>
+		public static Vector3 SpringForce(Vector3 position, Vector3 target, Vector3 velocity, float strength = 200f, float damp = 5f)
+		{
+			return (target - position) * strength - velocity * Mathf.Max(0, damp);
+		}
+
+		/// <summary>
+		/// Creates a spring effect.
+		/// </summary>
+		/// <returns>Force to be applied for spring effect</returns>
+		public static Vector3 SpringForce(this Rigidbody rigidbody, Vector3 target, float strength = 200f, float damp = 5f)
+		{
+			return SpringForce(rigidbody.position, target, rigidbody.velocity, strength, damp);
 		}
 	}
 }
