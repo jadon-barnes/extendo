@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace Extendo.Modulation
 {
+	[AddComponentMenu("Extendo/Modulation/Vector3 Curve Modulator")]
 	public class Vector3CurveModulator : CurveModulator<Vector3>
 	{
 		public Vector3CurveModulator()

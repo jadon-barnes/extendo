@@ -4,7 +4,7 @@ using UnityEngine.Events;
 
 namespace Extendo.Modulation
 {
-	public abstract class ModulatorComposer<TOsc, TOut> : CustomUpdate
+	public abstract class ModulationComposer<TOsc, TOut> : CustomUpdate
 	{
 		public float            time;
 		public float            strength    = 1f;

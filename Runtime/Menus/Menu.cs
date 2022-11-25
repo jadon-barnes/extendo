@@ -3,6 +3,7 @@ using UnityEngine.Events;
 
 namespace Extendo.Menus
 {
+	[AddComponentMenu("Extendo/Menu")]
 	[DisallowMultipleComponent]
 	public class Menu : MonoBehaviour
 	{

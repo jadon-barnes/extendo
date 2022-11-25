@@ -1,6 +1,9 @@
+using UnityEngine;
+
 namespace Extendo.Modulation
 {
-	public class FloatModulatorComposer : ModulatorComposer<FloatModulator, float>
+	[AddComponentMenu("Extendo/Modulation/Float Modulation Composer")]
+	public class FloatModulationComposer : ModulationComposer<FloatModulator, float>
 	{
 		public override float GetSumOfModulations()
 		{

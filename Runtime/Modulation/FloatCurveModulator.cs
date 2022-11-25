@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace Extendo.Modulation
 {
+	[AddComponentMenu("Extendo/Modulation/Float Curve Modulator")]
 	public class FloatCurveModulator : CurveModulator<float>
 	{
 		public FloatCurveModulator()

@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace Extendo.Audio
 {
+	[AddComponentMenu("Extendo/Audio Clip Controller")]
 	public class AudioClipController : MonoBehaviour
 	{
 		public  AudioSource audioSource;
