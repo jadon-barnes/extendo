@@ -16,7 +16,10 @@ namespace Extendo
 		public UnityEvent      onDefeat;
 		public UnityEvent      onRevive;
 
-		private void OnValidate() => SetHealth(CurrentHealth);
+		private void OnValidate()
+		{
+			SetHealth(CurrentHealth); // Keep health within range.
+		}
 
 		[ContextMenu("Damage by 35% of Max Health")]
 		private void Damage35Percent() => Damage((int)(maxHealth * 0.35f));
@@ -24,13 +27,17 @@ namespace Extendo
 		[ContextMenu("Heal by 35% of Max Health")]
 		private void Heal35Percent() => Heal((int)(maxHealth * 0.35f));
 
-		// Sets health to a specific amount set with no event calls
+		/// <summary>
+		/// Sets health to a specific amount set with no event calls
+		/// </summary>
 		public void SetHealth(int value)
 		{
 			CurrentHealth = Mathf.Clamp(value, 0, maxHealth);
 		}
 
-		// Damage by an amount set
+		/// <summary>
+		/// Damage by an amount set
+		/// </summary>
 		public void Damage(int amount)
 		{
 			// Already defeated
@@ -51,7 +58,9 @@ namespace Extendo
 			onDamage.Invoke(amount);
 		}
 
-		// Defeat immediately
+		/// <summary>
+		/// Defeat immediately
+		/// </summary>
 		[ContextMenu("Defeat")]
 		public void Defeat()
 		{
@@ -63,7 +72,9 @@ namespace Extendo
 			onDefeat.Invoke();
 		}
 
-		// Heal by an amount set
+		/// <summary>
+		/// Heal by an amount set
+		/// </summary>
 		public void Heal(int amount)
 		{
 			// Already at full health
@@ -76,7 +87,9 @@ namespace Extendo
 			onHeal.Invoke(amount);
 		}
 
-		// Revive to amount set. Won't revive if amount is set below minimum health.
+		/// <summary>
+		/// Revive to amount set. Won't revive if amount is set below minimum health.
+		/// </summary>
 		public void Revive(int setHealthAmount)
 		{
 			// Cancel if not defeated
@@ -89,13 +102,14 @@ namespace Extendo
 			if (!IsDefeated)
 				onRevive.Invoke();
 		}
-		
-		// Revive at full health
+
+		/// <summary>
+		/// Revive at full health
+		/// </summary>
 		[ContextMenu("Revive")]
 		public void Revive()
 		{
 			Revive(maxHealth);
 		}
-
 	}
 }
