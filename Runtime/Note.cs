@@ -20,6 +20,12 @@ namespace Extendo
 			public bool done;
 		}
 
+		[ContextMenu("Go to URL")]
+		private void GoToURL()
+		{
+			Application.OpenURL(url);
+		}
+
 		[ContextMenu("Remove Completed Tasks")]
 		private void RemoveCompletedTasks()
 		{
