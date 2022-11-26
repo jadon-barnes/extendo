@@ -11,7 +11,7 @@ namespace Extendo.Interaction
 		public bool  enableCooldown;
 		public float cooldownTime = 1f;
 		public bool  toggleValue  = true;
-		public bool  InCooldown => this.IsInvoking(OnCooldownComplete);
+		public bool  InCooldown => IsInvoking(nameof(OnCooldownComplete));
 
 		[Space]
 		public UnityEvent onInteract;
@@ -28,7 +28,7 @@ namespace Extendo.Interaction
 					return;
 
 				onCooldown.Invoke();
-				this.Invoke(OnCooldownComplete, cooldownTime);
+				Invoke(nameof(OnCooldownComplete), cooldownTime);
 			}
 
 			toggleValue = !toggleValue;
