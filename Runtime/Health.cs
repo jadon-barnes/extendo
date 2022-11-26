@@ -28,7 +28,7 @@ namespace Extendo
 		private void Heal35Percent() => Heal((int)(maxHealth * 0.35f));
 
 		/// <summary>
-		/// Sets health to a specific amount set with no event calls
+		/// Sets health to a specific value set with no event calls.
 		/// </summary>
 		public void SetHealth(int value)
 		{
@@ -36,7 +36,7 @@ namespace Extendo
 		}
 
 		/// <summary>
-		/// Damage by an amount set
+		/// Damages the health by an amount provided.
 		/// </summary>
 		public void Damage(int amount)
 		{
@@ -59,7 +59,7 @@ namespace Extendo
 		}
 
 		/// <summary>
-		/// Defeat immediately
+		/// Defeat immediately.
 		/// </summary>
 		[ContextMenu("Defeat")]
 		public void Defeat()
@@ -73,7 +73,7 @@ namespace Extendo
 		}
 
 		/// <summary>
-		/// Heal by an amount set
+		/// Heal by the amount set.
 		/// </summary>
 		public void Heal(int amount)
 		{
@@ -88,15 +88,15 @@ namespace Extendo
 		}
 
 		/// <summary>
-		/// Revive to amount set. Won't revive if amount is set below minimum health.
+		/// Revive to the value set. Won't revive if amount is set below minimum health.
 		/// </summary>
-		public void Revive(int setHealthAmount)
+		public void Revive(int healthValue)
 		{
 			// Cancel if not defeated
 			if (!IsDefeated)
 				return;
 
-			CurrentHealth = setHealthAmount;
+			CurrentHealth = healthValue;
 
 			// Check to ensure is alive
 			if (!IsDefeated)
@@ -104,7 +104,7 @@ namespace Extendo
 		}
 
 		/// <summary>
-		/// Revive at full health
+		/// Revive to full health.
 		/// </summary>
 		[ContextMenu("Revive")]
 		public void Revive()
