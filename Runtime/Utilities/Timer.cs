@@ -38,6 +38,10 @@ namespace Extendo.Utilities
 
 		public UnityAction onDurationReached;
 
+		/// <summary>
+		/// Updates the timer by injecting the time manually.
+		/// </summary>
+		/// <param name="time">Time to be injected.</param>
 		public void Update(float time)
 		{
 			if (DurationReached && !repeat)
@@ -58,11 +62,17 @@ namespace Extendo.Utilities
 				Time = Time = Mathf.Repeat(time, duration);
 		}
 
+		/// <summary>
+		/// Updates the timer by <see cref="Time.deltaTime"/>
+		/// </summary>
 		public void Update()
 		{
 			Update(Time + UnityEngine.Time.deltaTime);
 		}
 
+		/// <summary>
+		/// Resets the timer back to 0.
+		/// </summary>
 		public void Reset()
 		{
 			Time = 0f;
