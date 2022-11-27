@@ -6,7 +6,7 @@ Extendo is a Unity Package for the Unity Game Engine. It's designed to give you 
 
 This package was designed with simplicity and modularity in mind to feel as though it's apart of Unity by default.
 
-Documentation is currently being worked on. If you'd like to start using this right away, the package includes [documentation comments](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/language-specification/documentation-comments) to help guide you as you code, as well as tool tips.
+Documentation is currently being worked on. If you'd like to start using this right away, the package includes [documentation comments](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/language-specification/documentation-comments) to help guide you as you code, as well as tool tips for the Unity inspector.
 
 ![extendo-components-header](https://user-images.githubusercontent.com/48486387/204063687-c0163eae-b4da-4ebc-935b-ece26e5718b0.png)
 
