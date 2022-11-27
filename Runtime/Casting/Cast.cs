@@ -1,10 +1,7 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Drawing;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.UIElements;
 using Color = UnityEngine.Color;
 
 namespace Extendo.Casting
@@ -62,20 +59,20 @@ namespace Extendo.Casting
 		private void Calculate()
 		{
 			if (castMultiple)
-				CastMultiple();
+				CastAndInvokeHits();
 			else
-				CastSingle();
+				CastAndInvokeHit();
 		}
 
-		private void CastSingle()
+		private void CastAndInvokeHit()
 		{
-			HitCount = CastDefault(ref hits[0]);
+			HitCount = CastDefault(ref hits[0]) ? 1 : 0;
 
 			if (HitSomething)
 				onHit.Invoke(hits[0]);
 		}
 
-		private void CastMultiple()
+		private void CastAndInvokeHits()
 		{
 			HitCount = CastAll(ref hits);
 
@@ -93,7 +90,7 @@ namespace Extendo.Casting
 			onHits.Invoke(hitArrays[HitCount]);
 		}
 
-		protected abstract int CastDefault(ref RaycastHit hit);
+		protected abstract bool CastDefault(ref RaycastHit hit);
 
 		protected abstract int CastAll(ref RaycastHit[] hits);
 
@@ -118,6 +115,7 @@ namespace Extendo.Casting
 			if (!drawGizmos)
 				return;
 
+			// Set position and rotation relative to transform
 			Gizmos.matrix = transform.localToWorldMatrix;
 			
 			// Render miss first.

@@ -4,7 +4,7 @@ namespace Extendo.Casting
 {
 	public class RayCast : Cast
 	{
-		protected override int CastDefault(ref RaycastHit hit)
+		protected override bool CastDefault(ref RaycastHit hit)
 		{
 			return Physics.Raycast
 			(
@@ -13,9 +13,7 @@ namespace Extendo.Casting
 				maxDistance,
 				layerMask,
 				triggerInteraction
-			)
-				? 1
-				: 0;
+			);
 		}
 
 		protected override int CastAll(ref RaycastHit[] hits)
