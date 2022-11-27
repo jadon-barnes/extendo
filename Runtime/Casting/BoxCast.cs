@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace Extendo.Casting
 {
+	[AddComponentMenu("Extendo/Casting/Box Cast")]
 	public class BoxCast : Cast
 	{
 		[Space]

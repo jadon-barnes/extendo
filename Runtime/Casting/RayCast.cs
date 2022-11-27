@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace Extendo.Casting
 {
+	[AddComponentMenu("Extendo/Casting/Ray Cast")]
 	public class RayCast : Cast
 	{
 		protected override bool CastDefault(ref RaycastHit hit)

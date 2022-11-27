@@ -15,7 +15,8 @@ namespace Extendo.Casting
 		public UnityEvent<RaycastHit>   onHit  = new UnityEvent<RaycastHit>();
 		public UnityEvent<RaycastHit[]> onHits = new UnityEvent<RaycastHit[]>();
 
-		public bool  useFixedUpdate;
+		public bool useFixedUpdate;
+		[Tooltip("A value of 0 will update the component every FixedUpdate() or Update().")]
 		public float updateDelay = 0f;
 
 		public             bool  drawGizmos = true;
@@ -117,7 +118,7 @@ namespace Extendo.Casting
 
 			// Set position and rotation relative to transform
 			Gizmos.matrix = transform.localToWorldMatrix;
-			
+
 			// Render miss first.
 			Gizmos.color = colorMiss;
 			// Line

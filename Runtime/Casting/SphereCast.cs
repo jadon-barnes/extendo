@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace Extendo.Casting
 {
+	[AddComponentMenu("Extendo/Casting/Sphere Cast")]
 	public class SphereCast : Cast
 	{
 		[Space]
