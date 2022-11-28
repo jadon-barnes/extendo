@@ -1,9 +1,9 @@
 using System.Collections;
 using UnityEngine;
 
-namespace Extendo.CustomUpdates
+namespace Extendo.Modulation
 {
-	public abstract class CustomUpdate : MonoBehaviour
+	public abstract class ModulationBehaviour : MonoBehaviour
 	{
 		public bool playOnEnable     = true;
 		public bool runOnFixedUpdate = false;

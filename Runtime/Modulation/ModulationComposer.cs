@@ -1,10 +1,9 @@
-using Extendo.CustomUpdates;
 using UnityEngine;
 using UnityEngine.Events;
 
 namespace Extendo.Modulation
 {
-	public abstract class ModulationComposer<TOsc, TOut> : CustomUpdate
+	public abstract class ModulationComposer<TOsc, TOut> : ModulationBehaviour
 	{
 		public float            time;
 		public float            strength    = 1f;

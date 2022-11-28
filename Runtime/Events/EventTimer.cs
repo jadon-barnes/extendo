@@ -1,4 +1,3 @@
-using Extendo.CustomUpdates;
 using Extendo.Utilities;
 using UnityEngine;
 using UnityEngine.Events;

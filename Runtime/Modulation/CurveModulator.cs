@@ -1,11 +1,10 @@
-using Extendo.CustomUpdates;
 using Extendo.Utilities;
 using UnityEngine;
 using UnityEngine.Events;
 
 namespace Extendo.Modulation
 {
-	public abstract class CurveModulator<T> : CustomUpdate
+	public abstract class CurveModulator<T> : ModulationBehaviour
 	{
 		public UnityEvent<T> onUpdate;
 		public Timer         timer = new Timer(5f, true);
