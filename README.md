@@ -35,3 +35,7 @@ Documentation is currently being worked on. If you'd like to start using this ri
 - Health
 - Note
 - Persist
+
+# How to Install
+
+To install this package in your unity project, [view Unity's documentation here](https://docs.unity3d.com/Manual/upm-ui-giturl.html).
