@@ -158,7 +158,7 @@ namespace Extendo.Utilities
 		{
 			damp = Mathf.Max(0f, damp) * Time.deltaTime;
 			var direction = (to - from) * Time.deltaTime;
-			var force = (strength * direction) * Time.deltaTime;
+			var force = strength * direction * Time.deltaTime;
 
 			velocity += force;
 			velocity *= Mathf.Max(0f, 1f - damp);
@@ -191,7 +191,6 @@ namespace Extendo.Utilities
 			return from + velocity;
 		}
 
-		// TODO: Test this method
 		public static void SpringRotation(this Rigidbody rigidbody, float strength, float dampening, Vector3 direction, Vector3 worldDirection)
 		{
 			var springTorque = strength * Vector3.Cross(direction, worldDirection);
@@ -243,7 +242,7 @@ namespace Extendo.Utilities
 			return point;
 		}
 
-		public static Vector3 RotateAround(this Vector3 point, Vector3 pivot, float maxRadius, Vector3 axis, float angle)
+		public static Vector3 RotateAround(this Vector3 point, Vector3 pivot, Vector3 axis, float angle, float maxRadius)
 		{
 			Vector3 direction = point - pivot;
 			direction = Vector3.ClampMagnitude(direction, maxRadius);

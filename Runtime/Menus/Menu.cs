@@ -17,7 +17,7 @@ namespace Extendo.Menus
 		public Menu ChildMenu { get; private set; }
 		[Tooltip("Disables the menu when it is not in focus.")]
 		public bool disableMenuOnChange;
-		[Tooltip("This will close the intial/root when 'GoBack()' is called, even if there is no menu to go back to.")]
+		[Tooltip("If true, will close the intial/root when 'GoBack()' is called, even if there is no menu to go back to.")]
 		public bool closeMenuOnBackIfNoParent = false;
 
 		public UnityEvent OnEnter;
@@ -91,21 +91,29 @@ namespace Extendo.Menus
 		/// </summary>
 		public void GoToMenu(MenuAsset menuAsset)
 		{
+			// Child menu already exists
 			if (ChildMenu)
 			{
 				Debug.LogWarning($"Child menu already spawned. Close {ChildMenu.gameObject.name} before going to a new menu.");
 				return;
 			}
 
+			// Spawns new menu as child of this menu
 			ChildMenu = menuAsset.SpawnMenu();
 
+			// Error creating spawned menu.
 			if (!ChildMenu)
 			{
 				Debug.LogWarning("Can't find menu.");
 				return;
 			}
 
-			Exit();
+			// Exit this menu
+			OnExit.Invoke();
+
+			if (disableMenuOnChange)
+				gameObject.SetActive(false);
+
 			ChildMenu.Enter(this);
 		}
 
@@ -163,6 +171,10 @@ namespace Extendo.Menus
 			Destroy(gameObject);
 		}
 
+		/// <summary>
+		/// Sets focus to this menu.
+		/// </summary>
+		/// <param name="parentMenu">Assigns Menu as a parent of this menu</param>
 		private void Enter(Menu parentMenu = null)
 		{
 			if (parentMenu)
@@ -173,14 +185,9 @@ namespace Extendo.Menus
 			gameObject.SetActive(true);
 		}
 
-		private void Exit()
-		{
-			OnExit.Invoke();
-
-			if (disableMenuOnChange)
-				gameObject.SetActive(false);
-		}
-
+		/// <summary>
+		/// Destroys all child menus from this point downward.
+		/// </summary>
 		private void DeleteChildren()
 		{
 			// Destroy Children
@@ -212,12 +219,11 @@ namespace Extendo.Menus
 			lastMenu.gameObject.SetActive(enable);
 		}
 
-		// TODO: Fix minimize and maximize
 		private void EnableParentMenus(bool enable)
 		{
 			if (ParentMenu)
 			{
-				ParentMenu.gameObject.SetActive(enable && !ParentMenu.disableMenuOnChange);
+				ParentMenu.gameObject.SetActive(enable);
 				ParentMenu.EnableParentMenus(enable);
 			}
 		}

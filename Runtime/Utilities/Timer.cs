@@ -4,6 +4,9 @@ using UnityEngine.Events;
 
 namespace Extendo.Utilities
 {
+	/// <summary>
+	/// An advanced time class that must be manually updated.
+	/// </summary>
 	[Serializable]
 	public class Timer
 	{
