@@ -6,18 +6,17 @@ namespace Extendo.Events
 	[AddComponentMenu("Extendo/Events/Event Channel Receiver")]
 	public class EventChannelReceiver : MonoBehaviour
 	{
-		[field: SerializeField]
-		public EventChannel EventChannel { get; private set; }
-		public UnityEvent onEventInvoked;
+		public EventChannel eventChannel;
+		public UnityEvent   onEventInvoked;
 
 		private void OnEnable()
 		{
-			EventChannel.Subscribe(Invoke);
+			eventChannel.Subscribe(Invoke);
 		}
 
 		private void OnDisable()
 		{
-			EventChannel.Unsubscribe(Invoke);
+			eventChannel.Unsubscribe(Invoke);
 		}
 
 		private void Invoke()
