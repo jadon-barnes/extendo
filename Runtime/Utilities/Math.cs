@@ -39,33 +39,21 @@ namespace Extendo.Utilities
 
 		public static Vector3 SnapToGrid(this Vector3 value, float gridScale)
 		{
-			return new Vector3
-			(
-				value.x.SnapToGrid(gridScale),
-				value.y.SnapToGrid(gridScale),
-				value.z.SnapToGrid(gridScale)
-			);
+			return new(value.x.SnapToGrid(gridScale), value.y.SnapToGrid(gridScale), value.z.SnapToGrid(gridScale));
 		}
 
 		public static Vector3 SnapToGrid(this Vector3 value, Vector3 gridScale)
 		{
-			return new Vector3
-			(
-				value.x.SnapToGrid(gridScale.x),
-				value.y.SnapToGrid(gridScale.y),
-				value.z.SnapToGrid(gridScale.z)
-			);
+			return new(value.x.SnapToGrid(gridScale.x), value.y.SnapToGrid(gridScale.y), value.z.SnapToGrid(gridScale.z));
 		}
 
 		public static Vector2 Shortest(params Vector2[] vectors)
 		{
 			Vector2 result = Vector2.positiveInfinity;
 
-			foreach (var vector in vectors)
-			{
+			foreach (Vector2 vector in vectors)
 				if (vector.magnitude < result.magnitude)
 					result = vector;
-			}
 
 			return result;
 		}
@@ -74,11 +62,9 @@ namespace Extendo.Utilities
 		{
 			Vector3 result = Vector3.positiveInfinity;
 
-			foreach (var vector in vectors)
-			{
+			foreach (Vector3 vector in vectors)
 				if (vector.magnitude < result.magnitude)
 					result = vector;
-			}
 
 			return result;
 		}
@@ -87,11 +73,9 @@ namespace Extendo.Utilities
 		{
 			Vector2 result = Vector2.zero;
 
-			foreach (var vector in vectors)
-			{
+			foreach (Vector2 vector in vectors)
 				if (vector.magnitude > result.magnitude)
 					result = vector;
-			}
 
 			return result;
 		}
@@ -100,11 +84,9 @@ namespace Extendo.Utilities
 		{
 			Vector3 result = Vector3.zero;
 
-			foreach (var vector in vectors)
-			{
+			foreach (Vector3 vector in vectors)
 				if (vector.magnitude > result.magnitude)
 					result = vector;
-			}
 
 			return result;
 		}
@@ -130,11 +112,7 @@ namespace Extendo.Utilities
 		/// </summary>
 		public static Vector2 Damp(Vector2 current, Vector2 target, float smoothTime)
 		{
-			return new Vector2
-			(
-				Damp(current.x, target.x, smoothTime),
-				Damp(current.y, target.y, smoothTime)
-			);
+			return new(Damp(current.x, target.x, smoothTime), Damp(current.y, target.y, smoothTime));
 		}
 
 		/// <summary>
@@ -142,23 +120,26 @@ namespace Extendo.Utilities
 		/// </summary>
 		public static Vector3 Damp(Vector3 current, Vector3 target, float smoothTime)
 		{
-			return new Vector3
-			(
-				Damp(current.x, target.x, smoothTime),
-				Damp(current.y, target.y, smoothTime),
-				Damp(current.z, target.z, smoothTime)
-			);
+			return new(Damp(current.x, target.x, smoothTime), Damp(current.y, target.y, smoothTime), Damp(current.z, target.z, smoothTime));
 		}
 
 		/// <summary>
 		/// Creates a spring effect.
 		/// </summary>
 		/// <returns>Resulting springiness</returns>
-		public static float Spring(float from, float to, ref float velocity, float strength = 200f, float damp = 5f, float maxVelocity = 100f)
+		public static float Spring
+		(
+			float     from,
+			float     to,
+			ref float velocity,
+			float     strength    = 200f,
+			float     damp        = 5f,
+			float     maxVelocity = 100f
+		)
 		{
 			damp = Mathf.Max(0f, damp) * Time.deltaTime;
-			var direction = (to - from) * Time.deltaTime;
-			var force = strength * direction * Time.deltaTime;
+			float direction = (to - from) * Time.deltaTime;
+			float force     = strength * direction * Time.deltaTime;
 
 			velocity += force;
 			velocity *= Mathf.Max(0f, 1f - damp);
@@ -170,8 +151,8 @@ namespace Extendo.Utilities
 		public static Vector2 Spring(Vector2 from, Vector2 to, ref Vector2 velocity, float strength = 200f, float damp = 5f)
 		{
 			damp = Mathf.Max(0f, damp) * Time.deltaTime;
-			var direction = (to - from) * Time.deltaTime;
-			var force = direction * (strength * Time.deltaTime);
+			Vector2 direction = (to - from) * Time.deltaTime;
+			Vector2 force     = direction * (strength * Time.deltaTime);
 
 			velocity += force;
 			velocity *= Mathf.Max(0f, 1f - damp);
@@ -182,8 +163,8 @@ namespace Extendo.Utilities
 		public static Vector3 Spring(Vector3 from, Vector3 to, ref Vector3 velocity, float strength = 200f, float damp = 5f)
 		{
 			damp = Mathf.Max(0f, damp) * Time.deltaTime;
-			var direction = (to - from) * Time.deltaTime;
-			var force = direction * (strength * Time.deltaTime);
+			Vector3 direction = (to - from) * Time.deltaTime;
+			Vector3 force     = direction * (strength * Time.deltaTime);
 
 			velocity += force;
 			velocity *= Mathf.Max(0f, 1f - damp);
@@ -193,8 +174,8 @@ namespace Extendo.Utilities
 
 		public static void SpringRotation(this Rigidbody rigidbody, float strength, float dampening, Vector3 direction, Vector3 worldDirection)
 		{
-			var springTorque = strength * Vector3.Cross(direction, worldDirection);
-			var dampTorque = Mathf.Max(0, dampening) * -rigidbody.angularVelocity;
+			Vector3 springTorque = strength * Vector3.Cross(direction, worldDirection);
+			Vector3 dampTorque   = Mathf.Max(0, dampening) * -rigidbody.angularVelocity;
 			rigidbody.AddTorque(springTorque + dampTorque, ForceMode.Acceleration);
 		}
 

@@ -6,15 +6,14 @@ namespace Extendo
 	[AddComponentMenu("Extendo/Health")]
 	public class Health : MonoBehaviour
 	{
-		[field: SerializeField]
-		public int CurrentHealth { get; private set; } = 10;
-		public bool            IsDefeated   => CurrentHealth <= 0;
-		public bool            IsFullHealth => CurrentHealth >= maxHealth;
-		public int             maxHealth = 10;
-		public UnityEvent<int> onDamage;
-		public UnityEvent<int> onHeal;
-		public UnityEvent      onDefeat;
-		public UnityEvent      onRevive;
+		[field: SerializeField] public int             CurrentHealth { get; private set; } = 10;
+		public                         bool            IsDefeated    => CurrentHealth <= 0;
+		public                         bool            IsFullHealth  => CurrentHealth >= maxHealth;
+		public                         int             maxHealth = 10;
+		public                         UnityEvent<int> onDamage;
+		public                         UnityEvent<int> onHeal;
+		public                         UnityEvent      onDefeat;
+		public                         UnityEvent      onRevive;
 
 		private void OnValidate()
 		{
@@ -22,10 +21,16 @@ namespace Extendo
 		}
 
 		[ContextMenu("Damage by 35% of Max Health")]
-		private void Damage35Percent() => Damage((int)(maxHealth * 0.35f));
+		private void Damage35Percent()
+		{
+			Damage((int)(maxHealth * 0.35f));
+		}
 
 		[ContextMenu("Heal by 35% of Max Health")]
-		private void Heal35Percent() => Heal((int)(maxHealth * 0.35f));
+		private void Heal35Percent()
+		{
+			Heal((int)(maxHealth * 0.35f));
+		}
 
 		/// <summary>
 		/// Sets health to a specific value set with no event calls.

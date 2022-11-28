@@ -5,8 +5,7 @@ namespace Extendo.Casting
 	[AddComponentMenu("Extendo/Casting/Box Cast")]
 	public class BoxCast : Cast
 	{
-		[Space]
-		public Vector3 size = Vector3.one;
+		[Space] public Vector3 size = Vector3.one;
 
 		protected override bool CastDefault(ref RaycastHit hit)
 		{

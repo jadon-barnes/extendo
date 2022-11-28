@@ -16,22 +16,16 @@ namespace Extendo.Modulation
 		protected override Vector3 GetValue
 		(
 			Modulate method,
-			float time,
-			Vector3 remapMin,
-			Vector3 remapMax,
-			Vector3 cutoffMin,
-			Vector3 cutoffMax
+			float    time,
+			Vector3  remapMin,
+			Vector3  remapMax,
+			Vector3  cutoffMin,
+			Vector3  cutoffMax
 		)
 		{
-			Vector3 timeValue = Vector3.Scale((Vector3.one * time) + offset, speed);
+			Vector3 timeValue = Vector3.Scale(Vector3.one * time + offset, speed);
 
-			return new Vector3
-				(
-					method(timeValue.x, remapMin.x, remapMax.x, cutoffMin.x, cutoffMax.x),
-					method(timeValue.y, remapMin.y, remapMax.y, cutoffMin.y, cutoffMax.y),
-					method(timeValue.z, remapMin.z, remapMax.z, cutoffMin.z, cutoffMax.z)
-				)
-				* strength;
+			return new Vector3(method(timeValue.x, remapMin.x, remapMax.x, cutoffMin.x, cutoffMax.x), method(timeValue.y, remapMin.y, remapMax.y, cutoffMin.y, cutoffMax.y), method(timeValue.z, remapMin.z, remapMax.z, cutoffMin.z, cutoffMax.z)) * strength;
 		}
 	}
 }

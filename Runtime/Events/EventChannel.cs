@@ -8,9 +8,15 @@ namespace Extendo.Events
 	{
 		private UnityEvent unityEvent;
 
-		public void Subscribe(UnityAction call) => unityEvent.AddListener(call);
+		public void Subscribe(UnityAction call)
+		{
+			unityEvent.AddListener(call);
+		}
 
-		public void Unsubscribe(UnityAction call) => unityEvent.RemoveListener(call);
+		public void Unsubscribe(UnityAction call)
+		{
+			unityEvent.RemoveListener(call);
+		}
 
 		public void Invoke()
 		{
@@ -19,7 +25,7 @@ namespace Extendo.Events
 
 		private void OnEnable()
 		{
-			unityEvent = new UnityEvent();
+			unityEvent = new();
 		}
 	}
 }

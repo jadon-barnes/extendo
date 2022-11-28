@@ -9,8 +9,14 @@ namespace Extendo.Events
 	{
 		public UnityEvent<bool> onVisibility;
 
-		private void OnBecameVisible() => onVisibility.Invoke(true);
+		private void OnBecameVisible()
+		{
+			onVisibility.Invoke(true);
+		}
 
-		private void OnBecameInvisible() => onVisibility.Invoke(false);
+		private void OnBecameInvisible()
+		{
+			onVisibility.Invoke(false);
+		}
 	}
 }

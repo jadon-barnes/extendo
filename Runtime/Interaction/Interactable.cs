@@ -13,11 +13,10 @@ namespace Extendo.Interaction
 		public bool  toggleValue  = true;
 		public bool  InCooldown => IsInvoking(nameof(OnCooldownComplete));
 
-		[Space]
-		public UnityEvent onInteract;
-		public UnityEvent<bool> onInteractToggle;
-		public UnityEvent       onCooldown;
-		public UnityEvent       onCooldownComplete;
+		[Space] public UnityEvent       onInteract;
+		public         UnityEvent<bool> onInteractToggle;
+		public         UnityEvent       onCooldown;
+		public         UnityEvent       onCooldownComplete;
 
 		[ContextMenu("Interact")]
 		public void OnInteract()

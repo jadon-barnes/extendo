@@ -16,11 +16,11 @@ namespace Extendo.Modulation
 		protected override float GetValue
 		(
 			Modulate method,
-			float time,
-			float remapMin,
-			float remapMax,
-			float cutoffMin,
-			float cutoffMax
+			float    time,
+			float    remapMin,
+			float    remapMax,
+			float    cutoffMin,
+			float    cutoffMax
 		)
 		{
 			float timeValue = (time + offset) * speed;

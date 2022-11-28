@@ -10,10 +10,10 @@ namespace Extendo.Casting
 	{
 		protected Vector3 Position  => transform.position;
 		protected Vector3 Direction => transform.forward;
-		protected Ray     Ray       => new Ray(Position, Direction);
+		protected Ray     Ray       => new(Position, Direction);
 
-		public UnityEvent<RaycastHit>   onHit  = new UnityEvent<RaycastHit>();
-		public UnityEvent<RaycastHit[]> onHits = new UnityEvent<RaycastHit[]>();
+		public UnityEvent<RaycastHit>   onHit  = new();
+		public UnityEvent<RaycastHit[]> onHits = new();
 
 		public bool useFixedUpdate;
 		[Tooltip("A value of 0 will update the component every FixedUpdate() or Update().")]
@@ -22,19 +22,18 @@ namespace Extendo.Casting
 		public             bool  drawGizmos = true;
 		protected readonly Color colorHit   = Color.red;
 		protected readonly Color colorMiss  = Color.green;
-		protected          float GizmoRayLength => (float.IsInfinity(maxDistance) ? 9999999f : maxDistance);
+		protected          float GizmoRayLength => float.IsInfinity(maxDistance) ? 9999999f : maxDistance;
 
-		[Space]
-		public bool castMultiple = false;
-		public QueryTriggerInteraction triggerInteraction = QueryTriggerInteraction.UseGlobal;
-		public LayerMask               layerMask          = ~0;
-		public int                     maxCollisions      = 10;
-		public float                   maxDistance        = Mathf.Infinity;
+		[Space] public bool                    castMultiple       = false;
+		public         QueryTriggerInteraction triggerInteraction = QueryTriggerInteraction.UseGlobal;
+		public         LayerMask               layerMask          = ~0;
+		public         int                     maxCollisions      = 10;
+		public         float                   maxDistance        = Mathf.Infinity;
 
 		protected RaycastHit[]                  hits;
 		public    int                           HitCount     { get; protected set; }
 		public    bool                          HitSomething => HitCount > 0;
-		public    Dictionary<int, RaycastHit[]> hitArrays = new ();
+		public    Dictionary<int, RaycastHit[]> hitArrays = new();
 
 		protected virtual void OnValidate()
 		{
@@ -85,7 +84,7 @@ namespace Extendo.Casting
 				hitArrays.Add(HitCount, new RaycastHit[HitCount]);
 
 			// To avoid GC Alloc, arrays (the size of the hitcount) are created and stored in a dictionary to be reused.
-			for (int i = 0; i < HitCount; i++)
+			for (var i = 0; i < HitCount; i++)
 				hitArrays[HitCount][i] = hits[i];
 
 			onHits.Invoke(hitArrays[HitCount]);
@@ -95,7 +94,7 @@ namespace Extendo.Casting
 
 		protected abstract int CastAll(ref RaycastHit[] hits);
 
-		IEnumerator CastRoutine()
+		private IEnumerator CastRoutine()
 		{
 			while (true)
 			{
@@ -131,7 +130,7 @@ namespace Extendo.Casting
 			// Render Hits
 			if (castMultiple)
 			{
-				for (int i = 0; i < HitCount; i++)
+				for (var i = 0; i < HitCount; i++)
 					DrawShape(hits[i].distance);
 			}
 			else

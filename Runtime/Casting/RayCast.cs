@@ -7,26 +7,12 @@ namespace Extendo.Casting
 	{
 		protected override bool CastDefault(ref RaycastHit hit)
 		{
-			return Physics.Raycast
-			(
-				Ray,
-				out hit,
-				maxDistance,
-				layerMask,
-				triggerInteraction
-			);
+			return Physics.Raycast(Ray, out hit, maxDistance, layerMask, triggerInteraction);
 		}
 
 		protected override int CastAll(ref RaycastHit[] hits)
 		{
-			return Physics.RaycastNonAlloc
-			(
-				Ray,
-				hits,
-				maxDistance,
-				layerMask,
-				triggerInteraction
-			);
+			return Physics.RaycastNonAlloc(Ray, hits, maxDistance, layerMask, triggerInteraction);
 		}
 
 		protected override void DrawShape(float distance)

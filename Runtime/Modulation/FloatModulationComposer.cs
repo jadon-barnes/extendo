@@ -7,12 +7,10 @@ namespace Extendo.Modulation
 	{
 		public override float GetSumOfModulations()
 		{
-			float sum = 0f;
+			var sum = 0f;
 
-			foreach (var modulation in modulations)
-			{
+			foreach (FloatModulator modulation in modulations)
 				sum += modulation.Evaluate(time);
-			}
 
 			return sum * strength;
 		}

@@ -16,8 +16,8 @@ namespace Extendo.Utilities
 
 		public StateMachine(TContext context, params State<TContext>[] states)
 		{
-			this.Context = context;
-			this.states  = states;
+			Context     = context;
+			this.states = states;
 		}
 
 		/// <summary>
@@ -40,7 +40,7 @@ namespace Extendo.Utilities
 		/// </summary>
 		public void TransitionTo<TState>() where TState : State<TContext>
 		{
-			foreach (var state in states)
+			foreach (State<TContext> state in states)
 			{
 				if (state is not TState)
 					continue;

@@ -5,9 +5,8 @@ namespace Extendo.Casting
 	[AddComponentMenu("Extendo/Casting/Capsule Cast")]
 	public class CapsuleCast : Cast
 	{
-		[Space]
-		public float radius = 0.5f;
-		public float height = 1f;
+		[Space] public float radius = 0.5f;
+		public         float height = 1f;
 
 		protected override void OnValidate()
 		{
@@ -51,34 +50,18 @@ namespace Extendo.Casting
 
 		protected override void DrawShape(float distance)
 		{
-			var sphereTop = Vector3.up * height * 0.5f + (Vector3.forward * distance);
-			var sphereBottom = Vector3.down * height * 0.5f + (Vector3.forward * distance);
+			Vector3 sphereTop    = Vector3.up * height * 0.5f + Vector3.forward * distance;
+			Vector3 sphereBottom = Vector3.down * height * 0.5f + Vector3.forward * distance;
 			Gizmos.DrawWireSphere(sphereTop, radius);
 			Gizmos.DrawWireSphere(sphereBottom, radius);
 
-			Gizmos.DrawLine
-			(
-				sphereTop + Vector3.forward * radius,
-				sphereBottom + Vector3.forward * radius
-			);
+			Gizmos.DrawLine(sphereTop + Vector3.forward * radius, sphereBottom + Vector3.forward * radius);
 
-			Gizmos.DrawLine
-			(
-				sphereTop - Vector3.forward * radius,
-				sphereBottom - Vector3.forward * radius
-			);
+			Gizmos.DrawLine(sphereTop - Vector3.forward * radius, sphereBottom - Vector3.forward * radius);
 
-			Gizmos.DrawLine
-			(
-				sphereTop + Vector3.right * radius,
-				sphereBottom + Vector3.right * radius
-			);
+			Gizmos.DrawLine(sphereTop + Vector3.right * radius, sphereBottom + Vector3.right * radius);
 
-			Gizmos.DrawLine
-			(
-				sphereTop - Vector3.right * radius,
-				sphereBottom - Vector3.right * radius
-			);
+			Gizmos.DrawLine(sphereTop - Vector3.right * radius, sphereBottom - Vector3.right * radius);
 		}
 	}
 }

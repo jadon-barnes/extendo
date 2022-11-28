@@ -9,10 +9,8 @@ namespace Extendo.Modulation
 		{
 			Vector2 sum = Vector2.zero;
 
-			foreach (var modulation in modulations)
-			{
+			foreach (Vector2Modulator modulation in modulations)
 				sum += modulation.Evaluate(time);
-			}
 
 			return sum * strength;
 		}

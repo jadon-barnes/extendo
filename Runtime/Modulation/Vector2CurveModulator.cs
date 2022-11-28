@@ -16,11 +16,7 @@ namespace Extendo.Modulation
 
 		protected override Vector2 GetValue()
 		{
-			return new Vector2
-			(
-				curveX.Evaluate(Mathf.Repeat(timer.TimeValue + offset.x, 1f)) * scale.x,
-				curveY.Evaluate(Mathf.Repeat(timer.TimeValue + offset.y, 1f)) * scale.y
-			);
+			return new(curveX.Evaluate(Mathf.Repeat(timer.TimeValue + offset.x, 1f)) * scale.x, curveY.Evaluate(Mathf.Repeat(timer.TimeValue + offset.y, 1f)) * scale.y);
 		}
 	}
 }

@@ -5,8 +5,7 @@ namespace Extendo.Casting
 	[AddComponentMenu("Extendo/Casting/Sphere Cast")]
 	public class SphereCast : Cast
 	{
-		[Space]
-		public float radius = 0.5f;
+		[Space] public float radius = 0.5f;
 
 		protected override bool CastDefault(ref RaycastHit hit)
 		{

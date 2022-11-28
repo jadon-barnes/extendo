@@ -133,7 +133,7 @@ namespace Extendo.Menus
 		[ContextMenu("Go Back To Start")]
 		public void GoBackToStart()
 		{
-			var rootMenu = RootMenu;
+			Menu rootMenu = RootMenu;
 
 			if (rootMenu)
 				rootMenu.GoHere();
@@ -146,9 +146,7 @@ namespace Extendo.Menus
 		public void GoBack()
 		{
 			if (ParentMenu)
-			{
 				Close();
-			}
 
 			if (closeMenuOnBackIfNoParent)
 				Close();
@@ -178,7 +176,7 @@ namespace Extendo.Menus
 		private void Enter(Menu parentMenu = null)
 		{
 			if (parentMenu)
-				this.ParentMenu = parentMenu;
+				ParentMenu = parentMenu;
 
 			OnEnter.Invoke();
 
@@ -200,17 +198,23 @@ namespace Extendo.Menus
 		}
 
 		[ContextMenu("Disable Menu Group")]
-		private void DisableMenuGroup() => EnableMenuGroup(false);
+		private void DisableMenuGroup()
+		{
+			EnableMenuGroup(false);
+		}
 
 		[ContextMenu("Enable Menu Group")]
-		private void EnableMenuGroup() => EnableMenuGroup(true);
+		private void EnableMenuGroup()
+		{
+			EnableMenuGroup(true);
+		}
 
 		/// <summary>
 		/// Hides or reveals the entire <see cref="Menu"/> group. This is useful when you want to minimize or hide a group/collection of menus, retaining their context or state instead of completely destroying it.
 		/// </summary>
 		public void EnableMenuGroup(bool enable)
 		{
-			var lastMenu = LastMenu;
+			Menu lastMenu = LastMenu;
 
 			if (!lastMenu)
 				return;

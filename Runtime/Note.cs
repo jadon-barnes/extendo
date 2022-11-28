@@ -7,23 +7,21 @@ namespace Extendo
 	[AddComponentMenu("Extendo/Note")]
 	public class Note : MonoBehaviour
 	{
-		[TextArea(minLines: 3, maxLines: 8)]
-		public string text;
-		public List<Task> tasks = new ();
-		public string     url;
+		[TextArea(3, 8)] public string     text;
+		public                  List<Task> tasks = new();
+		public                  string     url;
 
 		[Serializable]
 		public class Task
 		{
-			[TextArea(minLines: 2, maxLines: 6)]
-			public string name;
-			public bool done;
+			[TextArea(2, 6)] public string name;
+			public                  bool   done;
 		}
 
 		[ContextMenu("Go to URL")]
 		private void GoToURL()
 		{
-			if (String.IsNullOrEmpty(url))
+			if (string.IsNullOrEmpty(url))
 			{
 				Debug.LogWarning("No URL available.");
 				return;

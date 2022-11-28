@@ -7,7 +7,7 @@ namespace Extendo.Modulation
 	public abstract class CurveModulator<T> : ModulationBehaviour
 	{
 		public UnityEvent<T> onUpdate;
-		public Timer         timer = new Timer(5f, true);
+		public Timer         timer = new(5f, true);
 		public T             offset;
 		public T             scale;
 		public T             Value { get; private set; }
@@ -18,13 +18,7 @@ namespace Extendo.Modulation
 			base.OnEnable();
 		}
 
-		protected AnimationCurve DefaultCurve =>
-			new AnimationCurve
-			(
-				new Keyframe(0f, 0f),
-				new Keyframe(0.5f, 1f),
-				new Keyframe(1f, 0f)
-			);
+		protected AnimationCurve DefaultCurve => new(new Keyframe(0f, 0f), new Keyframe(0.5f, 1f), new Keyframe(1f, 0f));
 
 		public void UpdateValue()
 		{

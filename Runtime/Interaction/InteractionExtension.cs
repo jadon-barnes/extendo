@@ -11,10 +11,8 @@ namespace Extendo.Interaction
 			if (interactables.Length == 0)
 				return false;
 
-			foreach (var interactable in interactables)
-			{
+			foreach (T interactable in interactables)
 				interactable.OnInteract();
-			}
 
 			return true;
 		}
