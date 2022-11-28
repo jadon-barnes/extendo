@@ -23,6 +23,12 @@ namespace Extendo
 		[ContextMenu("Go to URL")]
 		private void GoToURL()
 		{
+			if (String.IsNullOrEmpty(url))
+			{
+				Debug.LogWarning("No URL available.");
+				return;
+			}
+
 			Application.OpenURL(url);
 		}
 
