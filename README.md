@@ -12,29 +12,19 @@ Documentation is currently being worked on. If you'd like to start using this ri
 
 # What's included?
 
-## Components
-- Audio Clip Controller
-- Casting
-  - Ray Cast
-  - Sphere Cast
-  - Box Cast
-  - Capsule Cast
-- Events
-  - Event Timer
-  - Event Visibility
-- Interactable
-- Labeler
-- Menu
-- Modulation
-  - Float Curve Modulator
-  - Vector2 Curve Modulator
-  - Vector3 Curve Modulator
-  - Float Modulation Composer
-  - Vector2 Modulation Composer
-  - Vector3 Modulation Composer
-- Health
-- Note
-- Persist
+- Spring calculations - 1D, 2D, 3D, and Rigidbody position and rotation spring calculation methods!
+- Ray casting components - Includes ray, sphere, box, and capsule casts. Has all the features of the c# `Physics.Raycast()` method.
+- Event timer
+- Event visibility
+- Interactables - A component and interface for you to use or extend for interactions. Includes extension methods in `Transform` and `GameObject` for quick interaction method calls.
+- Labeler - Scriptable Object based tagging system.
+- Menu management system
+- Procedural animation using the Modulation Composer or Curve Modulator components
+- Health system
+- Note component
+- And more!
+
+To view more features of this package, visit the [wiki](https://github.com/xJadonx/extendo/blob/readme-update/Wiki)!
 
 # How to Install
 
