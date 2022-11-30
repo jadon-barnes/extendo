@@ -4,26 +4,41 @@ namespace Extendo.Utilities
 {
 	public static class Math
 	{
+		/// <summary>
+		/// Remaps an input value from A to B.
+		/// </summary>
 		public static float Remap(this float value, float aMin, float aMax, float bMin, float bMax)
 		{
 			return Mathf.Lerp(bMin, bMax, Mathf.InverseLerp(aMin, aMax, value));
 		}
 
+		/// <summary>
+		/// Remaps an input value from A to B.
+		/// </summary>
 		public static float Remap(this float value, Vector2 from, Vector2 to)
 		{
 			return Mathf.Lerp(to.x, to.y, Mathf.InverseLerp(from.x, from.y, value));
 		}
 
+		/// <summary>
+		/// Calculates the distance between two values.
+		/// </summary>
 		public static float Distance(this float from, float to)
 		{
 			return Mathf.Abs(to - from);
 		}
 
+		/// <summary>
+		/// Gets the direction from A to B.
+		/// </summary>
 		public static Vector2 Direction(this Vector2 from, Vector2 to)
 		{
 			return to - from;
 		}
 
+		/// <summary>
+		/// Gets the direction from A to B.
+		/// </summary>
 		public static Vector3 Direction(this Vector3 from, Vector3 to)
 		{
 			return to - from;
@@ -121,9 +136,8 @@ namespace Extendo.Utilities
 		}
 
 		/// <summary>
-		/// Creates a spring effect.
+		/// Creates a spring effect from the input value.
 		/// </summary>
-		/// <returns>Resulting springiness</returns>
 		public static float Spring
 		(
 			float     from,
@@ -145,6 +159,9 @@ namespace Extendo.Utilities
 			return from + velocity;
 		}
 
+		/// <summary>
+		/// Creates a spring effect from the input value.
+		/// </summary>
 		public static Vector2 Spring(Vector2 from, Vector2 to, ref Vector2 velocity, float strength = 200f, float damp = 5f)
 		{
 			damp = Mathf.Max(0f, damp) * Time.deltaTime;
@@ -157,6 +174,9 @@ namespace Extendo.Utilities
 			return from + velocity;
 		}
 
+		/// <summary>
+		/// Creates a spring effect from the input value.
+		/// </summary>
 		public static Vector3 Spring(Vector3 from, Vector3 to, ref Vector3 velocity, float strength = 200f, float damp = 5f)
 		{
 			damp = Mathf.Max(0f, damp) * Time.deltaTime;
@@ -169,6 +189,9 @@ namespace Extendo.Utilities
 			return from + velocity;
 		}
 
+		/// <summary>
+		/// Creates a spring effect for rotation values.
+		/// </summary>
 		public static void SpringRotation(this Rigidbody rigidbody, float strength, float dampening, Vector3 direction, Vector3 worldDirection)
 		{
 			Vector3 springTorque = strength * Vector3.Cross(direction, worldDirection);
@@ -177,7 +200,7 @@ namespace Extendo.Utilities
 		}
 
 		/// <summary>
-		/// Creates a spring effect.
+		/// Calculates the force needed to create a spring effect.
 		/// </summary>
 		/// <returns>Force to be applied for spring effect</returns>
 		public static float SpringForce(float position, float target, float velocity, float strength = 200f, float damp = 5f)
@@ -186,7 +209,7 @@ namespace Extendo.Utilities
 		}
 
 		/// <summary>
-		/// Creates a spring effect.
+		/// Calculates the force needed to create a spring effect.
 		/// </summary>
 		/// <returns>Force to be applied for spring effect</returns>
 		public static Vector2 SpringForce(Vector2 position, Vector2 target, Vector2 velocity, float strength = 200f, float damp = 5f)
@@ -195,7 +218,7 @@ namespace Extendo.Utilities
 		}
 
 		/// <summary>
-		/// Creates a spring effect.
+		/// Calculates the force needed to create a spring effect.
 		/// </summary>
 		/// <returns>Force to be applied for spring effect</returns>
 		public static Vector3 SpringForce(Vector3 position, Vector3 target, Vector3 velocity, float strength = 200f, float damp = 5f)
@@ -204,7 +227,7 @@ namespace Extendo.Utilities
 		}
 
 		/// <summary>
-		/// Creates a spring effect.
+		/// Calculates the force needed to create a spring effect.
 		/// </summary>
 		/// <returns>Force to be applied for spring effect</returns>
 		public static Vector3 SpringForce(this Rigidbody rigidbody, Vector3 target, float strength = 200f, float damp = 5f)
@@ -212,6 +235,9 @@ namespace Extendo.Utilities
 			return SpringForce(rigidbody.position, target, rigidbody.velocity, strength, damp);
 		}
 
+		/// <summary>
+		/// Rotates a vector point around a pivot point.
+		/// </summary>
 		public static Vector3 RotateAround(this Vector3 point, Vector3 pivot, Vector3 axis, float angle)
 		{
 			Vector3 direction = point - pivot;
@@ -220,6 +246,9 @@ namespace Extendo.Utilities
 			return point;
 		}
 
+		/// <summary>
+		/// Rotates a vector point around a pivot point.
+		/// </summary>
 		public static Vector3 RotateAround(this Vector3 point, Vector3 pivot, Vector3 axis, float angle, float maxRadius)
 		{
 			Vector3 direction = point - pivot;
