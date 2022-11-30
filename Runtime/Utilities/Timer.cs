@@ -53,11 +53,14 @@ namespace Extendo.Utilities
 			// Add Time
 			Time = Mathf.Min(time, duration);
 
+			// Stop here if duration isn't reached.
 			if (!DurationReached)
 			{
 				Time = Mathf.Repeat(time, duration);
 				return;
 			}
+
+			// Execute if duration reached
 
 			onDurationReached?.Invoke();
 
