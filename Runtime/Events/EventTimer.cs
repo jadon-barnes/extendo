@@ -8,7 +8,7 @@ namespace Extendo.Events
 	[AddComponentMenu("Extendo/Events/Event Timer")]
 	public class EventTimer : MonoBehaviour
 	{
-		public                         bool       startOnEnable;
+		public                         bool       startOnEnable = true;
 		public                         bool       resetOnEnable = true;
 		[field: SerializeField] public Timer      Timer    { get; private set; } = new(5f);
 		public                         bool       Counting { get; private set; }
