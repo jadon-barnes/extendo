@@ -167,6 +167,27 @@ namespace Extendo.Utilities
 			return from + velocity;
 		}
 
+		public static float SpringAngle
+		(
+			float     from,
+			float     to,
+			ref float velocity,
+			float     strength    = 200f,
+			float     damp        = 5f,
+			float     maxVelocity = 100f
+		)
+		{
+			damp = Mathf.Max(0f, damp) * Time.deltaTime;
+			float direction = Mathf.DeltaAngle(from,to) * Time.deltaTime;
+			float force     = strength * direction * Time.deltaTime;
+
+			velocity += force;
+			velocity *= Mathf.Max(0f, 1f - damp);
+			velocity =  Mathf.Min(velocity, maxVelocity);
+
+			return from + velocity;
+		}
+
 		/// <summary>
 		/// Creates a spring effect from the input value.
 		/// </summary>
