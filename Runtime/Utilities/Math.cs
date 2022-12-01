@@ -118,7 +118,7 @@ namespace Extendo.Utilities
 		/// <summary>
 		/// Lerp-based interpolation exponential dampening that is not affected by frame rate.
 		/// </summary>
-		public static float DampAngle(float current, float target, float smoothTime)
+		public static float ExpDampAngle(float current, float target, float smoothTime)
 		{
 			return Mathf.LerpAngle(current, target, 1f - Mathf.Exp(smoothTime * -Time.deltaTime));
 		}
