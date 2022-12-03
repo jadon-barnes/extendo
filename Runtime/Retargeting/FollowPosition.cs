@@ -4,9 +4,11 @@ namespace Extendo.Retargeting
 {
 	public abstract class FollowPosition : FollowBehaviour<Vector3>
 	{
-		public bool x = true;
-		public bool y = true;
-		public bool z = true;
+		[Space] public bool x;
+		public         bool y;
+		public         bool z;
+
+		protected Vector3 TargetPosition => target.position + offset;
 
 		protected override void SetTransformValue(Vector3 targetValue)
 		{

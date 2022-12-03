@@ -7,6 +7,7 @@ namespace Extendo.Retargeting
 	{
 		public bool      useFixedUpdate = false;
 		public Transform target;
+		public Vector3   offset;
 
 		private void UpdateFollowValue()
 		{
