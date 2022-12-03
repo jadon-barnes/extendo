@@ -17,15 +17,15 @@ namespace Extendo.Retargeting
 			get
 			{
 				var result = lookAt ? LookAtDirection : target.transform.forward;
-				result.x = !axis.y ? RelativeForward.x : result.x;
-				result.y = !axis.x ? RelativeForward.y : result.y;
+				result.x = !useAxis.y ? RelativeForward.x : result.x;
+				result.y = !useAxis.x ? RelativeForward.y : result.y;
 
-				return result;
+				return result == Vector3.zero ? RelativeForward : result;
 			}
 		}
 
 		protected Quaternion TargetValue =>
-			Quaternion.LookRotation(RotationTarget, lookAt || !axis.z ? RelativeUp : target.transform.up)
+			Quaternion.LookRotation(RotationTarget, lookAt || !useAxis.z ? RelativeUp : target.transform.up)
 			* Quaternion.Euler(offset);
 
 		protected override void SetTransformValue(Quaternion targetValue)

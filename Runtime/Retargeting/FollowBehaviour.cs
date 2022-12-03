@@ -9,7 +9,7 @@ namespace Extendo.Retargeting
 		public Transform target;
 		public Vector3   offset;
 
-		public AxisBool axis = new(true);
+		public AxisBool useAxis = new(true);
 
 		private void UpdateFollowValue()
 		{

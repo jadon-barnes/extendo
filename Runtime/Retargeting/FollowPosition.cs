@@ -9,9 +9,9 @@ namespace Extendo.Retargeting
 		protected override void SetTransformValue(Vector3 targetValue)
 		{
 			transform.position = new(
-				axis.x ? targetValue.x : transform.position.x,
-				axis.y ? targetValue.y : transform.position.y,
-				axis.z ? targetValue.z : transform.position.z
+				useAxis.x ? targetValue.x : transform.position.x,
+				useAxis.y ? targetValue.y : transform.position.y,
+				useAxis.z ? targetValue.z : transform.position.z
 			);
 		}
 	}
