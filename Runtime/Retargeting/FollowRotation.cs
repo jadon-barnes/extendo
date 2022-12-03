@@ -6,10 +6,7 @@ namespace Extendo.Retargeting
 {
 	public abstract class FollowRotation : FollowBehaviour<Quaternion>
 	{
-		public         bool lookAt = false;
-		[Space] public bool x;
-		public         bool y;
-		public         bool z;
+		[Space] public bool lookAt = false;
 
 		private Vector3 LookAtDirection => Math.Direction(transform.position, target.position);
 		private Vector3 RelativeForward => transform.parent ? transform.parent.forward : Vector3.forward;
@@ -20,15 +17,15 @@ namespace Extendo.Retargeting
 			get
 			{
 				var result = lookAt ? LookAtDirection : target.transform.forward;
-				result.x = y ? RelativeForward.x : result.x;
-				result.y = x ? RelativeForward.y : result.y;
+				result.x = !axis.y ? RelativeForward.x : result.x;
+				result.y = !axis.x ? RelativeForward.y : result.y;
 
 				return result;
 			}
 		}
 
 		protected Quaternion TargetValue =>
-			Quaternion.LookRotation(RotationTarget, lookAt || z ? RelativeUp : target.transform.up)
+			Quaternion.LookRotation(RotationTarget, lookAt || !axis.z ? RelativeUp : target.transform.up)
 			* Quaternion.Euler(offset);
 
 		protected override void SetTransformValue(Quaternion targetValue)
