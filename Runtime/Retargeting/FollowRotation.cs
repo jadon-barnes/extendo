@@ -20,13 +20,12 @@ namespace Extendo.Retargeting
 				result.x = !useAxis.y ? RelativeForward.x : result.x;
 				result.y = !useAxis.x ? RelativeForward.y : result.y;
 
-				return result == Vector3.zero ? RelativeForward : result;
+				return result == Vector3.zero && lookAt ? RelativeForward : result;
 			}
 		}
 
-		protected Quaternion TargetValue =>
-			Quaternion.LookRotation(RotationTarget, lookAt || !useAxis.z ? RelativeUp : target.transform.up)
-			* Quaternion.Euler(offset);
+		protected Quaternion TargetRotation =>
+			Quaternion.LookRotation(RotationTarget, lookAt || !useAxis.z ? RelativeUp : target.transform.up);
 
 		protected override void SetTransformValue(Quaternion targetValue)
 		{

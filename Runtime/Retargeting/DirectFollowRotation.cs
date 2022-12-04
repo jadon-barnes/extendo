@@ -7,7 +7,7 @@ namespace Extendo.Retargeting
 	{
 		protected override Quaternion CalculateFollowValue()
 		{
-			return TargetValue;
+			return TargetRotation;
 		}
 	}
 }

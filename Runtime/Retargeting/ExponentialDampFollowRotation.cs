@@ -10,11 +10,13 @@ namespace Extendo.Retargeting
 
 		protected override Quaternion CalculateFollowValue()
 		{
+			var targetRotation = TargetRotation;
+
 			return new Quaternion(
-				Math.ExpDampAngle(transform.rotation.x, target.rotation.x, smoothTime),
-				Math.ExpDampAngle(transform.rotation.y, target.rotation.y, smoothTime),
-				Math.ExpDampAngle(transform.rotation.z, target.rotation.z, smoothTime),
-				Math.ExpDampAngle(transform.rotation.w, target.rotation.w, smoothTime)
+				Math.ExpDampAngle(transform.rotation.x, targetRotation.x, smoothTime),
+				Math.ExpDampAngle(transform.rotation.y, targetRotation.y, smoothTime),
+				Math.ExpDampAngle(transform.rotation.z, targetRotation.z, smoothTime),
+				Math.ExpDampAngle(transform.rotation.w, targetRotation.w, smoothTime)
 			);
 		}
 	}

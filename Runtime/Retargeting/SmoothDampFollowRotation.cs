@@ -11,11 +11,13 @@ namespace Extendo.Retargeting
 
 		protected override Quaternion CalculateFollowValue()
 		{
+			var targetRotation = TargetRotation;
+
 			return new Quaternion(
-				Mathf.SmoothDampAngle(transform.rotation.x, target.rotation.x, ref velocity.x, smoothTime, maxSpeed),
-				Mathf.SmoothDampAngle(transform.rotation.y, target.rotation.y, ref velocity.y, smoothTime, maxSpeed),
-				Mathf.SmoothDampAngle(transform.rotation.z, target.rotation.z, ref velocity.z, smoothTime, maxSpeed),
-				Mathf.SmoothDampAngle(transform.rotation.w, target.rotation.w, ref velocity.w, smoothTime, maxSpeed)
+				Mathf.SmoothDampAngle(transform.rotation.x, targetRotation.x, ref velocity.x, smoothTime, maxSpeed),
+				Mathf.SmoothDampAngle(transform.rotation.y, targetRotation.y, ref velocity.y, smoothTime, maxSpeed),
+				Mathf.SmoothDampAngle(transform.rotation.z, targetRotation.z, ref velocity.z, smoothTime, maxSpeed),
+				Mathf.SmoothDampAngle(transform.rotation.w, targetRotation.w, ref velocity.w, smoothTime, maxSpeed)
 			);
 		}
 	}
