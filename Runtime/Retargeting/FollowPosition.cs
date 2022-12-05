@@ -15,7 +15,7 @@ namespace Extendo.Retargeting
 			followPosition = CalculateFollowPosition(
 				transform.position,
 				target.position
-				+ (constraintSettings.useLocalOffset && transform.parent
+				+ (constraintSettings.useLocal && transform.parent
 					? transform.parent.TransformPoint(constraintSettings.offset)
 					: constraintSettings.offset)
 			);
