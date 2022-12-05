@@ -3,7 +3,7 @@ using UnityEngine;
 namespace Extendo.Retargeting
 {
 	[AddComponentMenu("Extendo/Retargeting/Smooth Damp Follow Position")]
-	public class SmoothDampFollowPosition : FollowBehaviour
+	public class SmoothDampFollowPosition : FollowPosition
 	{
 		public  float   smoothTime = 5f;
 		public  float   maxSpeed   = float.PositiveInfinity;

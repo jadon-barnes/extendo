@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Extendo.Retargeting
 {
 	[AddComponentMenu("Extendo/Retargeting/Exponential Damp Follow Position")]
-	public class ExponentialDampFollowPosition : FollowBehaviour
+	public class ExponentialDampFollowPosition : FollowPosition
 	{
 		public float smoothTime = 5f;
 

@@ -5,30 +5,18 @@ namespace Extendo.Retargeting
 {
 	public abstract class FollowBehaviour : MonoBehaviour
 	{
-		public bool               useFixedUpdate = false;
-		public Transform          target;
-		public ConstraintSettings constraintSettings = new ConstraintSettings();
+		public bool      useFixedUpdate = false;
+		public Transform target;
 
-		private Vector3 followPosition;
+		protected abstract void CalculateFollow();
 
-		private void UpdateFollowValue()
+		private void UpdateFollow()
 		{
 			if (!target)
 				return;
 
-			if (!constraintSettings.enableX && !constraintSettings.enableY && !constraintSettings.enableZ)
-				return;
-
-			followPosition = CalculateFollowPosition(transform.position, target.position + constraintSettings.offset);
-
-			followPosition.x = constraintSettings.enableX ? followPosition.x : transform.position.x;
-			followPosition.y = constraintSettings.enableY ? followPosition.y : transform.position.y;
-			followPosition.z = constraintSettings.enableZ ? followPosition.z : transform.position.z;
-
-			transform.position = followPosition;
+			CalculateFollow();
 		}
-
-		protected abstract Vector3 CalculateFollowPosition(Vector3 from, Vector3 to);
 
 		private void OnEnable()
 		{
@@ -39,7 +27,7 @@ namespace Extendo.Retargeting
 		{
 			while (enabled)
 			{
-				UpdateFollowValue();
+				UpdateFollow();
 
 				yield return useFixedUpdate ? new WaitForFixedUpdate() : new WaitForEndOfFrame();
 			}

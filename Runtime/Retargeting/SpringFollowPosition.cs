@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Extendo.Retargeting
 {
 	[AddComponentMenu("Extendo/Retargeting/Spring Follow Position")]
-	public class SpringFollowPosition : FollowBehaviour
+	public class SpringFollowPosition : FollowPosition
 	{
 		public  float   springStrength = 200f;
 		public  float   springDamp     = 5f;
