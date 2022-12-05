@@ -16,6 +16,7 @@ namespace Extendo.Casting
 		public UnityEvent<RaycastHit>   onHit  = new();
 		public UnityEvent<RaycastHit[]> onHits = new();
 
+		public bool runOnEnable = true;
 		public bool useFixedUpdate;
 		[Tooltip("A value of 0 will update the component every FixedUpdate() or Update().")]
 		public float updateDelay = 0f;
@@ -48,12 +49,12 @@ namespace Extendo.Casting
 
 		private void OnEnable()
 		{
-			StartCoroutine(CastRoutine());
+			if (runOnEnable)
+				StartCoroutine(CastRoutine());
 		}
 
 		private void OnDisable()
 		{
-			StopCoroutine(CastRoutine());
 			HitCount = 0;
 		}
 
@@ -97,7 +98,7 @@ namespace Extendo.Casting
 
 		private IEnumerator CastRoutine()
 		{
-			while (true)
+			while (enabled)
 			{
 				Calculate();
 
