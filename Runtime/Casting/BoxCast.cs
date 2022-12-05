@@ -7,7 +7,7 @@ namespace Extendo.Casting
 	{
 		[Space] public Vector3 size = Vector3.one;
 
-		protected override bool CastDefault(ref RaycastHit hit)
+		protected override bool CastSingle(ref RaycastHit hit)
 		{
 			return Physics.BoxCast
 			(

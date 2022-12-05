@@ -33,7 +33,7 @@ namespace Extendo.Casting
 		protected RaycastHit[]                  hits;
 		public    int                           HitCount     { get; protected set; }
 		public    bool                          HitSomething => HitCount > 0;
-		public    Dictionary<int, RaycastHit[]> hitArrays = new();
+		private   Dictionary<int, RaycastHit[]> hitArrays = new();
 
 		protected virtual void OnValidate()
 		{
@@ -66,7 +66,7 @@ namespace Extendo.Casting
 
 		private void CastAndInvokeHit()
 		{
-			HitCount = CastDefault(ref hits[0]) ? 1 : 0;
+			HitCount = CastSingle(ref hits[0]) ? 1 : 0;
 
 			if (HitSomething)
 				onHit.Invoke(hits[0]);
@@ -90,7 +90,7 @@ namespace Extendo.Casting
 			onHits.Invoke(hitArrays[HitCount]);
 		}
 
-		protected abstract bool CastDefault(ref RaycastHit hit);
+		protected abstract bool CastSingle(ref RaycastHit hit);
 
 		protected abstract int CastAll(ref RaycastHit[] hits);
 
