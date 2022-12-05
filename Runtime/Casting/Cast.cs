@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,6 +16,7 @@ namespace Extendo.Casting
 		public UnityEvent<RaycastHit>   onHit  = new();
 		public UnityEvent<RaycastHit[]> onHits = new();
 
+		public bool runOnEnable = true;
 		public bool useFixedUpdate;
 		[Tooltip("A value of 0 will update the component every FixedUpdate() or Update().")]
 		public float updateDelay = 0f;
@@ -33,7 +35,7 @@ namespace Extendo.Casting
 		protected RaycastHit[]                  hits;
 		public    int                           HitCount     { get; protected set; }
 		public    bool                          HitSomething => HitCount > 0;
-		public    Dictionary<int, RaycastHit[]> hitArrays = new();
+		private   Dictionary<int, RaycastHit[]> hitArrays = new();
 
 		protected virtual void OnValidate()
 		{
@@ -47,16 +49,16 @@ namespace Extendo.Casting
 
 		private void OnEnable()
 		{
-			StartCoroutine(CastRoutine());
+			if (runOnEnable)
+				StartCoroutine(CastRoutine());
 		}
 
 		private void OnDisable()
 		{
-			StopCoroutine(CastRoutine());
 			HitCount = 0;
 		}
 
-		private void Calculate()
+		public void Calculate()
 		{
 			if (castMultiple)
 				CastAndInvokeHits();
@@ -66,7 +68,7 @@ namespace Extendo.Casting
 
 		private void CastAndInvokeHit()
 		{
-			HitCount = CastDefault(ref hits[0]) ? 1 : 0;
+			HitCount = CastSingle(ref hits[0]) ? 1 : 0;
 
 			if (HitSomething)
 				onHit.Invoke(hits[0]);
@@ -90,13 +92,13 @@ namespace Extendo.Casting
 			onHits.Invoke(hitArrays[HitCount]);
 		}
 
-		protected abstract bool CastDefault(ref RaycastHit hit);
+		protected abstract bool CastSingle(ref RaycastHit hit);
 
 		protected abstract int CastAll(ref RaycastHit[] hits);
 
 		private IEnumerator CastRoutine()
 		{
-			while (true)
+			while (enabled)
 			{
 				Calculate();
 

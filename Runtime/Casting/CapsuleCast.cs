@@ -18,7 +18,7 @@ namespace Extendo.Casting
 		private Vector3 TopSphereCapsule    => Position + CapsuleSphereOffset;
 		private Vector3 BottomSphereCapsule => Position - CapsuleSphereOffset;
 
-		protected override bool CastDefault(ref RaycastHit hit)
+		protected override bool CastSingle(ref RaycastHit hit)
 		{
 			return Physics.CapsuleCast
 			(
