@@ -11,10 +11,5 @@ namespace Extendo.Retargeting
 		public bool    enableX = true;
 		public bool    enableY = true;
 		public bool    enableZ = true;
-
-		public Vector3 GetOffset(Transform transform)
-		{
-			return useLocal ? transform.TransformPoint(offset) : offset;
-		}
 	}
 }
