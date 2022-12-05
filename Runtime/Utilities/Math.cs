@@ -107,39 +107,69 @@ namespace Extendo.Utilities
 			return result;
 		}
 
+		public static float Average(params float[] values)
+		{
+			var result = 0f;
+
+			for (int i = 0; i < values.Length; i++)
+				result += values[i];
+
+			return result / values.Length;
+		}
+
+		public static Vector2 Average(params Vector2[] vectors)
+		{
+			var result = Vector2.zero;
+
+			for (int i = 0; i < vectors.Length; i++)
+				result += vectors[i];
+
+			return result / vectors.Length;
+		}
+
+		public static Vector3 Average(params Vector3[] vectors)
+		{
+			Vector3 result = Vector3.zero;
+
+			for (int i = 0; i < vectors.Length; i++)
+				result += vectors[i];
+
+			return result / vectors.Length;
+		}
+
 		/// <summary>
-		/// Lerp-based interpolation exponential dampening that is not affected by frame rate.
+		/// Lerp-based smooth interpolation that is not affected by frame rate.
 		/// </summary>
-		public static float ExpDamp(float current, float target, float smoothTime)
+		public static float Damp(float current, float target, float smoothTime)
 		{
 			return Mathf.Lerp(current, target, 1f - Mathf.Exp(smoothTime * -Time.deltaTime));
 		}
 
 		/// <summary>
-		/// Lerp-based interpolation exponential dampening that is not affected by frame rate.
+		/// Lerp-based smooth interpolation that is not affected by frame rate.
 		/// </summary>
-		public static float ExpDampAngle(float current, float target, float smoothTime)
+		public static float DampAngle(float current, float target, float smoothTime)
 		{
 			return Mathf.LerpAngle(current, target, 1f - Mathf.Exp(smoothTime * -Time.deltaTime));
 		}
 
 		/// <summary>
-		/// Lerp-based interpolation exponential dampening that is not affected by frame rate.
+		/// Lerp-based smooth interpolation that is not affected by frame rate.
 		/// </summary>
-		public static Vector2 ExpDamp(Vector2 current, Vector2 target, float smoothTime)
+		public static Vector2 Damp(Vector2 current, Vector2 target, float smoothTime)
 		{
-			return new(ExpDamp(current.x, target.x, smoothTime), ExpDamp(current.y, target.y, smoothTime));
+			return new(Damp(current.x, target.x, smoothTime), Damp(current.y, target.y, smoothTime));
 		}
 
 		/// <summary>
-		/// Lerp-based interpolation exponential dampening that is not affected by frame rate.
+		/// Lerp-based smooth interpolation that is not affected by frame rate.
 		/// </summary>
-		public static Vector3 ExpDamp(Vector3 current, Vector3 target, float smoothTime)
+		public static Vector3 Damp(Vector3 current, Vector3 target, float smoothTime)
 		{
 			return new(
-				ExpDamp(current.x, target.x, smoothTime),
-				ExpDamp(current.y, target.y, smoothTime),
-				ExpDamp(current.z, target.z, smoothTime)
+				Damp(current.x, target.x, smoothTime),
+				Damp(current.y, target.y, smoothTime),
+				Damp(current.z, target.z, smoothTime)
 			);
 		}
 
@@ -158,27 +188,6 @@ namespace Extendo.Utilities
 		{
 			damp = Mathf.Max(0f, damp) * Time.deltaTime;
 			float direction = (to - from) * Time.deltaTime;
-			float force     = strength * direction * Time.deltaTime;
-
-			velocity += force;
-			velocity *= Mathf.Max(0f, 1f - damp);
-			velocity =  Mathf.Min(velocity, maxVelocity);
-
-			return from + velocity;
-		}
-
-		public static float SpringAngle
-		(
-			float     from,
-			float     to,
-			ref float velocity,
-			float     strength    = 200f,
-			float     damp        = 5f,
-			float     maxVelocity = 100f
-		)
-		{
-			damp = Mathf.Max(0f, damp) * Time.deltaTime;
-			float direction = Mathf.DeltaAngle(from,to) * Time.deltaTime;
 			float force     = strength * direction * Time.deltaTime;
 
 			velocity += force;
