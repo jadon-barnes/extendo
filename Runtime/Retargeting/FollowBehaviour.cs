@@ -3,25 +3,32 @@ using UnityEngine;
 
 namespace Extendo.Retargeting
 {
-	public abstract class FollowBehaviour<T> : MonoBehaviour
+	public abstract class FollowBehaviour : MonoBehaviour
 	{
-		public bool      useFixedUpdate = false;
-		public Transform target;
-		public Vector3   offset;
+		public bool               useFixedUpdate = false;
+		public Transform          target;
+		public ConstraintSettings constraintSettings = new ConstraintSettings();
 
-		public AxisBool useAxis = new(true);
+		private Vector3 followPosition;
 
 		private void UpdateFollowValue()
 		{
 			if (!target)
 				return;
 
-			SetTransformValue(CalculateFollowValue());
+			if (!constraintSettings.enableX && !constraintSettings.enableY && !constraintSettings.enableZ)
+				return;
+
+			followPosition = CalculateFollowPosition(transform.position, target.position + constraintSettings.offset);
+
+			followPosition.x = constraintSettings.enableX ? followPosition.x : transform.position.x;
+			followPosition.y = constraintSettings.enableY ? followPosition.y : transform.position.y;
+			followPosition.z = constraintSettings.enableZ ? followPosition.z : transform.position.z;
+
+			transform.position = followPosition;
 		}
 
-		protected abstract void SetTransformValue(T targetValue);
-
-		protected abstract T CalculateFollowValue();
+		protected abstract Vector3 CalculateFollowPosition(Vector3 from, Vector3 to);
 
 		private void OnEnable()
 		{
