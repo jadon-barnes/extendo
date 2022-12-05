@@ -7,7 +7,7 @@ namespace Extendo.Casting
 	{
 		[Space] public float radius = 0.5f;
 
-		protected override bool CastDefault(ref RaycastHit hit)
+		protected override bool CastSingle(ref RaycastHit hit)
 		{
 			return Physics.SphereCast
 			(

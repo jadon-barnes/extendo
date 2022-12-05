@@ -5,7 +5,7 @@ namespace Extendo.Casting
 	[AddComponentMenu("Extendo/Casting/Ray Cast")]
 	public class RayCast : Cast
 	{
-		protected override bool CastDefault(ref RaycastHit hit)
+		protected override bool CastSingle(ref RaycastHit hit)
 		{
 			return Physics.Raycast(Ray, out hit, maxDistance, layerMask, triggerInteraction);
 		}
