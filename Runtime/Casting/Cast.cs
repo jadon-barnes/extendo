@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -56,7 +57,7 @@ namespace Extendo.Casting
 			HitCount = 0;
 		}
 
-		private void Calculate()
+		public void Calculate()
 		{
 			if (castMultiple)
 				CastAndInvokeHits();
