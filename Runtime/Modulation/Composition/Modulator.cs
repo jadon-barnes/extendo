@@ -16,7 +16,7 @@ namespace Extendo.Modulation.Composition
 		public ModulationMethod modulationMethod = ModulationMethod.Sine;
 		public float            strength         = 1f;
 		public float            speed            = 1f;
-		public T                offset;
+		public T                timeOffset;
 
 		[Space] public T from;
 		public         T to;

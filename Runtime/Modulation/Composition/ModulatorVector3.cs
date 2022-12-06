@@ -25,7 +25,7 @@ namespace Extendo.Modulation.Composition
 			Vector3  cutoffMax
 		)
 		{
-			Vector3 timeValue = (Vector3.one * time + offset) * speed;
+			Vector3 timeValue = (Vector3.one * time + timeOffset) * speed;
 
 			return new Vector3(
 				       method(timeValue.x, remapMin.x, remapMax.x, cutoffMin.x, cutoffMax.x),

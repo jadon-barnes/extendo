@@ -26,7 +26,7 @@ namespace Extendo.Modulation.Composition
 			float    cutoffMax
 		)
 		{
-			float timeValue = (time + offset) * speed;
+			float timeValue = (time + timeOffset) * speed;
 			return method(timeValue, remapMin, remapMax, cutoffMin, cutoffMax) * strength;
 		}
 	}
