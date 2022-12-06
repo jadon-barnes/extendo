@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Extendo.Modulation
+namespace Extendo.Modulation.Composition
 {
 	public abstract class Modulator<T>
 	{
@@ -13,14 +13,21 @@ namespace Extendo.Modulation
 			Bounce      = 4,
 		}
 
-		public         ModulationMethod modulationMethod = ModulationMethod.Sine;
-		public         float            strength         = 1f;
-		[Space] public T                speed;
-		public         T                offset;
-		[Space] public T                from;
-		public         T                to;
-		[Space] public T                cutoffFrom;
-		public         T                cutoffTo;
+		public ModulationMethod modulationMethod = ModulationMethod.Sine;
+		public float            strength         = 1f;
+		public float            speed            = 1f;
+		public T                timeOffset;
+
+		[Space] public T from;
+		public         T to;
+
+		[Space] public     bool enableCutoff = false;
+		public             T    cutoffFrom;
+		public             T    cutoffTo;
+		protected abstract T    CutoffFromInfinity { get; }
+		protected abstract T    CutoffToInfinity   { get; }
+		private            T    CutoffFrom         => enableCutoff ? cutoffFrom : CutoffFromInfinity;
+		private            T    CutoffTo           => enableCutoff ? cutoffTo : CutoffToInfinity;
 
 		protected delegate float Modulate(float time, float remapMin, float remapMax, float cutoffMin, float cutoffMax);
 
@@ -55,66 +62,61 @@ namespace Extendo.Modulation
 
 		protected T GetSine(float time)
 		{
-			return GetValue
-			(
+			return GetValue(
 				sine,
 				time,
 				from,
 				to,
-				cutoffFrom,
-				cutoffTo
+				CutoffFrom,
+				CutoffTo
 			);
 		}
 
 		protected T GetCosine(float time)
 		{
-			return GetValue
-			(
+			return GetValue(
 				cosine,
 				time,
 				from,
 				to,
-				cutoffFrom,
-				cutoffTo
+				CutoffFrom,
+				CutoffTo
 			);
 		}
 
 		protected T GetLinear(float time)
 		{
-			return GetValue
-			(
+			return GetValue(
 				linear,
 				time,
 				from,
 				to,
-				cutoffFrom,
-				cutoffTo
+				CutoffFrom,
+				CutoffTo
 			);
 		}
 
 		protected T GetPerlinNoise(float time)
 		{
-			return GetValue
-			(
+			return GetValue(
 				perlinNoise,
 				time,
 				from,
 				to,
-				cutoffFrom,
-				cutoffTo
+				CutoffFrom,
+				CutoffTo
 			);
 		}
 
 		protected T GetBounce(float time)
 		{
-			return GetValue
-			(
+			return GetValue(
 				bounce,
 				time,
 				from,
 				to,
-				cutoffFrom,
-				cutoffTo
+				CutoffFrom,
+				CutoffTo
 			);
 		}
 	}

@@ -1,6 +1,7 @@
 using System;
+using UnityEngine;
 
-namespace Extendo.Modulation
+namespace Extendo.Modulation.Composition
 {
 	[Serializable]
 	public class FloatModulator : Modulator<float>
@@ -8,10 +9,12 @@ namespace Extendo.Modulation
 		// Set defaults
 		public FloatModulator()
 		{
-			speed    = 1f;
 			to       = 1f;
 			cutoffTo = 1f;
 		}
+
+		protected override float CutoffFromInfinity => Mathf.NegativeInfinity;
+		protected override float CutoffToInfinity   => Mathf.Infinity;
 
 		protected override float GetValue
 		(
@@ -23,7 +26,7 @@ namespace Extendo.Modulation
 			float    cutoffMax
 		)
 		{
-			float timeValue = (time + offset) * speed;
+			float timeValue = (time + timeOffset) * speed;
 			return method(timeValue, remapMin, remapMax, cutoffMin, cutoffMax) * strength;
 		}
 	}
