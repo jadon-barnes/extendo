@@ -4,10 +4,10 @@ using UnityEngine;
 namespace Extendo.Modulation.Composition
 {
 	[Serializable]
-	public class FloatModulator : Modulator<float>
+	public class ModulatorFloat : Modulator<float>
 	{
 		// Set defaults
-		public FloatModulator()
+		public ModulatorFloat()
 		{
 			to       = 1f;
 			cutoffTo = 1f;

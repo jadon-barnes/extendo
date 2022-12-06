@@ -3,9 +3,9 @@ using UnityEngine;
 namespace Extendo.Modulation.Curves
 {
 	[AddComponentMenu("Extendo/Modulation/Curves/Vector3 Curve Modulator")]
-	public class Vector3CurveModulator : CurveModulator<Vector3>
+	public class CurveModulatorVector3 : CurveModulator<Vector3>
 	{
-		public Vector3CurveModulator()
+		public CurveModulatorVector3()
 		{
 			scale  = Vector3.one;
 			curveX = DefaultCurve;

@@ -3,11 +3,11 @@ using UnityEngine.Events;
 
 namespace Extendo.Modulation.Composition
 {
-	public abstract class ModulationComposer<TOsc, TOut> : ModulationBehaviour
+	public abstract class ModulationComposer<TMod, TOut> : ModulationBehaviour
 	{
 		public float            time;
 		public float            strength    = 1f;
-		public TOsc[]           modulations = new TOsc[1];
+		public TMod[]           modulations = new TMod[1];
 		public TOut             Value { get; protected set; }
 		public UnityEvent<TOut> onUpdate;
 

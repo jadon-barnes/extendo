@@ -3,13 +3,13 @@ using UnityEngine;
 namespace Extendo.Modulation.Composition
 {
 	[AddComponentMenu("Extendo/Modulation/Composition/Vector3 Modulation Composer")]
-	public class Vector3ModulationComposer : ModulationComposer<Vector3Modulator, Vector3>
+	public class ModulationComposerVector3 : ModulationComposer<ModulatorVector3, Vector3>
 	{
 		public override Vector3 GetSumOfModulations()
 		{
 			Vector3 sum = Vector3.zero;
 
-			foreach (Vector3Modulator modulation in modulations)
+			foreach (ModulatorVector3 modulation in modulations)
 				sum += modulation.Evaluate(time);
 
 			return sum * strength;

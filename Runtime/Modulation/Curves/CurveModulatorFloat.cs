@@ -3,9 +3,9 @@ using UnityEngine;
 namespace Extendo.Modulation.Curves
 {
 	[AddComponentMenu("Extendo/Modulation/Curves/Float Curve Modulator")]
-	public class FloatCurveModulator : CurveModulator<float>
+	public class CurveModulatorFloat : CurveModulator<float>
 	{
-		public FloatCurveModulator()
+		public CurveModulatorFloat()
 		{
 			scale = 1f;
 			curve = DefaultCurve;
