@@ -6,10 +6,10 @@ namespace Extendo
 	[AddComponentMenu("Extendo/Health")]
 	public class Health : MonoBehaviour
 	{
-		[field: SerializeField] public int             CurrentHealth { get; private set; } = 10;
-		public                         bool            IsDefeated    => CurrentHealth <= 0;
-		public                         bool            IsFullHealth  => CurrentHealth >= maxHealth;
-		public                         float           HealthNormalized   => (float)CurrentHealth / maxHealth;
+		[field: SerializeField] public int             CurrentHealth    { get; private set; } = 10;
+		public                         bool            IsDefeated       => CurrentHealth <= 0;
+		public                         bool            IsFullHealth     => CurrentHealth >= maxHealth;
+		public                         float           HealthNormalized => (float)CurrentHealth / maxHealth;
 		public                         int             maxHealth = 10;
 		public                         UnityEvent<int> onDamage;
 		public                         UnityEvent<int> onHeal;
@@ -19,6 +19,9 @@ namespace Extendo
 		private void OnValidate()
 		{
 			SetHealth(CurrentHealth); // Keep health within range.
+
+			// Ensure never 0
+			maxHealth = Mathf.Max(1, maxHealth);
 		}
 
 		[ContextMenu("Damage by 35% of Max Health")]
