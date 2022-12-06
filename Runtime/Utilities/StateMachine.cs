@@ -1,60 +1,46 @@
-using UnityEngine;
-
 namespace Extendo.Utilities
 {
 	/// <summary>
 	/// A generic state machine that can be used to define state-based logic.
 	/// </summary>
 	/// <typeparam name="TContext">The class that provides context to this state machine's states.</typeparam>
-	/// <seealso cref="State{TContext}"/>
+	/// <seealso cref="State"/>
 	public class StateMachine<TContext>
 	{
-		public    TContext          Context      { get; private set; }
-		public    State<TContext>   CurrentState { get; private set; }
-		public    State<TContext>   LastState    { get; private set; }
-		protected State<TContext>[] states;
+		public TContext Context       { get; private set; }
+		public State    CurrentState  { get; private set; }
+		public State    PreviousState { get; private set; }
 
-		public StateMachine(TContext context, params State<TContext>[] states)
+		public StateMachine(TContext context)
 		{
-			Context     = context;
-			this.states = states;
+			Context = context;
 		}
 
 		/// <summary>
 		/// Sets the current state to the reference provided.
 		/// </summary>
-		public void TransitionTo(State<TContext> state)
+		public void TransitionTo(State state)
 		{
 			if (CurrentState != null)
 			{
-				LastState = CurrentState;
-				LastState.OnExit();
+				PreviousState = CurrentState;
+				PreviousState.OnExit(Context);
 			}
 
 			CurrentState = state;
-			CurrentState.OnEnter();
+			CurrentState.OnEnter(Context);
 		}
 
-		/// <summary>
-		/// Sets the current state to the state type provided. If the state does not exist, a warning will be logged.
-		/// </summary>
-		public void TransitionTo<TState>() where TState : State<TContext>
+		public void Update()
 		{
-			foreach (State<TContext> state in states)
-			{
-				if (state is not TState)
-					continue;
-
-				TransitionTo(state);
-				return;
-			}
-
-			Debug.LogWarning($"{typeof(TState)} was not found in {typeof(StateMachine<TContext>)}!");
+			CurrentState?.OnUpdate(Context);
 		}
 
-		public void UpdateCurrentState()
+		public abstract class State
 		{
-			CurrentState?.OnUpdate();
+			public abstract void OnEnter(TContext  context);
+			public abstract void OnUpdate(TContext context);
+			public abstract void OnExit(TContext   context);
 		}
 	}
 }
