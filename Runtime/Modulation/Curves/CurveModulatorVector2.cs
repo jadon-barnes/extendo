@@ -2,10 +2,10 @@ using UnityEngine;
 
 namespace Extendo.Modulation.Curves
 {
-	[AddComponentMenu("Extendo/Modulation/Curves/Vector2 Curve Modulator")]
-	public class Vector2CurveModulator : CurveModulator<Vector2>
+	[AddComponentMenu("Extendo/Modulation/Curves/Curve Modulator Vector2")]
+	public class CurveModulatorVector2 : CurveModulator<Vector2>
 	{
-		public Vector2CurveModulator()
+		public CurveModulatorVector2()
 		{
 			scale  = Vector2.one;
 			curveX = DefaultCurve;

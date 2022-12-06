@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Extendo.Modulation.Composition
 {
-	[AddComponentMenu("Extendo/Modulation/Composition/Vector3 Modulation Composer")]
+	[AddComponentMenu("Extendo/Modulation/Composition/Modulation Composer Vector3")]
 	public class ModulationComposerVector3 : ModulationComposer<ModulatorVector3, Vector3>
 	{
 		public override Vector3 GetSumOfModulations()
