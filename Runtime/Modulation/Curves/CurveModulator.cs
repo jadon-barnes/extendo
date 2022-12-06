@@ -2,7 +2,7 @@ using Extendo.Utilities;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Extendo.Modulation
+namespace Extendo.Modulation.Curves
 {
 	public abstract class CurveModulator<T> : ModulationBehaviour
 	{

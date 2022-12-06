@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Extendo.Modulation
+namespace Extendo.Modulation.Composition
 {
 	[Serializable]
 	public class FloatModulator : Modulator<float>

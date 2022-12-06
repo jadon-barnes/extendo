@@ -1,8 +1,8 @@
 using UnityEngine;
 
-namespace Extendo.Modulation
+namespace Extendo.Modulation.Curves
 {
-	[AddComponentMenu("Extendo/Modulation/Float Curve Modulator")]
+	[AddComponentMenu("Extendo/Modulation/Curves/Float Curve Modulator")]
 	public class FloatCurveModulator : CurveModulator<float>
 	{
 		public FloatCurveModulator()

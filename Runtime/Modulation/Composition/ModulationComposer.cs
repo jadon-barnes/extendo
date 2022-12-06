@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Extendo.Modulation
+namespace Extendo.Modulation.Composition
 {
 	public abstract class ModulationComposer<TOsc, TOut> : ModulationBehaviour
 	{

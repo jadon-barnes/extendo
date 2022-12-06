@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Extendo.Modulation
+namespace Extendo.Modulation.Composition
 {
 	public abstract class Modulator<T>
 	{
