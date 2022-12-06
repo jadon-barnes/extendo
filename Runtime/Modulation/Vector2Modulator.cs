@@ -13,6 +13,9 @@ namespace Extendo.Modulation
 			cutoffTo = Vector2.one;
 		}
 
+		protected override Vector2 CutoffFromInfinity => Vector2.negativeInfinity;
+		protected override Vector2 CutoffToInfinity   => Vector2.positiveInfinity;
+
 		protected override Vector2 GetValue
 		(
 			Modulate method,
@@ -25,7 +28,11 @@ namespace Extendo.Modulation
 		{
 			Vector2 timeValue = Vector2.Scale(Vector2.one * time + offset, speed);
 
-			return new Vector2(method(timeValue.x, remapMin.x, remapMax.x, cutoffMin.x, cutoffMax.x), method(timeValue.y, remapMin.y, remapMax.y, cutoffMin.y, cutoffMax.y)) * strength;
+			return new Vector2(
+				       method(timeValue.x, remapMin.x, remapMax.x, cutoffMin.x, cutoffMax.x),
+				       method(timeValue.y, remapMin.y, remapMax.y, cutoffMin.y, cutoffMax.y)
+			       )
+			       * strength;
 		}
 	}
 }
