@@ -10,9 +10,9 @@ namespace Extendo.Modulation.Composition
 		public float time;
 		public float strength = 1f;
 
-		[Space] public ModulatorFloat[]   floatModulations   = new[] { new ModulatorFloat() };
-		public         ModulatorVector2[] vector2Modulations = new[] { new ModulatorVector2() };
-		public         ModulatorVector3[] vector3Modulations = new[] { new ModulatorVector3() };
+		[Space] public FloatModulator[]   floatModulators   = new[] { new FloatModulator() };
+		public         Vector2Modulator[] vector2Modulators = new[] { new Vector2Modulator() };
+		public         Vector3Modulator[] vector3Modulators = new[] { new Vector3Modulator() };
 
 		[Space] public UnityEvent<float>   onUpdateFloat;
 		public         UnityEvent<Vector2> onUpdateVector2;
@@ -39,7 +39,7 @@ namespace Extendo.Modulation.Composition
 		{
 			var sum = 0f;
 
-			foreach (ModulatorFloat modulation in floatModulations)
+			foreach (FloatModulator modulation in floatModulators)
 				sum += modulation.Evaluate(time);
 
 			return sum * strength;
@@ -49,7 +49,7 @@ namespace Extendo.Modulation.Composition
 		{
 			Vector2 sum = Vector2.zero;
 
-			foreach (ModulatorVector2 modulation in vector2Modulations)
+			foreach (Vector2Modulator modulation in vector2Modulators)
 				sum += modulation.Evaluate(time);
 
 			return sum * strength;
@@ -59,7 +59,7 @@ namespace Extendo.Modulation.Composition
 		{
 			Vector3 sum = Vector3.zero;
 
-			foreach (ModulatorVector3 modulation in vector3Modulations)
+			foreach (Vector3Modulator modulation in vector3Modulators)
 				sum += modulation.Evaluate(time);
 
 			return sum * strength;

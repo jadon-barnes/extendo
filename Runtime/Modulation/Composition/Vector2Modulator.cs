@@ -4,9 +4,9 @@ using UnityEngine;
 namespace Extendo.Modulation.Composition
 {
 	[Serializable]
-	public class ModulatorVector2 : Modulator<Vector2>
+	public class Vector2Modulator : Modulator<Vector2>
 	{
-		public ModulatorVector2()
+		public Vector2Modulator()
 		{
 			to       = Vector2.one;
 			cutoffTo = Vector2.one;
