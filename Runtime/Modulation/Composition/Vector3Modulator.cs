@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Extendo.Modulation
+namespace Extendo.Modulation.Composition
 {
 	[Serializable]
 	public class Vector3Modulator : Modulator<Vector3>
@@ -25,7 +25,7 @@ namespace Extendo.Modulation
 			Vector3  cutoffMax
 		)
 		{
-			Vector3 timeValue = (Vector3.one * time + offset) * speed;
+			Vector3 timeValue = (Vector3.one * time + timeOffset) * speed;
 
 			return new Vector3(
 				       method(timeValue.x, remapMin.x, remapMax.x, cutoffMin.x, cutoffMax.x),
