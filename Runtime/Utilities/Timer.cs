@@ -22,8 +22,8 @@ namespace Extendo.Utilities
 
 		public float Time              { get; private set; }
 		public float TimeReversed      => duration - Time;
-		public float TimeValue         => Mathf.Abs(duration) < 0.001f ? 0f : Time / duration;
-		public float TimeValueReversed => 1 - TimeValue;
+		public float TimeNormalized         => Mathf.Abs(duration) < 0.001f ? 0f : Time / duration;
+		public float TimeNormalizedReversed => 1 - TimeNormalized;
 		public bool  DurationReached   => Time >= duration;
 
 		public int   Hours                => Mathf.FloorToInt(Time / 3600f);
