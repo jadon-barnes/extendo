@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 namespace Extendo.Modulation
 {
@@ -12,6 +13,9 @@ namespace Extendo.Modulation
 			to       = 1f;
 			cutoffTo = 1f;
 		}
+
+		protected override float CutoffFromInfinity => Mathf.NegativeInfinity;
+		protected override float CutoffToInfinity   => Mathf.Infinity;
 
 		protected override float GetValue
 		(
