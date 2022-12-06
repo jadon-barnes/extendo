@@ -18,7 +18,8 @@ namespace Extendo
 
 		private void OnValidate()
 		{
-			SetHealth(CurrentHealth); // Keep health within range.
+			// Keep health within range.
+			SetHealth(CurrentHealth);
 
 			// Ensure never 0
 			maxHealth = Mathf.Max(1, maxHealth);
