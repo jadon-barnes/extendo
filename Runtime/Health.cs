@@ -9,6 +9,7 @@ namespace Extendo
 		[field: SerializeField] public int             CurrentHealth { get; private set; } = 10;
 		public                         bool            IsDefeated    => CurrentHealth <= 0;
 		public                         bool            IsFullHealth  => CurrentHealth >= maxHealth;
+		public                         float           HealthNormalized   => (float)CurrentHealth / maxHealth;
 		public                         int             maxHealth = 10;
 		public                         UnityEvent<int> onDamage;
 		public                         UnityEvent<int> onHeal;
