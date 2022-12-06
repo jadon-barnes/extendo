@@ -9,7 +9,6 @@ namespace Extendo.Modulation
 		// Set defaults
 		public FloatModulator()
 		{
-			speed    = 1f;
 			to       = 1f;
 			cutoffTo = 1f;
 		}

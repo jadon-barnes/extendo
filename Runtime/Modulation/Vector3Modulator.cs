@@ -8,7 +8,6 @@ namespace Extendo.Modulation
 	{
 		public Vector3Modulator()
 		{
-			speed    = Vector3.one;
 			to       = Vector3.one;
 			cutoffTo = Vector3.one;
 		}
@@ -26,7 +25,7 @@ namespace Extendo.Modulation
 			Vector3  cutoffMax
 		)
 		{
-			Vector3 timeValue = Vector3.Scale(Vector3.one * time + offset, speed);
+			Vector3 timeValue = (Vector3.one * time + offset) * speed;
 
 			return new Vector3(
 				       method(timeValue.x, remapMin.x, remapMax.x, cutoffMin.x, cutoffMax.x),

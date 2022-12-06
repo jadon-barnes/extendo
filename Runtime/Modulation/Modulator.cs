@@ -13,12 +13,13 @@ namespace Extendo.Modulation
 			Bounce      = 4,
 		}
 
-		public         ModulationMethod modulationMethod = ModulationMethod.Sine;
-		public         float            strength         = 1f;
-		[Space] public T                speed;
-		public         T                offset;
-		[Space] public T                from;
-		public         T                to;
+		public ModulationMethod modulationMethod = ModulationMethod.Sine;
+		public float            strength         = 1f;
+		public float            speed            = 1f;
+		public T                offset;
+
+		[Space] public T from;
+		public         T to;
 
 		[Space] public     bool enableCutoff = false;
 		public             T    cutoffFrom;

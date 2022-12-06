@@ -8,7 +8,6 @@ namespace Extendo.Modulation
 	{
 		public Vector2Modulator()
 		{
-			speed    = Vector2.one;
 			to       = Vector2.one;
 			cutoffTo = Vector2.one;
 		}
@@ -26,7 +25,7 @@ namespace Extendo.Modulation
 			Vector2  cutoffMax
 		)
 		{
-			Vector2 timeValue = Vector2.Scale(Vector2.one * time + offset, speed);
+			Vector2 timeValue = (Vector2.one * time + offset) * speed;
 
 			return new Vector2(
 				       method(timeValue.x, remapMin.x, remapMax.x, cutoffMin.x, cutoffMax.x),
