@@ -13,8 +13,8 @@ namespace Extendo.Casting
 		protected Vector3 Direction => transform.forward;
 		protected Ray     Ray       => new(Position, Direction);
 
-		public UnityEvent<RaycastHit>   onHit = new();
-		public UnityEvent<Vector3>      hitPosition;
+		public UnityEvent<RaycastHit> onHit = new();
+		public UnityEvent<Vector3>    hitPosition;
 
 		public bool runOnEnable = true;
 		public bool useFixedUpdate;
@@ -24,7 +24,7 @@ namespace Extendo.Casting
 		public             bool  drawGizmos = true;
 		protected readonly Color colorHit   = Color.red;
 		protected readonly Color colorMiss  = Color.green;
-		protected          float GizmoRayLength => float.IsInfinity(maxDistance) ? 9999999f : maxDistance;
+		protected          float MaxVisualRayLength => float.IsInfinity(maxDistance) ? 9999999f : maxDistance;
 
 		[Space] public QueryTriggerInteraction triggerInteraction = QueryTriggerInteraction.UseGlobal;
 		public         LayerMask               layerMask          = ~0;
@@ -34,7 +34,7 @@ namespace Extendo.Casting
 		public  RaycastHit Hit          => hit;
 		public  bool       HitSomething => Hit.collider;
 		public Vector3 HitDistancePosition =>
-			transform.position + transform.forward * (hit.collider ? hit.distance : maxDistance);
+			transform.position + transform.forward * (hit.collider ? hit.distance : MaxVisualRayLength);
 
 		private void OnEnable()
 		{
@@ -81,9 +81,9 @@ namespace Extendo.Casting
 			// Render miss first.
 			Gizmos.color = colorMiss;
 			// Line
-			Gizmos.DrawRay(Vector3.zero, Vector3.forward * GizmoRayLength);
+			Gizmos.DrawRay(Vector3.zero, Vector3.forward * MaxVisualRayLength);
 			// Shape
-			DrawShape(GizmoRayLength);
+			DrawShape(MaxVisualRayLength);
 
 			// Render Hits
 			if (HitSomething)
