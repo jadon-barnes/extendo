@@ -7,12 +7,12 @@ namespace Extendo.Menus
 	{
 		public GameObject menuPrefab;
 
-		public Menu SpawnMenu()
+		public MenuNavigator SpawnMenu()
 		{
 			if (!menuPrefab)
 				return null;
 
-			return Instantiate(menuPrefab).GetComponentInChildren<Menu>();
+			return Instantiate(menuPrefab).GetComponentInChildren<MenuNavigator>();
 		}
 	}
 }
