@@ -8,9 +8,8 @@ namespace Extendo.Casting
 		[Space] public float radius = 0.5f;
 		public         float height = 1f;
 
-		protected override void OnValidate()
+		protected void OnValidate()
 		{
-			base.OnValidate();
 			height = Mathf.Max(0, height);
 		}
 
@@ -18,30 +17,14 @@ namespace Extendo.Casting
 		private Vector3 TopSphereCapsule    => Position + CapsuleSphereOffset;
 		private Vector3 BottomSphereCapsule => Position - CapsuleSphereOffset;
 
-		protected override bool CastSingle(ref RaycastHit hit)
+		public override bool DoCast(out RaycastHit hit)
 		{
-			return Physics.CapsuleCast
-			(
+			return Physics.CapsuleCast(
 				TopSphereCapsule,
 				BottomSphereCapsule,
 				radius,
 				Direction,
 				out hit,
-				maxDistance,
-				layerMask,
-				triggerInteraction
-			);
-		}
-
-		protected override int CastAll(ref RaycastHit[] hits)
-		{
-			return Physics.CapsuleCastNonAlloc
-			(
-				TopSphereCapsule,
-				BottomSphereCapsule,
-				radius,
-				Direction,
-				hits,
 				maxDistance,
 				layerMask,
 				triggerInteraction

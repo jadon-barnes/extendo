@@ -26,26 +26,13 @@ namespace Extendo.Casting
 		protected readonly Color colorMiss  = Color.green;
 		protected          float GizmoRayLength => float.IsInfinity(maxDistance) ? 9999999f : maxDistance;
 
-		[Space] public bool                    castMultiple       = false;
-		public         QueryTriggerInteraction triggerInteraction = QueryTriggerInteraction.UseGlobal;
+		[Space] public QueryTriggerInteraction triggerInteraction = QueryTriggerInteraction.UseGlobal;
 		public         LayerMask               layerMask          = ~0;
-		public         int                     maxCollisions      = 10;
 		public         float                   maxDistance        = Mathf.Infinity;
 
-		protected RaycastHit[]                  hits;
-		public    int                           HitCount     { get; protected set; }
-		public    bool                          HitSomething => HitCount > 0;
-		private   Dictionary<int, RaycastHit[]> hitArrays = new();
-
-		protected virtual void OnValidate()
-		{
-			maxCollisions = Mathf.Max(1, maxCollisions);
-		}
-
-		private void Awake()
-		{
-			hits = new RaycastHit[maxCollisions];
-		}
+		private RaycastHit hit;
+		public  RaycastHit Hit          => hit;
+		public  bool       HitSomething => Hit.collider;
 
 		private void OnEnable()
 		{
@@ -53,54 +40,21 @@ namespace Extendo.Casting
 				StartCoroutine(CastRoutine());
 		}
 
-		private void OnDisable()
+		public void ManualUpdate()
 		{
-			HitCount = 0;
-		}
-
-		public void Calculate()
-		{
-			if (castMultiple)
-				CastAndInvokeHits();
-			else
-				CastAndInvokeHit();
-		}
-
-		private void CastAndInvokeHit()
-		{
-			HitCount = CastSingle(ref hits[0]) ? 1 : 0;
+			DoCast(out hit);
 
 			if (HitSomething)
-				onHit.Invoke(hits[0]);
+				onHit.Invoke(Hit);
 		}
 
-		private void CastAndInvokeHits()
-		{
-			HitCount = CastAll(ref hits);
-
-			if (!HitSomething)
-				return;
-
-			// Add array size to dictionary if doesn't exist.
-			if (!hitArrays.ContainsKey(HitCount))
-				hitArrays.Add(HitCount, new RaycastHit[HitCount]);
-
-			// To avoid GC Alloc, arrays (the size of the hitcount) are created and stored in a dictionary to be reused.
-			for (var i = 0; i < HitCount; i++)
-				hitArrays[HitCount][i] = hits[i];
-
-			onHits.Invoke(hitArrays[HitCount]);
-		}
-
-		protected abstract bool CastSingle(ref RaycastHit hit);
-
-		protected abstract int CastAll(ref RaycastHit[] hits);
+		public abstract bool DoCast(out RaycastHit hit);
 
 		private IEnumerator CastRoutine()
 		{
 			while (enabled)
 			{
-				Calculate();
+				ManualUpdate();
 
 				if (Mathf.Abs(updateDelay) > 0.001f)
 					yield return new WaitForSeconds(updateDelay);
@@ -127,18 +81,11 @@ namespace Extendo.Casting
 			// Shape
 			DrawShape(GizmoRayLength);
 
-			Gizmos.color = colorHit;
-
 			// Render Hits
-			if (castMultiple)
+			if (HitSomething)
 			{
-				for (var i = 0; i < HitCount; i++)
-					DrawShape(hits[i].distance);
-			}
-			else
-			{
-				if (HitSomething)
-					DrawShape(hits[0].distance);
+				Gizmos.color = colorHit;
+				DrawShape(Hit.distance);
 			}
 		}
 
