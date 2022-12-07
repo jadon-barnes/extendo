@@ -2,15 +2,22 @@ using UnityEngine;
 
 namespace Extendo.Audio
 {
+	[RequireComponent(typeof(AudioSource))]
 	[AddComponentMenu("Extendo/Audio Clip Controller")]
 	public class AudioClipController : MonoBehaviour
 	{
-		public  AudioSource audioSource;
+		private AudioSource audioSource;
 		public  AudioClip[] clips;
 		public  Vector2     volumeVariation = Vector3.one;
 		public  Vector2     pitchVariation  = Vector2.one;
-		private int         clipIndex       = -1; // Set to -1 at first to avoid skipping the first clip if "PlaySequentially" is enabled
-		public  bool        playSequentially;
+		private int
+			clipIndex = -1; // Set to -1 at first to avoid skipping the first clip if "PlaySequentially" is enabled
+		public bool playSequentially;
+
+		private void Awake()
+		{
+			audioSource = GetComponent<AudioSource>();
+		}
 
 		[ContextMenu("Play")]
 		public void Play()
