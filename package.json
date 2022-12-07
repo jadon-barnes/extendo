@@ -1,6 +1,6 @@
 {
   "name": "com.jadonbarnes.extendo",
-  "version": "0.1.0",
+  "version": "1.4.0-alpha",
   "displayName": "Extendo",
   "description": "An extension of features for Unity. Make use of state machines, math functions, components, and more.",
   "unity": "2021.3",
