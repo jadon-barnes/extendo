@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Extendo
+namespace Extendo.HealthSystem
 {
 	[AddComponentMenu("Extendo/Health")]
 	public class Health : MonoBehaviour
