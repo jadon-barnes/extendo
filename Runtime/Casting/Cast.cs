@@ -14,7 +14,6 @@ namespace Extendo.Casting
 		protected Ray     Ray       => new(Position, Direction);
 
 		public UnityEvent<RaycastHit>   onHit  = new();
-		public UnityEvent<RaycastHit[]> onHits = new();
 
 		public bool runOnEnable = true;
 		public bool useFixedUpdate;
