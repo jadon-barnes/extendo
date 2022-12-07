@@ -7,26 +7,12 @@ namespace Extendo.Casting
 	{
 		[Space] public float radius = 0.5f;
 
-		protected override bool CastSingle(ref RaycastHit hit)
+		public override bool DoCast(out RaycastHit hit)
 		{
-			return Physics.SphereCast
-			(
+			return Physics.SphereCast(
 				Ray,
 				radius,
 				out hit,
-				maxDistance,
-				layerMask,
-				triggerInteraction
-			);
-		}
-
-		protected override int CastAll(ref RaycastHit[] hits)
-		{
-			return Physics.SphereCastNonAlloc
-			(
-				Ray,
-				radius,
-				hits,
 				maxDistance,
 				layerMask,
 				triggerInteraction
