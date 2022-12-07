@@ -15,7 +15,6 @@ namespace Extendo.Casting
 
 		public UnityEvent<RaycastHit>   onHit = new();
 		public UnityEvent<Vector3>      hitPosition;
-		public UnityEvent<RaycastHit[]> onHits = new();
 
 		public bool runOnEnable = true;
 		public bool useFixedUpdate;
