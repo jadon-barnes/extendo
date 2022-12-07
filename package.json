@@ -1,5 +1,5 @@
 {
-  "name": "com.jadon-barnes.extendo",
+  "name": "com.jadonbarnes.extendo",
   "version": "0.1.0",
   "displayName": "Extendo",
   "description": "An extension of features for Unity. Make use of state machines, math functions, components, and more.",
@@ -13,7 +13,7 @@
     "tools",
     "state machine",
     "spring",
-    "health"
+    "health",
   ],
   "author": {
     "name": "Jadon Barnes",
