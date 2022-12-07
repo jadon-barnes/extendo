@@ -13,7 +13,8 @@ namespace Extendo.Casting
 		protected Vector3 Direction => transform.forward;
 		protected Ray     Ray       => new(Position, Direction);
 
-		public UnityEvent<RaycastHit>   onHit  = new();
+		public UnityEvent<RaycastHit>   onHit = new();
+		public UnityEvent<Vector3>      hitPosition;
 
 		public bool runOnEnable = true;
 		public bool useFixedUpdate;
@@ -32,6 +33,8 @@ namespace Extendo.Casting
 		private RaycastHit hit;
 		public  RaycastHit Hit          => hit;
 		public  bool       HitSomething => Hit.collider;
+		public Vector3 HitDistancePosition =>
+			transform.position + transform.forward * (hit.collider ? hit.distance : maxDistance);
 
 		private void OnEnable()
 		{
@@ -42,6 +45,8 @@ namespace Extendo.Casting
 		public void ManualUpdate()
 		{
 			DoCast(out hit);
+
+			hitPosition.Invoke(HitDistancePosition);
 
 			if (HitSomething)
 				onHit.Invoke(Hit);
