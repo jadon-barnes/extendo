@@ -7,14 +7,16 @@ namespace Extendo.SceneManager
 {
 	public class SceneTransition : MonoBehaviour
 	{
-		public SceneReference sceneReference;
-		public bool           async;
-		// public bool                enableAsyncSceneAutomatically = true;
-		public bool                allowMultipleSameScenes = false;
+		public SceneReference      sceneReference;
+		public bool                async;
+		public bool                multipleSameScenes = false;
 		public LoadSceneParameters parameters;
 		public GameObject[]        moveGameObjects;
 		public UnityEvent          onLoadStart;
+		public UnityEvent<float>   onAsyncLoadProgress;
 		public UnityEvent          onLoadDone;
+
+		public float AsyncLoadProgress { get; private set; }
 
 		[ContextMenu("Transition")]
 		public void Transition()
@@ -32,8 +34,7 @@ namespace Extendo.SceneManager
 
 		public void Transition(int index)
 		{
-			if (!allowMultipleSameScenes
-			    && UnityEngine.SceneManagement.SceneManager.GetSceneByBuildIndex(index).isLoaded)
+			if (!multipleSameScenes && UnityEngine.SceneManagement.SceneManager.GetSceneByBuildIndex(index).isLoaded)
 				return;
 
 			if (async)
@@ -48,7 +49,7 @@ namespace Extendo.SceneManager
 			var scene = UnityEngine.SceneManagement.SceneManager.LoadScene(index, parameters);
 			onLoadDone.Invoke();
 
-			MoveGameObjects(scene);
+			MoveGameObjects(index);
 		}
 
 		private void LoadSceneAsync(int index)
@@ -59,25 +60,37 @@ namespace Extendo.SceneManager
 		IEnumerator LoadSceneAsyncRoutine(int index)
 		{
 			AsyncOperation asyncLoad = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(index, parameters);
-			asyncLoad.allowSceneActivation = true;
 
 			onLoadStart.Invoke();
 
 			// Wait until the asynchronous scene fully loads
-			while (!asyncLoad.isDone) { yield return null; }
+			while (!asyncLoad.isDone)
+			{
+				AsyncLoadProgress = Mathf.Clamp01(asyncLoad.progress / 0.9f);
+				onAsyncLoadProgress.Invoke(AsyncLoadProgress);
+				yield return null;
+			}
+
+			onAsyncLoadProgress.Invoke(AsyncLoadProgress);
 
 			onLoadDone.Invoke();
 
-			var scene = UnityEngine.SceneManagement.SceneManager.GetSceneAt(index);
-			MoveGameObjects(scene);
+			MoveGameObjects(index);
 		}
 
-		private void MoveGameObjects(Scene scene)
+		private void MoveGameObjects(int index)
 		{
+			var scene = UnityEngine.SceneManagement.SceneManager.GetSceneByBuildIndex(index);
+
 			for (int i = 0; i < moveGameObjects.Length; i++)
 			{
 				UnityEngine.SceneManagement.SceneManager.MoveGameObjectToScene(moveGameObjects[i], scene);
 			}
+		}
+
+		public void Test(float value)
+		{
+			Debug.Log(value);
 		}
 	}
 }
