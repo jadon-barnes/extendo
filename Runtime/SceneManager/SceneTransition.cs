@@ -87,10 +87,5 @@ namespace Extendo.SceneManager
 				UnityEngine.SceneManagement.SceneManager.MoveGameObjectToScene(moveGameObjects[i], scene);
 			}
 		}
-
-		public void Test(float value)
-		{
-			Debug.Log(value);
-		}
 	}
 }
