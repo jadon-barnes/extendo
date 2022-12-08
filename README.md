@@ -28,4 +28,10 @@ To view more features of this package, visit the [wiki](https://github.com/xJado
 
 # How to Install
 
-To install this package in your unity project, [view Unity's documentation](https://docs.unity3d.com/Manual/upm-ui-giturl.html).
+For additional help with installing this package in your unity project, [view Unity's documentation](https://docs.unity3d.com/Manual/upm-ui-giturl.html).
+
+## Git URLs
+
+Latest Main: https://github.com/jadon-barnes/extendo.git
+
+Specific Release: https://github.com/jadon-barnes/extendo.git#[release-tag]
