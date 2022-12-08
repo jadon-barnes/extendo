@@ -7,8 +7,10 @@ namespace Extendo.SceneManager
 {
 	public class SceneTransition : MonoBehaviour
 	{
-		public SceneReference      sceneReference;
-		public bool                async;
+		public SceneReference sceneReference;
+		public bool           async;
+		// public bool                enableAsyncSceneAutomatically = true;
+		public bool                allowMultipleSameScenes = false;
 		public LoadSceneParameters parameters;
 		public GameObject[]        moveGameObjects;
 		public UnityEvent          onLoadStart;
@@ -22,7 +24,7 @@ namespace Extendo.SceneManager
 
 		public void Transition(SceneReference sceneReference)
 		{
-			if (sceneReference)
+			if (sceneReference == null)
 				return;
 
 			Transition(sceneReference.index);
@@ -30,6 +32,10 @@ namespace Extendo.SceneManager
 
 		public void Transition(int index)
 		{
+			if (!allowMultipleSameScenes
+			    && UnityEngine.SceneManagement.SceneManager.GetSceneByBuildIndex(index).isLoaded)
+				return;
+
 			if (async)
 				LoadSceneAsync(index);
 			else
@@ -53,6 +59,7 @@ namespace Extendo.SceneManager
 		IEnumerator LoadSceneAsyncRoutine(int index)
 		{
 			AsyncOperation asyncLoad = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(index, parameters);
+			asyncLoad.allowSceneActivation = true;
 
 			onLoadStart.Invoke();
 
