@@ -4,9 +4,9 @@ namespace Extendo.Interaction
 {
 	public static class InteractionExtension
 	{
-		public static bool TryInteract<T>(this Transform transform) where T : IInteractable
+		public static bool TryInteract<T>(this GameObject gameObject) where T : IInteractable
 		{
-			T[] interactables = transform.GetComponents<T>();
+			T[] interactables = gameObject.GetComponents<T>();
 
 			if (interactables.Length == 0)
 				return false;
@@ -17,19 +17,19 @@ namespace Extendo.Interaction
 			return true;
 		}
 
-		public static bool TryInteract<T>(this GameObject gameObject) where T : IInteractable
+		public static bool TryInteract<T>(this Transform transform) where T : IInteractable
 		{
-			return TryInteract<T>(gameObject.transform);
-		}
-
-		public static bool TryInteract(this Transform transform)
-		{
-			return TryInteract<IInteractable>(transform);
+			return TryInteract<T>(transform.gameObject);
 		}
 
 		public static bool TryInteract(this GameObject gameObject)
 		{
 			return TryInteract<IInteractable>(gameObject);
+		}
+
+		public static bool TryInteract(this Transform transform)
+		{
+			return TryInteract<IInteractable>(transform);
 		}
 	}
 }
