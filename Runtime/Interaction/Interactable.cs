@@ -6,7 +6,7 @@ namespace Extendo.Interaction
 	[AddComponentMenu("Extendo/Interactable")]
 	public class Interactable : MonoBehaviour, IInteractable
 	{
-		public bool  enableCooldown;
+		public bool  useCooldown;
 		public float cooldownTime = 1f;
 		public bool  toggleValue  = true;
 		public bool  InCooldown => IsInvoking(nameof(OnCooldownComplete));
@@ -19,7 +19,7 @@ namespace Extendo.Interaction
 		[ContextMenu("Interact")]
 		public void OnInteract()
 		{
-			if (enableCooldown)
+			if (useCooldown)
 			{
 				if (InCooldown)
 					return;
