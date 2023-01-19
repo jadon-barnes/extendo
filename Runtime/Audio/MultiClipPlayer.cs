@@ -3,16 +3,15 @@ using UnityEngine;
 namespace Extendo.Audio
 {
 	[RequireComponent(typeof(AudioSource))]
-	[AddComponentMenu("Extendo/Audio Clip Controller")]
-	public class AudioClipController : MonoBehaviour
+	[AddComponentMenu("Extendo/Multi Clip Player")]
+	public class MultiClipPlayer : MonoBehaviour
 	{
 		private AudioSource audioSource;
 		public  AudioClip[] clips;
 		public  Vector2     volumeVariation = Vector3.one;
 		public  Vector2     pitchVariation  = Vector2.one;
 
-		private int
-			clipIndex = -1; // Set to -1 at first to avoid skipping the first clip if "PlaySequentially" is enabled
+		private int clipIndex = 0;
 
 		public bool playSequentially;
 
@@ -30,7 +29,11 @@ namespace Extendo.Audio
 			if (!audioSource)
 				return;
 
-			clipIndex = playSequentially ? (clipIndex + 1) % clips.Length : Random.Range(0, clips.Length);
+			// Get clip from Index
+			clipIndex = playSequentially ? clipIndex % clips.Length : Random.Range(0, clips.Length);
+
+			if (playSequentially)
+				clipIndex++;
 
 			audioSource.clip = clips[clipIndex];
 			audioSource.RandomizePitch(pitchVariation.x, pitchVariation.y);
