@@ -17,7 +17,7 @@ namespace Extendo.Interaction
 		public         UnityEvent       onCooldownComplete;
 
 		[ContextMenu("Interact")]
-		public void OnInteract()
+		public void Interact()
 		{
 			if (useCooldown)
 			{

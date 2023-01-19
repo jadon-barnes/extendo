@@ -12,7 +12,7 @@ namespace Extendo.Interaction
 				return false;
 
 			foreach (T interactable in interactables)
-				interactable.OnInteract();
+				interactable.Interact();
 
 			return true;
 		}
