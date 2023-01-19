@@ -31,6 +31,11 @@ namespace Extendo.Utilities
 			CurrentState.OnEnter(Context);
 		}
 
+		public void TransitionToPreviousState()
+		{
+			TransitionTo(PreviousState);
+		}
+
 		public void Update()
 		{
 			CurrentState?.OnUpdate(Context);
