@@ -18,6 +18,7 @@ namespace Extendo.Casting
 
 		public bool runOnEnable = true;
 		public bool useFixedUpdate;
+
 		[Tooltip("A value of 0 will update the component every FixedUpdate() or Update().")]
 		public float updateDelay = 0f;
 
@@ -31,10 +32,9 @@ namespace Extendo.Casting
 		public         float                   maxDistance        = Mathf.Infinity;
 
 		private RaycastHit hit;
-		public  RaycastHit Hit          => hit;
-		public  bool       HitSomething => Hit.collider;
-		public Vector3 HitDistancePosition =>
-			transform.position + transform.forward * (hit.collider ? hit.distance : MaxVisualRayLength);
+		public  RaycastHit Hit                 => hit;
+		public  bool       HitSomething        => Hit.collider;
+		public  Vector3    HitDistancePosition => transform.position + transform.forward * (hit.collider ? hit.distance : MaxVisualRayLength);
 
 		private void OnEnable()
 		{

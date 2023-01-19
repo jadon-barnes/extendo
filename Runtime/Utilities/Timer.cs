@@ -12,19 +12,19 @@ namespace Extendo.Utilities
 	{
 		public Timer(float duration = 5f, bool repeat = false, UnityAction onDurationReached = null)
 		{
-			this.duration          = duration;
-			this.repeat            = repeat;
+			this.duration = duration;
+			this.repeat = repeat;
 			this.onDurationReached = onDurationReached;
 		}
 
 		public float duration = 5f;
 		public bool  repeat   = false;
 
-		public float Time              { get; private set; }
-		public float TimeReversed      => duration - Time;
+		public float Time                   { get; private set; }
+		public float TimeReversed           => duration - Time;
 		public float TimeNormalized         => Mathf.Abs(duration) < 0.001f ? 0f : Time / duration;
 		public float TimeNormalizedReversed => 1 - TimeNormalized;
-		public bool  DurationReached   => Time >= duration;
+		public bool  DurationReached        => Time >= duration;
 
 		public int   Hours                => Mathf.FloorToInt(Time / 3600f);
 		public int   Minutes              => Mathf.FloorToInt(Time / 60f);

@@ -9,7 +9,7 @@ namespace Extendo.Modulation.Curves
 	{
 		public Vector2Curve()
 		{
-			scale  = Vector2.one;
+			scale = Vector2.one;
 			curveX = DefaultCurve;
 			curveY = DefaultCurve;
 		}

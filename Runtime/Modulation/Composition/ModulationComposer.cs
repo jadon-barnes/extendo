@@ -24,7 +24,7 @@ namespace Extendo.Modulation.Composition
 
 		protected override void ManualUpdate()
 		{
-			FloatValue   = GetSumOfFloatModulations();
+			FloatValue = GetSumOfFloatModulations();
 			Vector2Value = GetSumOfVector2Modulations();
 			Vector3Value = GetSumOfVector3Modulations();
 

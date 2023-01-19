@@ -9,21 +9,20 @@ namespace Extendo.Modulation.Composition
 		// Set defaults
 		public FloatModulator()
 		{
-			to       = 1f;
+			to = 1f;
 			cutoffTo = 1f;
 		}
 
 		protected override float CutoffFromInfinity => Mathf.NegativeInfinity;
 		protected override float CutoffToInfinity   => Mathf.Infinity;
 
-		protected override float GetValue
-		(
+		protected override float GetValue(
 			Modulate method,
-			float    time,
-			float    remapMin,
-			float    remapMax,
-			float    cutoffMin,
-			float    cutoffMax
+			float time,
+			float remapMin,
+			float remapMax,
+			float cutoffMin,
+			float cutoffMax
 		)
 		{
 			float timeValue = (time + timeOffset) * speed;

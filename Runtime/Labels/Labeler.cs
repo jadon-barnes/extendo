@@ -12,6 +12,7 @@ namespace Extendo.Labels
 		private        Transform[]                           cachedTransforms    = new Transform[0];
 
 		public List<Label> labels = new();
+
 		[Tooltip("Excludes the transform and it's children.")]
 		public List<Transform> exclude = new();
 

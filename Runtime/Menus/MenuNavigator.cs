@@ -11,12 +11,15 @@ namespace Extendo.Menus
 		/// The parent <see cref="MenuNavigator"/> of this <see cref="MenuNavigator"/>.
 		/// </summary>
 		public MenuNavigator ParentMenuNavigator { get; private set; }
+
 		/// <summary>
 		/// The submenu of this <see cref="MenuNavigator"/>.
 		/// </summary>
 		public MenuNavigator ChildMenuNavigator { get; private set; }
+
 		[Tooltip("Disables the menu when it is not in focus.")]
 		public bool disableMenuOnChange;
+
 		[Tooltip("If true, will close the intial/root when 'GoBack()' is called, even if there is no menu to go back to.")]
 		public bool closeMenuOnBackIfNoParent = false;
 

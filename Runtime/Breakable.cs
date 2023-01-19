@@ -26,7 +26,7 @@ namespace Extendo
 			TransformNullChecks();
 
 			originalRigidbodies = original.GetComponentsInChildren<Rigidbody>();
-			brokenRigidbodies   = broken.GetComponentsInChildren<Rigidbody>();
+			brokenRigidbodies = broken.GetComponentsInChildren<Rigidbody>();
 
 			if (resetBrokenRigidbodies)
 				StoreBrokenRigidbodiesPositions();
@@ -58,7 +58,7 @@ namespace Extendo
 			for (int i = 0; i < brokenRigidbodies.Length; i++)
 			{
 				// Reset Velocity
-				brokenRigidbodies[i].velocity        = Vector3.zero;
+				brokenRigidbodies[i].velocity = Vector3.zero;
 				brokenRigidbodies[i].angularVelocity = Vector3.zero;
 
 				// Set Position
@@ -77,7 +77,7 @@ namespace Extendo
 
 			for (int i = 0; i < originalRigidbodies.Length; i++)
 			{
-				originalRigidbodies[i].velocity        = Vector3.zero;
+				originalRigidbodies[i].velocity = Vector3.zero;
 				originalRigidbodies[i].angularVelocity = Vector3.zero;
 			}
 		}
@@ -89,7 +89,7 @@ namespace Extendo
 
 			for (int i = 0; i < brokenRigidbodies.Length; i++)
 			{
-				brokenRigidbodies[i].velocity        = linkVelocity.velocity;
+				brokenRigidbodies[i].velocity = linkVelocity.velocity;
 				brokenRigidbodies[i].angularVelocity = linkVelocity.angularVelocity;
 			}
 		}

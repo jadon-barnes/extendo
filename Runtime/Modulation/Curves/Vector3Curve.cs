@@ -9,7 +9,7 @@ namespace Extendo.Modulation.Curves
 	{
 		public Vector3Curve()
 		{
-			scale  = Vector3.one;
+			scale = Vector3.one;
 			curveX = DefaultCurve;
 			curveY = DefaultCurve;
 			curveZ = DefaultCurve;

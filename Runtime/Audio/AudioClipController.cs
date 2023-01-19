@@ -10,8 +10,10 @@ namespace Extendo.Audio
 		public  AudioClip[] clips;
 		public  Vector2     volumeVariation = Vector3.one;
 		public  Vector2     pitchVariation  = Vector2.one;
+
 		private int
 			clipIndex = -1; // Set to -1 at first to avoid skipping the first clip if "PlaySequentially" is enabled
+
 		public bool playSequentially;
 
 		private void Awake()

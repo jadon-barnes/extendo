@@ -38,9 +38,9 @@ namespace Extendo.Utilities
 
 		public abstract class State
 		{
-			public abstract void OnEnter(TContext  context);
+			public abstract void OnEnter(TContext context);
 			public abstract void OnUpdate(TContext context);
-			public abstract void OnExit(TContext   context);
+			public abstract void OnExit(TContext context);
 		}
 	}
 }

@@ -196,23 +196,22 @@ namespace Extendo.Utilities
 		/// <summary>
 		/// Creates a spring effect from the input value.
 		/// </summary>
-		public static float Spring
-		(
-			float     from,
-			float     to,
+		public static float Spring(
+			float from,
+			float to,
 			ref float velocity,
-			float     strength    = 200f,
-			float     damp        = 5f,
-			float     maxVelocity = 100f
+			float strength = 200f,
+			float damp = 5f,
+			float maxVelocity = 100f
 		)
 		{
 			damp = Mathf.Max(0f, damp) * Time.deltaTime;
 			float direction = (to - from) * Time.deltaTime;
-			float force     = strength * direction * Time.deltaTime;
+			float force = strength * direction * Time.deltaTime;
 
 			velocity += force;
 			velocity *= Mathf.Max(0f, 1f - damp);
-			velocity =  Mathf.Min(velocity, maxVelocity);
+			velocity = Mathf.Min(velocity, maxVelocity);
 
 			return from + velocity;
 		}
@@ -220,12 +219,11 @@ namespace Extendo.Utilities
 		/// <summary>
 		/// Creates a spring effect from the input value.
 		/// </summary>
-		public static Vector2 Spring
-			(Vector2 from, Vector2 to, ref Vector2 velocity, float strength = 200f, float damp = 5f)
+		public static Vector2 Spring(Vector2 from, Vector2 to, ref Vector2 velocity, float strength = 200f, float damp = 5f)
 		{
 			damp = Mathf.Max(0f, damp) * Time.deltaTime;
 			Vector2 direction = (to - from) * Time.deltaTime;
-			Vector2 force     = direction * (strength * Time.deltaTime);
+			Vector2 force = direction * (strength * Time.deltaTime);
 
 			velocity += force;
 			velocity *= Mathf.Max(0f, 1f - damp);
@@ -236,12 +234,11 @@ namespace Extendo.Utilities
 		/// <summary>
 		/// Creates a spring effect from the input value.
 		/// </summary>
-		public static Vector3 Spring
-			(Vector3 from, Vector3 to, ref Vector3 velocity, float strength = 200f, float damp = 5f)
+		public static Vector3 Spring(Vector3 from, Vector3 to, ref Vector3 velocity, float strength = 200f, float damp = 5f)
 		{
 			damp = Mathf.Max(0f, damp) * Time.deltaTime;
 			Vector3 direction = (to - from) * Time.deltaTime;
-			Vector3 force     = direction * (strength * Time.deltaTime);
+			Vector3 force = direction * (strength * Time.deltaTime);
 
 			velocity += force;
 			velocity *= Mathf.Max(0f, 1f - damp);
@@ -252,11 +249,10 @@ namespace Extendo.Utilities
 		/// <summary>
 		/// Creates a spring effect for rotation values.
 		/// </summary>
-		public static void SpringRotation
-			(this Rigidbody rigidbody, float strength, float dampening, Vector3 direction, Vector3 worldDirection)
+		public static void SpringRotation(this Rigidbody rigidbody, float strength, float dampening, Vector3 direction, Vector3 worldDirection)
 		{
 			Vector3 springTorque = strength * Vector3.Cross(direction, worldDirection);
-			Vector3 dampTorque   = Mathf.Max(0, dampening) * -rigidbody.angularVelocity;
+			Vector3 dampTorque = Mathf.Max(0, dampening) * -rigidbody.angularVelocity;
 			rigidbody.AddTorque(springTorque + dampTorque, ForceMode.Acceleration);
 		}
 
@@ -264,8 +260,7 @@ namespace Extendo.Utilities
 		/// Calculates the force needed to create a spring effect.
 		/// </summary>
 		/// <returns>Force to be applied for spring effect</returns>
-		public static float SpringForce
-			(float position, float target, float velocity, float strength = 200f, float damp = 5f)
+		public static float SpringForce(float position, float target, float velocity, float strength = 200f, float damp = 5f)
 		{
 			return (target - position) * strength - velocity * Mathf.Max(0, damp);
 		}
@@ -274,8 +269,7 @@ namespace Extendo.Utilities
 		/// Calculates the force needed to create a spring effect.
 		/// </summary>
 		/// <returns>Force to be applied for spring effect</returns>
-		public static Vector2 SpringForce
-			(Vector2 position, Vector2 target, Vector2 velocity, float strength = 200f, float damp = 5f)
+		public static Vector2 SpringForce(Vector2 position, Vector2 target, Vector2 velocity, float strength = 200f, float damp = 5f)
 		{
 			return (target - position) * strength - velocity * Mathf.Max(0, damp);
 		}
@@ -284,8 +278,7 @@ namespace Extendo.Utilities
 		/// Calculates the force needed to create a spring effect.
 		/// </summary>
 		/// <returns>Force to be applied for spring effect</returns>
-		public static Vector3 SpringForce
-			(Vector3 position, Vector3 target, Vector3 velocity, float strength = 200f, float damp = 5f)
+		public static Vector3 SpringForce(Vector3 position, Vector3 target, Vector3 velocity, float strength = 200f, float damp = 5f)
 		{
 			return (target - position) * strength - velocity * Mathf.Max(0, damp);
 		}
@@ -294,8 +287,7 @@ namespace Extendo.Utilities
 		/// Calculates the force needed to create a spring effect.
 		/// </summary>
 		/// <returns>Force to be applied for spring effect</returns>
-		public static Vector3 SpringForce
-			(this Rigidbody rigidbody, Vector3 target, float strength = 200f, float damp = 5f)
+		public static Vector3 SpringForce(this Rigidbody rigidbody, Vector3 target, float strength = 200f, float damp = 5f)
 		{
 			return SpringForce(rigidbody.position, target, rigidbody.velocity, strength, damp);
 		}
@@ -307,20 +299,19 @@ namespace Extendo.Utilities
 		{
 			Vector3 direction = point - pivot;
 			direction = Quaternion.Euler(axis * angle) * direction;
-			point     = direction + pivot;
+			point = direction + pivot;
 			return point;
 		}
 
 		/// <summary>
 		/// Rotates a vector point around a pivot point.
 		/// </summary>
-		public static Vector3 RotateAround
-			(this Vector3 point, Vector3 pivot, Vector3 axis, float angle, float maxRadius)
+		public static Vector3 RotateAround(this Vector3 point, Vector3 pivot, Vector3 axis, float angle, float maxRadius)
 		{
 			Vector3 direction = point - pivot;
 			direction = Vector3.ClampMagnitude(direction, maxRadius);
 			direction = Quaternion.Euler(axis * angle) * direction;
-			point     = direction + pivot;
+			point = direction + pivot;
 			return point;
 		}
 	}

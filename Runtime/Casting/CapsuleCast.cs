@@ -33,7 +33,7 @@ namespace Extendo.Casting
 
 		protected override void DrawShape(float distance)
 		{
-			Vector3 sphereTop    = Vector3.up * height * 0.5f + Vector3.forward * distance;
+			Vector3 sphereTop = Vector3.up * height * 0.5f + Vector3.forward * distance;
 			Vector3 sphereBottom = Vector3.down * height * 0.5f + Vector3.forward * distance;
 			Gizmos.DrawWireSphere(sphereTop, radius);
 			Gizmos.DrawWireSphere(sphereBottom, radius);

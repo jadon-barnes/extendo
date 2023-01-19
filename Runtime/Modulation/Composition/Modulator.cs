@@ -50,14 +50,13 @@ namespace Extendo.Modulation.Composition
 			}
 		}
 
-		protected abstract T GetValue
-		(
+		protected abstract T GetValue(
 			Modulate method,
-			float    time,
-			T        remapMin,
-			T        remapMax,
-			T        cutoffMin,
-			T        cutoffMax
+			float time,
+			T remapMin,
+			T remapMax,
+			T cutoffMin,
+			T cutoffMax
 		);
 
 		protected T GetSine(float time)

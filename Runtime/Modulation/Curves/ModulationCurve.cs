@@ -29,7 +29,7 @@ namespace Extendo.Modulation.Curves
 
 		public void UpdateValue()
 		{
-			FloatValue   = floatCurve.GetValue(timer.TimeNormalized);
+			FloatValue = floatCurve.GetValue(timer.TimeNormalized);
 			Vector2Value = vector2Curve.GetValue(timer.TimeNormalized);
 			Vector3Value = vector3Curve.GetValue(timer.TimeNormalized);
 

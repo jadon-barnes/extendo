@@ -8,21 +8,20 @@ namespace Extendo.Modulation.Composition
 	{
 		public Vector2Modulator()
 		{
-			to       = Vector2.one;
+			to = Vector2.one;
 			cutoffTo = Vector2.one;
 		}
 
 		protected override Vector2 CutoffFromInfinity => Vector2.negativeInfinity;
 		protected override Vector2 CutoffToInfinity   => Vector2.positiveInfinity;
 
-		protected override Vector2 GetValue
-		(
+		protected override Vector2 GetValue(
 			Modulate method,
-			float    time,
-			Vector2  remapMin,
-			Vector2  remapMax,
-			Vector2  cutoffMin,
-			Vector2  cutoffMax
+			float time,
+			Vector2 remapMin,
+			Vector2 remapMax,
+			Vector2 cutoffMin,
+			Vector2 cutoffMax
 		)
 		{
 			Vector2 timeValue = (Vector2.one * time + timeOffset) * speed;
