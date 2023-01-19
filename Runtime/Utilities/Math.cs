@@ -314,5 +314,22 @@ namespace Extendo.Utilities
 			point = direction + pivot;
 			return point;
 		}
+
+		/// <summary>
+		/// Checks if the target is within the field of view and distance of the source.
+		/// </summary>
+		public static bool InFieldOfView(Vector3 source, Vector3 forward, Vector3 target, float fieldOfView, float maxDistance = Mathf.Infinity)
+		{
+			float distance = Vector3.Distance(source, target);
+
+			if (distance > maxDistance)
+				return false;
+
+			Vector3 direction = (target - source).normalized;
+			var dot = Vector3.Dot(forward, direction);
+			float angle = Mathf.Acos(dot) * Mathf.Rad2Deg;
+
+			return angle < fieldOfView / 2;
+		}
 	}
 }
