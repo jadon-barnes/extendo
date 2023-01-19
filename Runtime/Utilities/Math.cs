@@ -44,22 +44,42 @@ namespace Extendo.Utilities
 			return to - from;
 		}
 
-		public static float SnapToGrid(this float value, float gridScale)
+		public static float SnapToGrid(this float value, float gridScale, float offset = 0f)
 		{
-			return Mathf.Round(value / gridScale) * gridScale;
+			return Mathf.Round((value - offset) / gridScale) * gridScale + offset;
 		}
 
-		public static Vector3 SnapToGrid(this Vector3 value, float gridScale)
-		{
-			return new(value.x.SnapToGrid(gridScale), value.y.SnapToGrid(gridScale), value.z.SnapToGrid(gridScale));
-		}
-
-		public static Vector3 SnapToGrid(this Vector3 value, Vector3 gridScale)
+		public static Vector2 SnapToGrid(this Vector2 value, float gridScale, Vector2 offset = default)
 		{
 			return new(
-				value.x.SnapToGrid(gridScale.x),
-				value.y.SnapToGrid(gridScale.y),
-				value.z.SnapToGrid(gridScale.z)
+				value.x.SnapToGrid(gridScale, offset.x),
+				value.y.SnapToGrid(gridScale, offset.y)
+			);
+		}
+
+		public static Vector2 SnapToGrid(this Vector2 value, Vector2 gridScale, Vector2 offset = default)
+		{
+			return new(
+				value.x.SnapToGrid(gridScale.x, offset.x),
+				value.y.SnapToGrid(gridScale.y, offset.y)
+			);
+		}
+
+		public static Vector3 SnapToGrid(this Vector3 value, float gridScale, Vector3 offset = default)
+		{
+			return new(
+				value.x.SnapToGrid(gridScale, offset.x),
+				value.y.SnapToGrid(gridScale, offset.y),
+				value.z.SnapToGrid(gridScale, offset.z)
+			);
+		}
+
+		public static Vector3 SnapToGrid(this Vector3 value, Vector3 gridScale, Vector3 offset = default)
+		{
+			return new(
+				value.x.SnapToGrid(gridScale.x, offset.x),
+				value.y.SnapToGrid(gridScale.y, offset.y),
+				value.z.SnapToGrid(gridScale.z, offset.z)
 			);
 		}
 
