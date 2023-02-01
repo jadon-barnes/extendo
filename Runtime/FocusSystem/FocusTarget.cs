@@ -9,9 +9,6 @@ namespace Extendo.FocusSystem
 		public UnityEvent onLostFocus;
 		public bool       InFocus => FocusDirector.InFocus(this);
 
-		public FocusDirector GetFocusDirector()
-		{
-			return FocusDirector.GetDirectorFrom(this);
-		}
+		public FocusDirector GetFocusDirector() => FocusDirector.GetDirectorFromTarget(this);
 	}
 }

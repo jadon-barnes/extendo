@@ -6,46 +6,75 @@ namespace Extendo.FocusSystem
 	public class FocusDirector : MonoBehaviour
 	{
 		private static readonly List<FocusDirector> focusDirectors = new();
-		public                  FocusTarget         initialFocusTarget;
+		public                  FocusTarget         defaultFocusTarget;
 		public                  FocusTarget         FocusTarget { get; private set; }
 
-		private void Awake()
+		public static bool InFocus(FocusTarget focusTarget)
 		{
-			focusDirectors.Add(this);
-			ChangeFocus(initialFocusTarget);
+			for (int i = 0; i < focusDirectors.Count; i++)
+				if (focusDirectors[i].FocusTarget == focusTarget)
+					return true;
+
+			return false;
 		}
 
-		private void OnDestroy()
+		public static FocusDirector GetDirectorFromTarget(FocusTarget focusTarget)
+		{
+			for (int i = 0; i < focusDirectors.Count; i++)
+				if (focusDirectors[i].FocusTarget == focusTarget)
+					return focusDirectors[i];
+
+			return null;
+		}
+
+		public static bool TryGetDirectorFromTarget(FocusTarget focusTarget, out FocusDirector director)
+		{
+			director = GetDirectorFromTarget(focusTarget);
+			return director;
+		}
+
+		protected virtual void Awake()
+		{
+			focusDirectors.Add(this);
+			Switch(defaultFocusTarget);
+		}
+
+		protected virtual void OnDestroy()
 		{
 			focusDirectors.Remove(this);
 			RemoveFocus();
 		}
 
-		public void ChangeFocus(FocusTarget focusTarget)
+		public void Switch(FocusTarget focusTarget)
 		{
 			if (!focusTarget)
 				return;
 
 			// Already in focus
-			if (focusTarget == this.FocusTarget)
+			if (this.FocusTarget == focusTarget)
 				return;
 
+			// Detach existing focus
 			RemoveFocus();
+
+			// Reset attached director to default
+			if (TryGetDirectorFromTarget(focusTarget, out var linkedDirector))
+				linkedDirector.ResetToDefault();
 
 			// Set Focus
 			this.FocusTarget = focusTarget;
 			this.FocusTarget.onFocus.Invoke();
 		}
 
-		public void ChangeFocusIfAvailable(FocusTarget focusTarget)
+		public void SwitchIfAvailable(FocusTarget focusTarget)
 		{
 			if (!focusTarget)
 				return;
 
-			if (focusTarget.InFocus)
+			if (InFocus(focusTarget))
 				return;
 
-			ChangeFocus(focusTarget);
+			Switch(focusTarget);
 		}
 
 		private void RemoveFocus()
@@ -57,22 +86,9 @@ namespace Extendo.FocusSystem
 			FocusTarget = null;
 		}
 
-		public static bool InFocus(FocusTarget focusTarget)
+		public void ResetToDefault()
 		{
-			for (int i = 0; i < focusDirectors.Count; i++)
-				if (focusDirectors[i].FocusTarget == focusTarget)
-					return true;
-
-			return false;
-		}
-
-		public static FocusDirector GetDirectorFrom(FocusTarget focusTarget)
-		{
-			for (int i = 0; i < focusDirectors.Count; i++)
-				if (focusDirectors[i].FocusTarget == focusTarget)
-					return focusDirectors[i];
-
-			return null;
+			Switch(defaultFocusTarget);
 		}
 	}
 }
