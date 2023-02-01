@@ -26,19 +26,6 @@ namespace Extendo.Utilities
 		public float TimeNormalizedReversed => 1 - TimeNormalized;
 		public bool  DurationReached        => Time >= duration;
 
-		public int   Hours                => Mathf.FloorToInt(Time / 3600f);
-		public int   Minutes              => Mathf.FloorToInt(Time / 60f);
-		public int   Seconds              => Mathf.FloorToInt(Time % 60f);
-		public int   HoursReversed        => Mathf.FloorToInt(duration / 3600f - Time / 3600f);
-		public int   MinutesReversed      => Mathf.FloorToInt(60f - Time / 60f);
-		public int   SecondsReversed      => Mathf.FloorToInt(60f - Time % 60f);
-		public float HoursExact           => Time / 3600f;
-		public float MinutesExact         => Time / 60f;
-		public float SecondsExact         => Time % 60f;
-		public float HoursExactReversed   => duration / 3600f - Time / 3600f;
-		public float MinutesExactReversed => 60f - Time / 60f;
-		public float SecondsExactReversed => 60f - Time % 60f;
-
 		public UnityAction onDurationReached;
 
 		/// <summary>

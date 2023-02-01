@@ -331,5 +331,18 @@ namespace Extendo.Utilities
 
 			return angle < fieldOfView / 2;
 		}
+
+		public static int Hours(float time) => Mathf.FloorToInt(time / 3600f);
+		public static int Minutes(float time) => Mathf.FloorToInt(time / 60f);
+		public static int Seconds(float time) => Mathf.FloorToInt(time % 60f);
+		public static int HoursReversed(float time, float duration) => Mathf.FloorToInt(duration / 3600f - time / 3600f);
+		public static int MinutesReversed(float time) => Mathf.FloorToInt(60f - time / 60f);
+		public static int SecondsReversed(float time) => Mathf.FloorToInt(60f - time % 60f);
+		public static float HoursExact(float time) => time / 3600f;
+		public static float MinutesExact(float time) => time / 60f;
+		public static float SecondsExact(float time) => time % 60f;
+		public static float HoursExactReversed(float time, float duration) => duration / 3600f - time / 3600f;
+		public static float MinutesExactReversed(float time) => 60f - time / 60f;
+		public static float SecondsExactReversed(float time) => 60f - time % 60f;
 	}
 }
