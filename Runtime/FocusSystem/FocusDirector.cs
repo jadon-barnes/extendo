@@ -27,12 +27,6 @@ namespace Extendo.FocusSystem
 			return null;
 		}
 
-		public static bool TryGetDirectorFromTarget(FocusTarget focusTarget, out FocusDirector director)
-		{
-			director = GetDirectorFromTarget(focusTarget);
-			return director;
-		}
-
 		protected virtual void Awake()
 		{
 			focusDirectors.Add(this);
@@ -58,7 +52,8 @@ namespace Extendo.FocusSystem
 			RemoveFocus();
 
 			// Reset attached director to default
-			if (TryGetDirectorFromTarget(focusTarget, out var linkedDirector))
+			var linkedDirector = focusTarget.GetFocusDirector();
+			if (linkedDirector)
 				linkedDirector.ResetToDefault();
 
 			// Set Focus
