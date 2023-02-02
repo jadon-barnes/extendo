@@ -63,6 +63,9 @@ namespace Extendo.FocusSystem
 
 			// Set Focus
 			this.FocusTarget = focusTarget;
+
+			// Events
+			this.FocusTarget.OnDestroyGameObject += ResetToDefault;
 			this.FocusTarget.onFocus.Invoke();
 		}
 
@@ -82,7 +85,11 @@ namespace Extendo.FocusSystem
 			if (!FocusTarget)
 				return;
 
+			// Events
+			FocusTarget.OnDestroyGameObject -= ResetToDefault;
 			FocusTarget.onLostFocus.Invoke();
+
+			// Remove Focus
 			FocusTarget = null;
 		}
 

@@ -6,9 +6,10 @@ namespace Extendo.FocusSystem
 	[DefaultExecutionOrder(-1)]
 	public class FocusTarget : MonoBehaviour
 	{
-		public UnityEvent onFocus;
-		public UnityEvent onLostFocus;
-		public bool       InFocus => FocusDirector.InFocus(this);
+		public UnityEvent        onFocus;
+		public UnityEvent        onLostFocus;
+		public event UnityAction OnDestroyGameObject;
+		public bool              InFocus => FocusDirector.InFocus(this);
 
 		public FocusDirector GetFocusDirector() => FocusDirector.GetDirectorFromTarget(this);
 
@@ -22,6 +23,7 @@ namespace Extendo.FocusSystem
 		{
 			onFocus.RemoveListener(OnFocus);
 			onLostFocus.RemoveListener(OnLostFocus);
+			OnDestroyGameObject?.Invoke();
 		}
 
 		protected virtual void OnFocus() { }
