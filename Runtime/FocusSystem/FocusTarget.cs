@@ -12,6 +12,7 @@ namespace Extendo.FocusSystem
 		public bool              InFocus => FocusDirector.InFocus(this);
 
 		public FocusDirector GetFocusDirector() => FocusDirector.GetDirectorFromTarget(this);
+		public T GetFocusDirector<T>() where T : FocusDirector => FocusDirector.GetDirectorFromTarget(this) as T;
 
 		protected virtual void Awake()
 		{
