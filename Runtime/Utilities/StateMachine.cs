@@ -24,11 +24,11 @@ namespace Extendo.Utilities
 			if (CurrentState != null)
 			{
 				PreviousState = CurrentState;
-				PreviousState.OnExit(Context);
+				PreviousState.OnExit();
 			}
 
 			CurrentState = state;
-			CurrentState.OnEnter(Context);
+			CurrentState.OnEnter();
 		}
 
 		public void TransitionToPreviousState()
@@ -38,14 +38,21 @@ namespace Extendo.Utilities
 
 		public void Update()
 		{
-			CurrentState?.OnUpdate(Context);
+			CurrentState?.OnUpdate();
 		}
 
 		public abstract class State
 		{
-			public abstract void OnEnter(TContext context);
-			public abstract void OnExit(TContext context);
-			public abstract void OnUpdate(TContext context);
+			public TContext Context { get; private set; }
+
+			protected State(TContext context)
+			{
+				Context = context;
+			}
+
+			public abstract void OnEnter();
+			public abstract void OnExit();
+			public abstract void OnUpdate();
 		}
 	}
 }
